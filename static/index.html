@@ -2,20 +2,16 @@
 	<html>
 	<head>
 		<meta charset="utf-8">
-		<title></title>
+		<title>APD Care Raven</title>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
 		<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/ui-darkness/jquery-ui.css">
-		<!--Import Google Icon Font-->
-		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-		<!-- Materializecss Compiled and minified CSS -->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-		<!-- <link rel="stylesheet" href="/static/css/tool.css"> -->
 		<link rel="stylesheet" href="css/tool.css">
 	</head>
 	<body>
-		<header>
-			
-		</header>
+		<header></header>
+
 		<ul id="slide-out" class="mainmenu-sidenav sidenav sidenav-fixed">
 			<li><a id="connection-trigger" class="mainmenu-navkey waves-effect">Connection</a></li>
 			<li><a id="dashboard-trigger" class="mainmenu-navkey waves-effect">Dashboard</a></li>
@@ -26,22 +22,46 @@
 			<li><a id="config-trigger" class="mainmenu-navkey waves-effect">Config</a></li>
 		</ul>
 		<ul id="slide-out" class="dispmeter-sidenav hidden sidenav sidenav-fixed">
+			<div class="heater dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
+			<div class="heater dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
+			<div class="heater dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
+			<div class="heater dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
+			<div class="heater dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
+			<div class="mainpump dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
+			<div class="mainpump dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
+			<div class="mainpump dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
+			<div class="mainpump dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
+			<div class="mainpump dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
+			<div class="mainpump dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
 		</ul>
+		<ul id="shorthand-tabs" class="tabs">
+			<li class="tab"><a href="#">Heater</a></li>
+			<li class="tab"><a href="#">Sensors</a></li>
+			<li class="tab"><a href="#">Valves</a></li>
+			<li class="tab"><a href="#">Mainpump</a></li>
+		</ul>
+
 		<div id="conn" class="waves-effect waves-light btn-floating btn-large">connect</div>
 		<main id="connection-mainbody" class="mainmenu-mainbody">
-			<p>This is connection mainbody</p>
+			<div id="connection-panel" class="mainbody-panel">
+				<p>This is connection mainbody</p>
+			</div>
 		</main>
 		<main id="dashboard-mainbody" class="hidden mainmenu-mainbody">
-			<h6>This is dashboard mainbody</h6>
+			<div id="dashboard-panel" class="mainbody-panel">
+				<h6>This is dashboard mainbody</h6>
+			</div>
 		</main>
 		<main id="testfw-mainbody" class="hidden mainmenu-mainbody">
 
 		</main>
 		<main id="shorthand-mainbody" class="hidden mainmenu-mainbody">
-			<h4>This is shorthand mainbody</h4>
+			<div id="shorthand-panel" class="mainbody-panel">
+				<h4>This is shorthand mainbody</h4>
+			</div>
 		</main>
 		<main id="eventlog-mainbody" class="hidden mainmenu-mainbody">
-			<div id="eventlog-panel">
+			<div id="eventlog-panel" class="mainbody-panel">
 				<div class="row eventlog-head">
 					<div class="col s3">Timestamp</div>
 					<div class="col s3">Event origin ms</div>
@@ -73,19 +93,20 @@
 			</div>
 		</main>
 		<main id="datalog-mainbody" class="hidden mainmenu-mainbody">
-			<h2>This is data logging mainbody</h2>
+			<div id="datalog-panel" class="mainbody-panel">
+				<h2>This is data logging mainbody</h2>
+			</div>
 		</main>
 		<main id="config-mainbody" class="hidden mainmenu-mainbody">
-			<h1>This is config mainbody</h1>
+			<div id="config-panel" class="mainbody-panel">
+				<h1>This is config mainbody</h1>
+			</div>
 		</main>
-		<footer>
-			
-		</footer>
+
+		<footer></footer>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-		<!-- Materializecss Compiled and minified JavaScript -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-		<!-- <script src="/static/js/tool.js"></script> -->
 		<script src="js/test_fw_tab.js"></script>
 		<script src="js/test_fw_builder.js"></script>
 		<script src="js/tool.js"></script>

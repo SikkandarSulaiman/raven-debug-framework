@@ -4,11 +4,21 @@ $(document).ready(function() {
 	console.log('document loaded shorthand')
 	$('.mainmenu-sidenav').sidenav({edge: 'left'})
 	$('.dispmeter-sidenav').sidenav({edge: 'right'}).hide()
+	$('#shorthand-tabs').hide()
 	console.log('Loaded DOM')
 	var elems = document.querySelectorAll('.collapsible')
 	var instances = M.Collapsible.init(elems, {})
 	console.log(instances)
 	$('#connection-trigger').trigger('click')
+	setTimeout(function() {
+		$('#conn').trigger('click')
+	}, 3000)
+	// $('.tabs').tabs()
+	var elems = document.querySelectorAll('.tabs')
+	console.log('got tabs')
+	console.log(elems)
+	var instance = M.Tabs.init(elems, {})
+	$('.btn').addClass('disabled')
 })
 
 $('#config-trigger').on('click', function() {
@@ -19,8 +29,9 @@ $('#connection-trigger').on('click', function() {
 	if ($(this).hasClass('selected-navkey')) return
 	$('.mainmenu-navkey').each(function() { $(this).removeClass('selected-navkey') })
 	$(this).addClass('selected-navkey')
+	$('.dispmeter-sidenav').hide('slide', {direction: 'right'})
+	$('#shorthand-tabs').hide('slide', {direction: 'down'})
 	$.when($('.mainmenu-mainbody').each(function() { $(this).hide('slide', {direction: 'left'}) })).done(function() {
-		$('.dispmeter-sidenav').hide('slide', {direction: 'right'})
 		$('#connection-mainbody').show('slide', {direction: 'left'})
 	})
 })
@@ -30,6 +41,7 @@ $('#dashboard-trigger').on('click', function() {
 	$('.mainmenu-navkey').each(function() { $(this).removeClass('selected-navkey') })
 	$(this).addClass('selected-navkey')
 	$.when($('.mainmenu-mainbody').each(function() { $(this).hide('slide', {direction: 'left'}) })).done(function() {
+		$('#shorthand-tabs').show('slide', {direction: 'down'})
 		$('.dispmeter-sidenav').show('slide', {direction: 'right'})
 		$('#dashboard-mainbody').show('slide', {direction: 'left'})
 	})
@@ -40,6 +52,7 @@ $('#testfw-trigger').on('click', function() {
 	$('.mainmenu-navkey').each(function() { $(this).removeClass('selected-navkey') })
 	$(this).addClass('selected-navkey')
 	$('.dispmeter-sidenav').hide('slide', {direction: 'right'})
+	$('#shorthand-tabs').hide('slide', {direction: 'down'})
 	$.when($('.mainmenu-mainbody').each(function() { $(this).hide('slide', {direction: 'left'}) })).done(function() {
 		$('#testfw-mainbody').show('slide', {direction: 'left'})
 	})
@@ -50,6 +63,7 @@ $('#shorthand-trigger').on('click', function() {
 	$('.mainmenu-navkey').each(function() { $(this).removeClass('selected-navkey') })
 	$(this).addClass('selected-navkey')
 	$('.dispmeter-sidenav').hide('slide', {direction: 'right'})
+	$('#shorthand-tabs').hide('slide', {direction: 'down'})
 	$.when($('.mainmenu-mainbody').each(function() { $(this).hide('slide', {direction: 'left'}) })).done(function() {
 		$('#shorthand-mainbody').show('slide', {direction: 'left'})
 	})
@@ -60,6 +74,7 @@ $('#eventlog-trigger').on('click', function() {
 	$('.mainmenu-navkey').each(function() { $(this).removeClass('selected-navkey') })
 	$(this).addClass('selected-navkey')
 	$('.dispmeter-sidenav').hide('slide', {direction: 'right'})
+	$('#shorthand-tabs').hide('slide', {direction: 'down'})
 	$.when($('.mainmenu-mainbody').each(function() { $(this).hide('slide', {direction: 'left'}) })).done(function() {
 		$('#eventlog-mainbody').show('slide', {direction: 'left'})
 	})		
@@ -70,6 +85,7 @@ $('#datalog-trigger').on('click', function() {
 	$('.mainmenu-navkey').each(function() { $(this).removeClass('selected-navkey') })
 	$(this).addClass('selected-navkey')
 	$('.dispmeter-sidenav').hide('slide', {direction: 'right'})
+	$('#shorthand-tabs').hide('slide', {direction: 'down'})
 	$.when($('.mainmenu-mainbody').each(function() { $(this).hide('slide', {direction: 'left'}) })).done(function() {
 		$('#datalog-mainbody').show('slide', {direction: 'left'})
 	})
@@ -107,4 +123,5 @@ $('#conn').on('click', function() {
 	$('body').animate({
 		'background-color': '#ff7f50'
 	}, 1500)
+	$('.btn').removeClass('disabled')
 })
