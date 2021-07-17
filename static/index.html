@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+		<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/ui-darkness/jquery-ui.css">
+		<!--Import Google Icon Font-->
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<!-- Materializecss Compiled and minified CSS -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+		<!-- <link rel="stylesheet" href="/static/css/tool.css"> -->
+		<link rel="stylesheet" href="css/tool.css">
+	</head>
+	<body>
+		<header>
+			
+		</header>
+		<ul id="slide-out" class="mainmenu-sidenav sidenav sidenav-fixed">
+			<li><a id="connection-trigger" class="mainmenu-navkey waves-effect">Connection</a></li>
+			<li><a id="dashboard-trigger" class="mainmenu-navkey waves-effect">Dashboard</a></li>
+			<li><a id="testfw-trigger" class="mainmenu-navkey waves-effect">Test framework</a></li>
+			<li><a id="shorthand-trigger" class="mainmenu-navkey waves-effect">Shorthand</a></li>
+			<li><a id="eventlog-trigger" class="mainmenu-navkey waves-effect">Event log</a></li>
+			<li><a id="datalog-trigger" class="mainmenu-navkey waves-effect">Data Log</a></li>
+			<li><a id="config-trigger" class="mainmenu-navkey waves-effect">Config</a></li>
+		</ul>
+		<ul id="slide-out" class="dispmeter-sidenav hidden sidenav sidenav-fixed">
+		</ul>
+		<div id="conn" class="waves-effect waves-light btn-floating btn-large">connect</div>
+		<main id="connection-mainbody" class="mainmenu-mainbody">
+			<p>This is connection mainbody</p>
+		</main>
+		<main id="dashboard-mainbody" class="hidden mainmenu-mainbody">
+			<h6>This is dashboard mainbody</h6>
+		</main>
+		<main id="testfw-mainbody" class="hidden mainmenu-mainbody">
+
+		</main>
+		<main id="shorthand-mainbody" class="hidden mainmenu-mainbody">
+			<h4>This is shorthand mainbody</h4>
+		</main>
+		<main id="eventlog-mainbody" class="hidden mainmenu-mainbody">
+			<div id="eventlog-panel">
+				<div class="row eventlog-head">
+					<div class="col s3">Timestamp</div>
+					<div class="col s3">Event origin ms</div>
+					<div class="col s6">Event</div>
+				</div>
+				<div class="row eventlog-body">
+					<div class="col s3">12:34:456</div>
+					<div class="col s3">23</div>
+					<div class="col s6">Main thread started</div>
+					<div class="col s3">12:34:456</div>
+					<div class="col s3">23</div>
+					<div class="col s6">Main thread started</div>
+					<div class="col s3">12:34:456</div>
+					<div class="col s3">23</div>
+					<div class="col s6">Main thread started</div>
+					<div class="col s3">12:34:456</div>
+					<div class="col s3">23</div>
+					<div class="col s6">Main thread started</div>
+					<div class="col s3">12:34:456</div>
+					<div class="col s3">23</div>
+					<div class="col s6">Main thread started</div>
+					<div class="col s3">12:34:456</div>
+					<div class="col s3">23</div>
+					<div class="col s6">Main thread started</div>
+					<div class="col s3">12:34:456</div>
+					<div class="col s3">23</div>
+					<div class="col s6">Main thread started</div>
+				</div>
+			</div>
+		</main>
+		<main id="datalog-mainbody" class="hidden mainmenu-mainbody">
+			<h2>This is data logging mainbody</h2>
+		</main>
+		<main id="config-mainbody" class="hidden mainmenu-mainbody">
+			<h1>This is config mainbody</h1>
+		</main>
+		<footer>
+			
+		</footer>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+		<!-- Materializecss Compiled and minified JavaScript -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+		<!-- <script src="/static/js/tool.js"></script> -->
+		<script src="js/test_fw_tab.js"></script>
+		<script src="js/test_fw_builder.js"></script>
+		<script src="js/tool.js"></script>
+	</body>
+</html>
