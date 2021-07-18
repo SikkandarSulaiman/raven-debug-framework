@@ -1,8 +1,11 @@
 import os
 from bottle import route, run, template, static_file, request, response
 
-from serial_connection import active_port as comport
 from serial_connection import SerialConnection
+from serial_connection import get_available_comports
+
+scon = None
+eventid = 0
 
 @route('/')
 def index():
@@ -14,7 +17,17 @@ def server_static(filepath):
 
 @route('/get_comports', method=['GET'])
 def get_comports():
-    return serial_connection.get_available_comports()
+    return get_available_comports()
+
+@route('/connect_to_com', method=['POST'])
+def connect_to_com():
+    comport, status = request.forms.get("connect_to"), 'success'
+    global scon
+    try: scon = SerialConnection(comport, 115200)
+    except: status = 'unknown'
+    if scon is None: status = 'failure'
+    else: scon.start_rx()
+    return {'connection_status': status}
 
 @route('/send_ser', method=['POST'])
 def send():
@@ -26,8 +39,10 @@ def send():
 @route('/check', method=['GET'])
 def check_acks_from_serial_client():
     try: kvpair = scon.ack_bucket.pop(0)
-    except: return {}
-    return dict([kvpair])
+    except: return {'event': None}
+    global eventid
+    eventid += 1
+    return {'event': kvpair}
 
 @route('/read_val', method=['GET'])
 def check_acks_from_serial_client():
@@ -38,10 +53,4 @@ def exit_serial_comm():
     return f'warlock\'s response to exit'
 
 if __name__ == '__main__':
-    scon = SerialConnection(comport, 115200)
-    scon.start_rx()
-    try:
-        run()
-    except KeyboardInterrupt:
-        print('kb int')
-        scon.stop_rx()
+    run()

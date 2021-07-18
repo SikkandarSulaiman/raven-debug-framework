@@ -7,7 +7,8 @@
 		<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/ui-darkness/jquery-ui.css">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-		<link rel="stylesheet" href="css/tool.css">
+		<link rel="stylesheet" href="/static/css/tool.css">
+		<link rel="stylesheet" href="/static/css/connection.css">
 	</head>
 	<body>
 		<header></header>
@@ -16,7 +17,7 @@
 			<li><a id="connection-trigger" class="mainmenu-navkey waves-effect">Connection</a></li>
 			<li><a id="dashboard-trigger" class="mainmenu-navkey waves-effect">Dashboard</a></li>
 			<li><a id="testfw-trigger" class="mainmenu-navkey waves-effect">Test framework</a></li>
-			<li><a id="shorthand-trigger" class="mainmenu-navkey waves-effect">Shorthand</a></li>
+			<li><a id="shorthand-trigger" class="mainmenu-navkey waves-effect">Debug</a></li>
 			<li><a id="eventlog-trigger" class="mainmenu-navkey waves-effect">Event log</a></li>
 			<li><a id="datalog-trigger" class="mainmenu-navkey waves-effect">Data Log</a></li>
 			<li><a id="config-trigger" class="mainmenu-navkey waves-effect">Config</a></li>
@@ -27,15 +28,15 @@
 			<div class="heater dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
 			<div class="heater dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
 			<div class="heater dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
-			<div class="mainpump dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
+			<div class="mainpump dash-btn btn waves-effect waves-red" style="width: 60%">start heater with max heater pad 75C</div>
 			<div class="mainpump dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
 			<div class="mainpump dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
 			<div class="mainpump dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
 			<div class="mainpump dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
 			<div class="mainpump dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
 		</ul>
-		<ul id="shorthand-tabs" class="tabs">
-			<li class="tab"><a href="#">Heater</a></li>
+		<ul id="shorthand-tabs" class="tabs .tabs-fixed-width">
+			<li class="tab"><a class="active" href="#">Heater</a></li>
 			<li class="tab"><a href="#">Sensors</a></li>
 			<li class="tab"><a href="#">Valves</a></li>
 			<li class="tab"><a href="#">Mainpump</a></li>
@@ -44,12 +45,25 @@
 		<div id="conn" class="waves-effect waves-light btn-floating btn-large">connect</div>
 		<main id="connection-mainbody" class="mainmenu-mainbody">
 			<div id="connection-panel" class="mainbody-panel">
-				<p>This is connection mainbody</p>
+				<div id="comport-loader">
+					<div class="comport-loader-text">Loading Serial ports</div>		
+					<div class="progress">
+						<div class="indeterminate"></div>
+					</div>
+				</div>
+				<div class="conn-port-blocks row">
+					<div class="msg-port-block col s6">
+						<div class="com-port-head">Message port</div>
+					</div>
+					<div class="debug-port-block col s6">
+						<div class="com-port-head">Debug port</div>
+					</div>
+				</div>
 			</div>
 		</main>
 		<main id="dashboard-mainbody" class="hidden mainmenu-mainbody">
 			<div id="dashboard-panel" class="mainbody-panel">
-				<h6>This is dashboard mainbody</h6>
+				<h5>Page is under construction<span class="material-icons">construction</span></h5>
 			</div>
 		</main>
 		<main id="testfw-mainbody" class="hidden mainmenu-mainbody">
@@ -57,7 +71,7 @@
 		</main>
 		<main id="shorthand-mainbody" class="hidden mainmenu-mainbody">
 			<div id="shorthand-panel" class="mainbody-panel">
-				<h4>This is shorthand mainbody</h4>
+				<h5>Page is under construction<span class="material-icons">construction</span></h5>
 			</div>
 		</main>
 		<main id="eventlog-mainbody" class="hidden mainmenu-mainbody">
@@ -67,39 +81,28 @@
 					<div class="col s3">Event origin ms</div>
 					<div class="col s6">Event</div>
 				</div>
-				<div class="row eventlog-body">
-					<div class="col s3">12:34:456</div>
-					<div class="col s3">23</div>
-					<div class="col s6">Main thread started</div>
-					<div class="col s3">12:34:456</div>
-					<div class="col s3">23</div>
-					<div class="col s6">Main thread started</div>
-					<div class="col s3">12:34:456</div>
-					<div class="col s3">23</div>
-					<div class="col s6">Main thread started</div>
-					<div class="col s3">12:34:456</div>
-					<div class="col s3">23</div>
-					<div class="col s6">Main thread started</div>
-					<div class="col s3">12:34:456</div>
-					<div class="col s3">23</div>
-					<div class="col s6">Main thread started</div>
-					<div class="col s3">12:34:456</div>
-					<div class="col s3">23</div>
-					<div class="col s6">Main thread started</div>
-					<div class="col s3">12:34:456</div>
-					<div class="col s3">23</div>
-					<div class="col s6">Main thread started</div>
+				<div class="eventlog-body">
+					<div class="eventlog-body-row row">
+						<span class="eventlog-ts col s3">12:34:456</span>
+						<span class="eventlog-ms col s3">23</span>
+						<span class="eventlog-msg col s6">Main thread started</span>						
+					</div>
+					<div class="eventlog-body-row row">
+						<span class="eventlog-ts col s3">12:34:456</span>
+						<span class="eventlog-ms col s3">23</span>
+						<span class="eventlog-msg col s6">Main thread started</span>						
+					</div>
 				</div>
 			</div>
 		</main>
 		<main id="datalog-mainbody" class="hidden mainmenu-mainbody">
 			<div id="datalog-panel" class="mainbody-panel">
-				<h2>This is data logging mainbody</h2>
+				<h5>Page is under construction<span class="material-icons">construction</span></h5>
 			</div>
 		</main>
 		<main id="config-mainbody" class="hidden mainmenu-mainbody">
 			<div id="config-panel" class="mainbody-panel">
-				<h1>This is config mainbody</h1>
+				<h5>Page is under construction<span class="material-icons">construction</span></h5>
 			</div>
 		</main>
 
@@ -107,8 +110,9 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-		<script src="js/test_fw_tab.js"></script>
-		<script src="js/test_fw_builder.js"></script>
-		<script src="js/tool.js"></script>
+		<script src="/static/js/test_fw_tab.js"></script>
+		<script src="/static/js/test_fw_builder.js"></script>
+		<script src="/static/js/tool.js"></script>
+		<script src="/static/js/connection.js"></script>
 	</body>
 </html>

@@ -1,39 +1,28 @@
 $(document).ready(function() {
 	$('.mainmenu-mainbody').hide()
 	build_test_fw()
-	console.log('document loaded shorthand')
+
 	$('.mainmenu-sidenav').sidenav({edge: 'left'})
 	$('.dispmeter-sidenav').sidenav({edge: 'right'}).hide()
 	$('#shorthand-tabs').hide()
-	console.log('Loaded DOM')
-	var elems = document.querySelectorAll('.collapsible')
-	var instances = M.Collapsible.init(elems, {})
-	console.log(instances)
+
 	$('#connection-trigger').trigger('click')
-	setTimeout(function() {
-		$('#conn').trigger('click')
-	}, 3000)
+	// setTimeout(function() {
+	// 	$('#conn').trigger('click')
+	// }, 3000)
 	// $('.tabs').tabs()
-	var elems = document.querySelectorAll('.tabs')
-	console.log('got tabs')
-	console.log(elems)
-	var instance = M.Tabs.init(elems, {})
 	$('.btn').addClass('disabled')
+	$('#connection-panel .btn').removeClass('disabled')
+
+	M.Collapsible.init(document.querySelectorAll('.collapsible'), {})
+	M.Tabs.init(document.querySelectorAll('.tabs'), {})
+	
+
+	$('.conn-port-blocks').hide()
 })
 
 $('#config-trigger').on('click', function() {
 
-})
-
-$('#connection-trigger').on('click', function() {
-	if ($(this).hasClass('selected-navkey')) return
-	$('.mainmenu-navkey').each(function() { $(this).removeClass('selected-navkey') })
-	$(this).addClass('selected-navkey')
-	$('.dispmeter-sidenav').hide('slide', {direction: 'right'})
-	$('#shorthand-tabs').hide('slide', {direction: 'down'})
-	$.when($('.mainmenu-mainbody').each(function() { $(this).hide('slide', {direction: 'left'}) })).done(function() {
-		$('#connection-mainbody').show('slide', {direction: 'left'})
-	})
 })
 
 $('#dashboard-trigger').on('click', function() {
@@ -96,32 +85,42 @@ $(document).on('click', '.testfw-menu-body-row-cont', function() {
 })
 
 setInterval(function() {
-	// $.get('/check', function(data) {
-	// 	console.log('ack ajax call')
-	// 	for (var key in data) {
-	// 		var stylish_toast = $('<div/>', {
-	// 			text: data[key]
-	// 		})
-	// 		M.toast({html: stylish_toast, classes: 'rounded', displayLength: 2000})
-	// 	}
-	// })
+	var eventlogbody = $('.eventlog-body')
+	$.get('/check', function(data) {
+		console.log(data)
+		if (data['event'] == null) return
+		M.toast({html: data['event'][1], classes: 'rounded', displayLength: 2000})
+		var eventlogbody_row = $('<div/>', {class: 'eventlog-body-row row'})
+		var newevent_ts = $('<div/>', {class: 'eventlog-ts col s3', text: data['event'][2]})
+		var newevent_ms = $('<div/>', {class: 'eventlog-ms col s3', text: '0'})
+		var newevent_msg = $('<div/>', {class: 'eventlog-msg col s6', text: data['event'][1]})
+		eventlogbody_row.append(newevent_ts, newevent_ms, newevent_msg)
+		eventlogbody.append(eventlogbody_row)
+		eventlogbody.scrollTop(eventlogbody.scrollHeight)
+	})
 }, 300)
 
-setInterval(function() {
-	// $.get('/read_val', function(data) {
-	// 	console.log('val ajax call')
-	// 	console.log(data)
-	// 	for (var key in data) {
-	// 		var suffix = $('#'+key).data('suffix')
-	// 		var val = data[key]
-	// 		$('#'+key).html(val + suffix)
-	// 	}
-	// })
-}, 500)
+// setInterval(function() {
+// 	$.get('/read_val', function(data) {
+// 		console.log('val ajax call')
+// 		console.log(data)
+// 		for (var key in data) {
+// 			var suffix = $('#'+key).data('suffix')
+// 			var val = data[key]
+// 			$('#'+key).html(val + suffix)
+// 		}
+// 	})
+// }, 500)
 
 $('#conn').on('click', function() {
 	$('body').animate({
-		'background-color': '#ff7f50'
+		'background-color': '#FF7F50'
+	}, 1500)
+	$('.mainmenu-sidenav').animate({
+		'background-color': '#2F4F4F'
+	}, 1500)
+	$('.mainmenu-navkey').animate({
+		'color': '#F1F2F3'
 	}, 1500)
 	$('.btn').removeClass('disabled')
 })

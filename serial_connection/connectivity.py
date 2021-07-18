@@ -1,4 +1,5 @@
 import serial.tools.list_ports
+from datetime import datetime as dt
 from collections import namedtuple
 from struct import unpack, pack
 from serial import Serial
@@ -6,7 +7,6 @@ from time import sleep
 import threading
 import json
 
-acked = False
 msgobj = namedtuple('msgobj', 'start_byte priority uniq_id msg_id ack msg_type p0 p1 p2 p3 crc stop_byte')
 with open(r'msg_ids_name_to_val.json', 'r') as fp:
 	msg_db_name_to_val = json.load(fp)
@@ -59,15 +59,17 @@ def get_available_comports():
 
 	return {"ports": comports_id, "desc": comports_desc, "hwid": comports_hwids}
 
-active_port = 'COM8'
-
 class SerialConnection(object):
 
 	def __init__(self, port, baud):
 		super(SerialConnection, self).__init__()
 		self.con = Serial(port, baud)
-		self.con.close()
-		self.con.open()
+		if self.con is None: return None
+		try:
+			self.con.close()
+			self.con.open()
+		except AttributeError:
+			raise AttributeError()
 		self.rx_msg_bkt = []
 		self.rx_exit = False
 		self.rx_thread = None
@@ -92,13 +94,14 @@ class SerialConnection(object):
 				continue
 			# if rx_msg.msg_type == 3:
 			print(f'rx msg id: {str(rx_msg.msg_id)}')
-			rx_msg_name = msg_db_val_to_name[str(rx_msg.msg_id)]
-			text = rxmsgid_to_disp[rx_msg_name]
-			self.ack_bucket.append((rx_msg.msg_id, f'{text} {"success" if rx_msg.ack >= 0 else "failed"}'))
+			try:
+				rx_msg_name = msg_db_val_to_name[str(rx_msg.msg_id)]
+				text = rxmsgid_to_disp[rx_msg_name]
+				self.ack_bucket.append((rx_msg.msg_id, f'{text} {"success" if rx_msg.ack >= 0 else "failed"}', dt.now().isoformat().split('T')[1]))
+				print(rx_msg_name, 'received', read_bytes, read_bytes[10:14], rx_msg)
+			except Exception as e: print(f'----> Exception: {e}')
 			# elif rx_msg.msg_type == 1 or rx_msg.msg_type == 5:
 			# 	self.val_bucket[msgid_to_setid[rx_msg.msg_id]] = int.from_bytes(read_bytes[10:14], 'little', signed=True)
-			print(rx_msg_name, 'received', read_bytes, read_bytes[10:14], rx_msg)
-			acked = True
 
 	def start_rx(self):
 		self.rx_thread = threading.Thread(target=self.rx)
@@ -113,9 +116,6 @@ class SerialConnection(object):
 			self.con.close()
 
 def wait():
-	# while not acked: pass
-	# acked = False
-	# sleep(10)
 	input("press to continue")
 
 if __name__ == '__main__':

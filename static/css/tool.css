@@ -4,7 +4,11 @@
 }
 
 body {
-	background: lightgray;
+	background-color: darkgray;
+}
+
+.mainmenu-sidenav {
+	background-color: lightgray;
 }
 
 main {
@@ -46,11 +50,6 @@ main {
     color: teal;
 }
 
-.dispmeter-sidenav {
-	background: rgba(230, 230, 230, 0.5);
-	overflow: auto;
-}
-
 header, main, footer {
 	padding-left: 300px !important;
 	padding-right: 300px !important;
@@ -87,13 +86,8 @@ header, main, footer {
 	overflow: auto;
 }
 
-.eventlog-body > .col {
-	padding-bottom: 8px;
-}
-
 #shorthand-tabs {
 	background-color: rgba(230, 230, 230, 0.5);
-	/*background-color: navy;*/
 	position: absolute;
 	bottom: 0;
 	overflow-x: auto;
@@ -101,9 +95,7 @@ header, main, footer {
 	margin-left: 320px;
 	border-top-right-radius: 15px;
 	border-top-left-radius: 15px;
-	overflow-y: hidden;
 	height: 50px;
-	white-space: nowrap;
 }
 
 #conn {
@@ -112,16 +104,17 @@ header, main, footer {
 	right: 20px;
 }
 
-.dash-btn {
-	background-color: yellow;
-	color: black;
-    width: 60%;
-    margin-top: 10px;
-    margin-left: 10px;
-    border-radius: 4px;
-    text-align: center;
+.dispmeter-sidenav {
+	background: rgba(230, 230, 230, 0.5);
+	padding-top: 25px;
+	text-align: center;
+	overflow: auto;
 }
 
-.dash-btn:hover {
-	background-color: orange;
+.dash-btn {
+    width: 60%;
+    padding: 0;
+    margin-top: 10px;
+    text-align: center;
+    letter-spacing: -1px;
 }
