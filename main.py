@@ -1,19 +1,20 @@
 import os
 from bottle import route, run, template, static_file, request, response
 
-from serial_connection import SerialConnection
-from serial_connection import get_available_comports
+from raven import SerialConnection
+from raven import get_available_comports
 
 scon = None
-eventid = 0
 
 @route('/')
 def index():
-    return static_file('index.html', root='static')
+    return static_file('static/index.html', root='raven')
 
-@route('/static/<filepath:path>')
+@route('/raven/static/<filepath:path>')
 def server_static(filepath):
-    return static_file(filepath, root='static')
+    print(f'inside server_static {filepath}')
+    print(static_file(filepath, root='raven/static'))
+    return static_file(filepath, root='raven/static')
 
 @route('/get_comports', method=['GET'])
 def get_comports():
@@ -40,17 +41,8 @@ def send():
 def check_acks_from_serial_client():
     try: kvpair = scon.ack_bucket.pop(0)
     except: return {'event': None}
-    global eventid
-    eventid += 1
     return {'event': kvpair}
 
-@route('/read_val', method=['GET'])
-def check_acks_from_serial_client():
-    return scon.val_bucket
-
-@route('/exit')
-def exit_serial_comm():
-    return f'warlock\'s response to exit'
 
 if __name__ == '__main__':
     run()

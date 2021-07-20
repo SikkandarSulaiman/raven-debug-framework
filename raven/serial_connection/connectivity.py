@@ -1,13 +1,15 @@
 import serial.tools.list_ports
-from datetime import datetime as dt
-from collections import namedtuple
-from struct import unpack, pack
-from serial import Serial
-from time import sleep
 import threading
 import json
+from serial import Serial
+from time import sleep
 
-msgobj = namedtuple('msgobj', 'start_byte priority uniq_id msg_id ack msg_type p0 p1 p2 p3 crc stop_byte')
+from raven.msg_db import therapymsg_t
+from raven.msg_db import pack_therapy_msg
+from raven.msg_db import unpack_therapy_msg
+
+from raven.utils import get_tstamp
+
 with open(r'msg_ids_name_to_val.json', 'r') as fp:
 	msg_db_name_to_val = json.load(fp)
 with open(r'msg_ids_val_to_name.json', 'r') as fp:
@@ -41,10 +43,6 @@ rxmsgid_to_disp = {
 	'MSG_HEATER_DEINIT': 'Heater: deinit'
 }
 
-def frame_msg(msg_id, msgtype=0, payload=0):
-	pbytes = int.to_bytes(payload, 4, 'little')
-	return msgobj._make([0x55, 0, 0, int(msg_id), msgtype, 0, *pbytes, 0, 0xAA])
-
 def get_available_comports():
 	ports = serial.tools.list_ports.comports()
 	
@@ -68,8 +66,7 @@ class SerialConnection(object):
 		try:
 			self.con.close()
 			self.con.open()
-		except AttributeError:
-			raise AttributeError()
+		except Exception as e: raise e
 		self.rx_msg_bkt = []
 		self.rx_exit = False
 		self.rx_thread = None
@@ -80,28 +77,24 @@ class SerialConnection(object):
 		msg_id_names = btnid_to_txmsgid[btn_id]
 		for msg_id_name in msg_id_names:
 			msg_id_val = msg_db_name_to_val[msg_id_name]
-			msgobj = frame_msg(msg_id_val)
-			self.con.write(pack('BBHIbBBBBBBB', *msgobj))
+			self.con.write(pack_therapy_msg(msg_id_val))
 			print(f'sent {msgobj}')
 			sleep(0.1)
 
 	def rx(self):
 		while not self.rx_exit:
 			read_bytes = self.con.read(16)
-			rx_msg = msgobj._make(unpack('BBHIbBBBBBBB', read_bytes))
+			rx_msg = unpack_therapy_msg(read_bytes)
 			if rx_msg.start_byte != 0x55 or rx_msg.stop_byte != 0xAA:
 				print('Received corrupted msg')
 				continue
-			# if rx_msg.msg_type == 3:
 			print(f'rx msg id: {str(rx_msg.msg_id)}')
 			try:
 				rx_msg_name = msg_db_val_to_name[str(rx_msg.msg_id)]
 				text = rxmsgid_to_disp[rx_msg_name]
-				self.ack_bucket.append((rx_msg.msg_id, f'{text} {"success" if rx_msg.ack >= 0 else "failed"}', dt.now().isoformat().split('T')[1]))
+				self.ack_bucket.append((rx_msg.msg_id, f'{text} {"success" if rx_msg.ack >= 0 else "failed"}', get_tstamp()))
 				print(rx_msg_name, 'received', read_bytes, read_bytes[10:14], rx_msg)
 			except Exception as e: print(f'----> Exception: {e}')
-			# elif rx_msg.msg_type == 1 or rx_msg.msg_type == 5:
-			# 	self.val_bucket[msgid_to_setid[rx_msg.msg_id]] = int.from_bytes(read_bytes[10:14], 'little', signed=True)
 
 	def start_rx(self):
 		self.rx_thread = threading.Thread(target=self.rx)
