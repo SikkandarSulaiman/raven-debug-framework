@@ -1,0 +1,32 @@
+.datalog-body {
+	max-height: 90%;
+	/*overflow: auto;*/
+}
+
+.eventlog-ts, .eventlog-ms, .eventlog-msg {
+	height: 35px;
+	padding-top: 6px !important;
+	border-left: 2px solid teal;
+	margin-bottom: -17px;
+}
+
+/*-----------------------------*/
+
+.table-wrapper {
+	width: 100%;
+	overflow-x: scroll;
+	overflow-y: auto;
+}
+
+#datalog-body-table-wrap {
+	height: 495px;
+}
+
+#datalog-head-table, #datalog-body-table {
+	width: 100%;
+	table-layout: fixed;
+}
+
+.datalog-head-item, .datalog-body-item {
+	width: 150px;
+}

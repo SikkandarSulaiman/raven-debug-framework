@@ -9,6 +9,8 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 		<link rel="stylesheet" href="/raven/static/css/tool.css">
 		<link rel="stylesheet" href="/raven/static/css/connection.css">
+		<link rel="stylesheet" href="/raven/static/css/datalog.css">
+		<link rel="stylesheet" href="/raven/static/css/dashboard.css">
 	</head>
 	<body>
 		<header></header>
@@ -17,9 +19,11 @@
 			<li><a id="connection-trigger" class="mainmenu-navkey waves-effect">Connection</a></li>
 			<li><a id="dashboard-trigger" class="mainmenu-navkey waves-effect">Dashboard</a></li>
 			<li><a id="testfw-trigger" class="mainmenu-navkey waves-effect">Test framework</a></li>
-			<li><a id="shorthand-trigger" class="mainmenu-navkey waves-effect">Debug</a></li>
+			<li><a id="usecase-trigger" class="mainmenu-navkey waves-effect">Usecases</a></li>
 			<li><a id="eventlog-trigger" class="mainmenu-navkey waves-effect">Event log</a></li>
 			<li><a id="datalog-trigger" class="mainmenu-navkey waves-effect">Data Log</a></li>
+			<li><a id="graphs-trigger" class="mainmenu-navkey waves-effect">Graphs</a></li>
+			<li><a id="shorthand-trigger" class="mainmenu-navkey waves-effect">Debug</a></li>
 			<li><a id="config-trigger" class="mainmenu-navkey waves-effect">Config</a></li>
 		</ul>
 		<ul id="slide-out" class="dispmeter-sidenav hidden sidenav sidenav-fixed">
@@ -35,12 +39,12 @@
 			<div class="mainpump dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
 			<div class="mainpump dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
 		</ul>
-		<ul id="shorthand-tabs" class="tabs .tabs-fixed-width">
+		<!-- <ul id="shorthand-tabs" class="tabs .tabs-fixed-width">
 			<li class="tab"><a class="active" href="#">Heater</a></li>
 			<li class="tab"><a href="#">Sensors</a></li>
 			<li class="tab"><a href="#">Valves</a></li>
 			<li class="tab"><a href="#">Mainpump</a></li>
-		</ul>
+		</ul> -->
 
 		<div id="conn" class="waves-effect waves-light btn-floating btn-large">connect</div>
 		<main id="connection-mainbody" class="mainmenu-mainbody">
@@ -62,9 +66,37 @@
 			</div>
 		</main>
 		<main id="dashboard-mainbody" class="hidden mainmenu-mainbody">
-			<div id="dashboard-panel" class="mainbody-panel">
-				<h5>Page is under construction<span class="material-icons">construction</span></h5>
-			</div>
+			<!-- <section class="row dash-cards">
+				<div class="dash-card"></div>
+				<div class="dash-card"></div>
+				<div class="dash-card"></div>	
+			</section>
+			<section class="row dash-cards">
+				<div class="dash-card">
+					<div class="vwrap">
+						<div class="velem dash-item-name">Air pressure actual</div>
+					</div>
+					<div class="vwrap">
+						<div class="velem setting-cur-val">1234.5</div>
+					</div>
+					<div class="vwrap">
+						<div class="velem dash-item-unit">mbar</div>
+					</div>
+				</div>
+				<div class="dash-card">
+					<div class="vwrap">
+						<div class="velem dash-item-name">Air pressure</div>
+					</div>
+					<div class="vwrap">
+						<div class="velem setting-cur-val">1234.5</div>
+					</div>
+					<div class="vwrap">
+						<div class="velem dash-item-unit">%</div>
+					</div>
+				</div>
+				<div class="dash-card"></div>
+				<div class="dash-card"></div>	
+			</section> -->
 		</main>
 		<main id="testfw-mainbody" class="hidden mainmenu-mainbody">
 
@@ -82,22 +114,15 @@
 					<div class="col s6">Event</div>
 				</div>
 				<div class="eventlog-body">
-					<div class="eventlog-body-row row">
-						<span class="eventlog-ts col s3">12:34:456</span>
-						<span class="eventlog-ms col s3">23</span>
-						<span class="eventlog-msg col s6">Main thread started</span>						
-					</div>
-					<div class="eventlog-body-row row">
-						<span class="eventlog-ts col s3">12:34:456</span>
-						<span class="eventlog-ms col s3">23</span>
-						<span class="eventlog-msg col s6">Main thread started</span>						
-					</div>
 				</div>
 			</div>
 		</main>
 		<main id="datalog-mainbody" class="hidden mainmenu-mainbody">
 			<div id="datalog-panel" class="mainbody-panel">
-				<h5>Page is under construction<span class="material-icons">construction</span></h5>
+				<div id="datalog-head-table-wrap" class="table-wrapper">
+				</div>
+				<div id="datalog-body-table-wrap" class="table-wrapper">
+				</div>
 			</div>
 		</main>
 		<main id="config-mainbody" class="hidden mainmenu-mainbody">
@@ -112,7 +137,9 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 		<script src="/raven/static/js/test_fw_tab.js"></script>
 		<script src="/raven/static/js/test_fw_builder.js"></script>
-		<script src="/raven/static/js/tool.js"></script>
 		<script src="/raven/static/js/connection.js"></script>
+		<script src="/raven/static/js/datalog.js"></script>
+		<script src="/raven/static/js/dashboard.js"></script>
+		<script src="/raven/static/js/tool.js"></script>
 	</body>
 </html>

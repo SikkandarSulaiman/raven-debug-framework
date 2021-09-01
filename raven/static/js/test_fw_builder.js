@@ -12,7 +12,7 @@ var build_test_fw = function() {
 		tablisthead_div = $('<div/>', {class: 'collapsible-header testfw-menu-header', html: tab['tab_name']})
 		tablistbody_div = $('<div/>', {class: 'collapsible-body testfw-menu-body'})
 		tabicon_i = $('<i/>', {class: 'material-icons', html: tab['material_icon']})
-		tabicon_i2 = $('<i/>', {class: 'material-icons right', html: 'play_arrow'})
+		// tabicon_i2 = $('<i/>', {class: 'material-icons right', html: 'play_arrow'})
 
 		for (var contindex in tab['contents']) {
 			content = tab['contents'][contindex]
@@ -23,14 +23,20 @@ var build_test_fw = function() {
 			btn_span = $('<span/>', {
 				class: 'testfw-menu-body-row-cont single-item waves-effect waves-light btn',
 				html: content['btn_name'],
-				id: content['id_name'],
+				id: content['btn_id_name'],
 				"data-msg": content['msg']
 			})
 			col2_div.append(btn_span)
 			if ('setting' === content['type']) {
-				val_span = $('<span/>', {class: 'testfw-menu-body-row-cont single-item setting-cur-val', html:75})
+				var suffix = content['suffix']
+				val_span = $('<span/>', {
+					class: content['disp_id_name'] + ' testfw-menu-body-row-cont single-item setting-cur-val',
+					html: '-',
+					"data-suffix": suffix
+				})
 				col1_div.append(val_span)
 				input_span = $('<input/>', {
+					class: content['inp_id_name'],
 					type: 'number',
 					min: content['min_val'],
 					max: content['max_val'],
@@ -38,29 +44,28 @@ var build_test_fw = function() {
 				}).val(content['init_val'])
 				col3_div.append(input_span)
 			} else if ('minidash' === content['type']) {
-				var id = content['items'][0]['id_name']
+				var id = content['items'][0]['disp_id_name']
 				var suffix = content['items'][0]['suffix']
 				itemname_span = $('<span/>', {
 					class: 'testfw-menu-body-row-cont minidash-item-name',
 					html: content['items'][0]['item_name']
 				})
 				itemval_div = $('<div/>', {
-					class: 'testfw-menu-body-row-cont single-item minidash-item-val setting-cur-val',
+					class: id + ' testfw-menu-body-row-cont single-item minidash-item-val setting-cur-val',
 					"data-suffix": suffix,
-					html: '' + suffix,
-					id: id
+					html: '' + suffix
 				}).val(1)
 				col1_div.append(itemname_span, itemval_div)
 				col2_div.empty()
-				id = content['items'][1]['id_name']
+				id = content['items'][1]['disp_id_name']
 				suffix = content['items'][1]['suffix']
 				itemname_span.clone().text(content['items'][1]['item_name']).appendTo(col2_div)
 				itemval_div.clone().val(1).html('' + suffix).attr("data-suffix", suffix).attr('id', id).appendTo(col2_div)
 				try {
-					id = content['items'][2]['id_name']
+					id = content['items'][2]['disp_id_name']
 					suffix = content['items'][2]['suffix']
 					itemname_span.clone().text(content['items'][2]['item_name']).appendTo(col3_div)
-					itemval_div.clone().val(1).html(75 + suffix).attr("data-suffix", suffix).attr('id', id).appendTo(col3_div)
+					itemval_div.clone().val(1).html(75 + suffix).attr("data-suffix", suffix).attr('class', id).appendTo(col3_div)
 				} catch(err) {
 
 				}
