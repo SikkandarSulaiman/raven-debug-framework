@@ -12,55 +12,8 @@ $('#dashboard-trigger').on('click', function() {
     $('#dashboard-mainbody').css('padding-left', curDashmainPadding + 5)
 })
 
-dashitems = [
-    [
-        {
-            "name": "Load cell 1 absolute",
-            "unit": "",
-            "disp_id_name": "disp_lc1_act"
-        },
-        {
-            "name": "Load cell 2 absolute",
-            "unit": "",
-            "disp_id_name": "disp_lc2_act"
-        },
-        {
-            "name": "Air pressure absolute",
-            "unit": "mbar",
-            "disp_id_name": "disp_airpa_val_act"
-        }
-    ],
-    [
-        {
-            "name": "Load cell 1 zero offset",
-            "unit": "",
-            "disp_id_name": "disp_lc1_rel"
-        },
-        {
-            "name": "Load cell 2 zero offset",
-            "unit": "",
-            "disp_id_name": "disp_lc2_rel"
-        },
-        {
-            "name": "Air pressure zero offset",
-            "unit": "mbar",
-            "disp_id_name": "disp_airpa_val_rel"
-        },
-        {
-            "name": "Load cell 1 pressure",
-            "unit": "mbar",
-            "disp_id_name": "disp_lc1_pa"
-        },
-        {
-            "name": "Load cell 2 pressure",
-            "unit": "mbar",
-            "disp_id_name": "disp_lc1_pa"
-        }
-    ]
-]
-
-var build_dashboard = function() {
-    var dashmainbody = $('#dashboard-mainbody')
+var build_dashboard = function(dashitems) {
+    var dashpanel = $('#dashboard-panel')
     for (var rowindex in dashitems) {
         var sectionrow = $('<section/>', {class: 'row dash-cards'})
         for (var cardindex in dashitems[rowindex]) {
@@ -92,7 +45,7 @@ var build_dashboard = function() {
 
             sectionrow.append(divdashcard)
         }
-        dashmainbody.append(sectionrow)
+        dashpanel.append(sectionrow)
     }
 }
 

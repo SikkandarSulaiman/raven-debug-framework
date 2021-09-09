@@ -1,4 +1,4 @@
-var build_test_fw = function() {
+var build_test_fw = function(test_fw_tab) {
 	console.log(test_fw_tab)
 	var mainparent_div = $('#testfw-mainbody')
 	var ulparent_div = $('<ul/>', {class: 'collapsible popout coll-testfw-cont'})
@@ -30,8 +30,7 @@ var build_test_fw = function() {
 			if ('setting' === content['type']) {
 				var suffix = content['suffix']
 				val_span = $('<span/>', {
-					class: content['disp_id_name'] + ' testfw-menu-body-row-cont single-item setting-cur-val',
-					html: '-',
+					class: content['disp_id_name'] + ' testfw-menu-body-row-cont single-item setting-cur-val display-suffix',
 					"data-suffix": suffix
 				})
 				col1_div.append(val_span)
@@ -50,22 +49,18 @@ var build_test_fw = function() {
 					class: 'testfw-menu-body-row-cont minidash-item-name',
 					html: content['items'][0]['item_name']
 				})
-				itemval_div = $('<div/>', {
-					class: id + ' testfw-menu-body-row-cont single-item minidash-item-val setting-cur-val',
-					"data-suffix": suffix,
-					html: '' + suffix
-				}).val(1)
-				col1_div.append(itemname_span, itemval_div)
+				itemval_div_default_classes = 'testfw-menu-body-row-cont single-item minidash-item-val setting-cur-val display-suffix'
+				col1_div.append(itemname_span, $('<div/>', {'data-suffix': suffix, html: ''}).addClass(itemval_div_default_classes).addClass(id))
 				col2_div.empty()
 				id = content['items'][1]['disp_id_name']
 				suffix = content['items'][1]['suffix']
 				itemname_span.clone().text(content['items'][1]['item_name']).appendTo(col2_div)
-				itemval_div.clone().val(1).html('' + suffix).attr("data-suffix", suffix).attr('id', id).appendTo(col2_div)
+				col2_div.append($('<div/>', {'data-suffix': suffix, html: ''}).addClass(itemval_div_default_classes).addClass(id))
 				try {
 					id = content['items'][2]['disp_id_name']
 					suffix = content['items'][2]['suffix']
 					itemname_span.clone().text(content['items'][2]['item_name']).appendTo(col3_div)
-					itemval_div.clone().val(1).html(75 + suffix).attr("data-suffix", suffix).attr('class', id).appendTo(col3_div)
+					col3_div.append($('<div/>', {'data-suffix': suffix, html: ''}).addClass(itemval_div_default_classes).addClass(id))
 				} catch(err) {
 
 				}
@@ -78,9 +73,11 @@ var build_test_fw = function() {
 					col3_div.removeClass('s3').addClass('s4')
 				} else if (4 === content['item_count']) {
 					col2_div.removeClass('s6').addClass('s3')
-					col4_div = $('<div/>', {class: 'col s3'}) 
+					col4_div = $('<div/>', {class: 'col s3'})
+					id = content['items'][3]['disp_id_name']
+					suffix = content['items'][3]['suffix']
 					itemname_span.clone().text(content['items'][3]['item_name']).appendTo(col4_div)
-					itemval_div.clone().val(35).html(35 + content['items'][3]['suffix']).appendTo(col4_div)
+					col4div.append($('<div/>', {'data-suffix': suffix, html: ''}).addClass(itemval_div_default_classes).addClass(id))
 					menubodyrow_div.append(col4_div)
 				}
 			}
@@ -97,3 +94,4 @@ var build_test_fw = function() {
 	}
 	mainparent_div.append(ulparent_div)
 }
+

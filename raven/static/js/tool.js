@@ -1,7 +1,12 @@
 $(document).ready(function() {
 	$('.mainmenu-mainbody').hide()
-	build_test_fw()
-	build_dashboard()
+    $.post('/getConfig', {filename: 'test_fw_tab.json'}, function(jsondata) {
+        build_test_fw(jsondata)
+        M.Collapsible.init(document.querySelectorAll('.collapsible'), {})
+    })
+    $.post('/getConfig', {filename: 'dashboard_items.json'}, function(jsondata) {
+        build_dashboard(jsondata['dashitems'])
+    })
 
 	$('.mainmenu-sidenav').sidenav({edge: 'left'})
 	$('.dispmeter-sidenav').sidenav({edge: 'right'}).hide()
@@ -11,7 +16,6 @@ $(document).ready(function() {
 	$('.btn').addClass('disabled')
 	$('#connection-panel .btn').removeClass('disabled')
 
-	M.Collapsible.init(document.querySelectorAll('.collapsible'), {})
 	M.Tabs.init(document.querySelectorAll('.tabs'), {})
 	$('.conn-port-blocks').hide()
 })

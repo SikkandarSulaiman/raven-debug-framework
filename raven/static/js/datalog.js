@@ -35,8 +35,13 @@ var build_datalog_body = function(log_datakeep) {
     for (var i in log_datakeep['disp_id']) {
         var valitem = $('<td/>', {'class': 'datalog-body-item', 'html': log_datakeep['value'][i]})
         // console.log('disp id:---' + '#'+log_datakeep['disp_id'][i])
-        var dispelem = $('.'+log_datakeep['disp_id'][i])
-        dispelem.html(log_datakeep['value'][i] + dispelem.data('suffix'))
+        $('.'+log_datakeep['disp_id'][i]).each(function() {
+            if ($(this).hasClass('display-suffix')) {
+                $(this).html(log_datakeep['value'][i] + $(this).data('suffix'))
+            } else {
+                $(this).html(log_datakeep['value'][i])
+            }
+        })
         datalogbodyval.append(valitem)
     }
     datalogbodytable.append(datalogbodyval)

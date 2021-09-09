@@ -1,145 +1,116 @@
 <!DOCTYPE html>
-	<html>
-	<head>
-		<meta charset="utf-8">
-		<title>APD Care Raven</title>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
-		<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/ui-darkness/jquery-ui.css">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-		<link rel="stylesheet" href="/raven/static/css/tool.css">
-		<link rel="stylesheet" href="/raven/static/css/connection.css">
-		<link rel="stylesheet" href="/raven/static/css/datalog.css">
-		<link rel="stylesheet" href="/raven/static/css/dashboard.css">
-	</head>
-	<body>
-		<header></header>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>APD Care Raven</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet">
+    <link href="https://code.jquery.com/ui/1.11.4/themes/ui-darkness/jquery-ui.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <link href="/raven/static/css/tool.css" rel="stylesheet">
+    <link href="/raven/static/css/connection.css" rel="stylesheet">
+    <link href="/raven/static/css/datalog.css" rel="stylesheet">
+    <link href="/raven/static/css/dashboard.css" rel="stylesheet">
+</head>
+<body>
+<header></header>
 
-		<ul id="slide-out" class="mainmenu-sidenav sidenav sidenav-fixed">
-			<li><a id="connection-trigger" class="mainmenu-navkey waves-effect">Connection</a></li>
-			<li><a id="dashboard-trigger" class="mainmenu-navkey waves-effect">Dashboard</a></li>
-			<li><a id="testfw-trigger" class="mainmenu-navkey waves-effect">Test framework</a></li>
-			<li><a id="usecase-trigger" class="mainmenu-navkey waves-effect">Usecases</a></li>
-			<li><a id="eventlog-trigger" class="mainmenu-navkey waves-effect">Event log</a></li>
-			<li><a id="datalog-trigger" class="mainmenu-navkey waves-effect">Data Log</a></li>
-			<li><a id="graphs-trigger" class="mainmenu-navkey waves-effect">Graphs</a></li>
-			<li><a id="shorthand-trigger" class="mainmenu-navkey waves-effect">Debug</a></li>
-			<li><a id="config-trigger" class="mainmenu-navkey waves-effect">Config</a></li>
-		</ul>
-		<ul id="slide-out" class="dispmeter-sidenav hidden sidenav sidenav-fixed">
-			<div class="heater dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
-			<div class="heater dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
-			<div class="heater dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
-			<div class="heater dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
-			<div class="heater dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
-			<div class="mainpump dash-btn btn waves-effect waves-red" style="width: 60%">start heater with max heater pad 75C</div>
-			<div class="mainpump dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
-			<div class="mainpump dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
-			<div class="mainpump dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
-			<div class="mainpump dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
-			<div class="mainpump dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
-		</ul>
-		<!-- <ul id="shorthand-tabs" class="tabs .tabs-fixed-width">
-			<li class="tab"><a class="active" href="#">Heater</a></li>
-			<li class="tab"><a href="#">Sensors</a></li>
-			<li class="tab"><a href="#">Valves</a></li>
-			<li class="tab"><a href="#">Mainpump</a></li>
-		</ul> -->
+<ul class="mainmenu-sidenav sidenav sidenav-fixed" id="slide-out">
+    <li><a class="mainmenu-navkey waves-effect" id="connection-trigger">Connection</a></li>
+    <li><a class="mainmenu-navkey waves-effect" id="dashboard-trigger">Dashboard</a></li>
+    <li><a class="mainmenu-navkey waves-effect" id="testfw-trigger">Test framework</a></li>
+    <li><a class="mainmenu-navkey waves-effect" id="usecase-trigger">Usecases</a></li>
+    <li><a class="mainmenu-navkey waves-effect" id="eventlog-trigger">Event log</a></li>
+    <li><a class="mainmenu-navkey waves-effect" id="datalog-trigger">Data Log</a></li>
+    <li><a class="mainmenu-navkey waves-effect" id="graphs-trigger">Graphs</a></li>
+    <li><a class="mainmenu-navkey waves-effect" id="shorthand-trigger">Debug</a></li>
+    <li><a class="mainmenu-navkey waves-effect" id="config-trigger">Config</a></li>
+</ul>
+<ul class="dispmeter-sidenav hidden sidenav sidenav-fixed" id="slide-out">
+    <div class="heater dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
+    <div class="heater dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
+    <div class="heater dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
+    <div class="heater dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
+    <div class="heater dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
+    <div class="mainpump dash-btn btn waves-effect waves-red" style="width: 60%">start heater with max heater pad 75C
+    </div>
+    <div class="mainpump dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
+    <div class="mainpump dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
+    <div class="mainpump dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
+    <div class="mainpump dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
+    <div class="mainpump dash-btn btn waves-effect waves-red" style="width: 60%">start heater</div>
+</ul>
+<ul class="tabs .tabs-fixed-width" id="shorthand-tabs">
+    <li class="tab"><a class="active" href="#">Heater</a></li>
+    <li class="tab"><a href="#">Sensors</a></li>
+    <li class="tab"><a href="#">Valves</a></li>
+    <li class="tab"><a href="#">Mainpump</a></li>
+</ul>
 
-		<div id="conn" class="waves-effect waves-light btn-floating btn-large">connect</div>
-		<main id="connection-mainbody" class="mainmenu-mainbody">
-			<div id="connection-panel" class="mainbody-panel">
-				<div id="comport-loader">
-					<div class="comport-loader-text">Loading Serial ports</div>		
-					<div class="progress">
-						<div class="indeterminate"></div>
-					</div>
-				</div>
-				<div class="conn-port-blocks row">
-					<div class="msg-port-block col s6">
-						<div class="com-port-head">Message port</div>
-					</div>
-					<div class="debug-port-block col s6">
-						<div class="com-port-head">Debug port</div>
-					</div>
-				</div>
-			</div>
-		</main>
-		<main id="dashboard-mainbody" class="hidden mainmenu-mainbody">
-			<!-- <section class="row dash-cards">
-				<div class="dash-card"></div>
-				<div class="dash-card"></div>
-				<div class="dash-card"></div>	
-			</section>
-			<section class="row dash-cards">
-				<div class="dash-card">
-					<div class="vwrap">
-						<div class="velem dash-item-name">Air pressure actual</div>
-					</div>
-					<div class="vwrap">
-						<div class="velem setting-cur-val">1234.5</div>
-					</div>
-					<div class="vwrap">
-						<div class="velem dash-item-unit">mbar</div>
-					</div>
-				</div>
-				<div class="dash-card">
-					<div class="vwrap">
-						<div class="velem dash-item-name">Air pressure</div>
-					</div>
-					<div class="vwrap">
-						<div class="velem setting-cur-val">1234.5</div>
-					</div>
-					<div class="vwrap">
-						<div class="velem dash-item-unit">%</div>
-					</div>
-				</div>
-				<div class="dash-card"></div>
-				<div class="dash-card"></div>	
-			</section> -->
-		</main>
-		<main id="testfw-mainbody" class="hidden mainmenu-mainbody">
+<div class="waves-effect waves-light btn-floating btn-large" id="conn">connect</div>
+<main class="mainmenu-mainbody" id="connection-mainbody">
+    <div class="mainbody-panel" id="connection-panel">
+        <div id="comport-loader">
+            <div class="comport-loader-text">Loading Serial ports</div>
+            <div class="progress">
+                <div class="indeterminate"></div>
+            </div>
+        </div>
+        <div class="conn-port-blocks row">
+            <div class="msg-port-block col s6">
+                <div class="com-port-head">Message port</div>
+            </div>
+            <div class="debug-port-block col s6">
+                <div class="com-port-head">Debug port</div>
+            </div>
+        </div>
+    </div>
+</main>
+<main class="hidden mainmenu-mainbody" id="dashboard-mainbody">
+    <div class="mainbody-obscure-panel" id="dashboard-panel">
+    </div>
+</main>
+<main class="hidden mainmenu-mainbody" id="testfw-mainbody">
 
-		</main>
-		<main id="shorthand-mainbody" class="hidden mainmenu-mainbody">
-			<div id="shorthand-panel" class="mainbody-panel">
-				<h5>Page is under construction<span class="material-icons">construction</span></h5>
-			</div>
-		</main>
-		<main id="eventlog-mainbody" class="hidden mainmenu-mainbody">
-			<div id="eventlog-panel" class="mainbody-panel">
-				<div class="row eventlog-head">
-					<div class="col s3">Timestamp</div>
-					<div class="col s3">Event origin ms</div>
-					<div class="col s6">Event</div>
-				</div>
-				<div class="eventlog-body">
-				</div>
-			</div>
-		</main>
-		<main id="datalog-mainbody" class="hidden mainmenu-mainbody">
-			<div id="datalog-panel" class="mainbody-panel">
-				<div id="datalog-head-table-wrap" class="table-wrapper">
-				</div>
-				<div id="datalog-body-table-wrap" class="table-wrapper">
-				</div>
-			</div>
-		</main>
-		<main id="config-mainbody" class="hidden mainmenu-mainbody">
-			<div id="config-panel" class="mainbody-panel">
-				<h5>Page is under construction<span class="material-icons">construction</span></h5>
-			</div>
-		</main>
+</main>
+<main class="hidden mainmenu-mainbody" id="shorthand-mainbody">
+    <div class="mainbody-panel" id="shorthand-panel">
+        <h5>Page is under construction<span class="material-icons">construction</span></h5>
+    </div>
+</main>
+<main class="hidden mainmenu-mainbody" id="eventlog-mainbody">
+    <div class="mainbody-panel" id="eventlog-panel">
+        <div class="row eventlog-head">
+            <div class="col s3">Timestamp</div>
+            <div class="col s3">Event origin ms</div>
+            <div class="col s6">Event</div>
+        </div>
+        <div class="eventlog-body">
+        </div>
+    </div>
+</main>
+<main class="hidden mainmenu-mainbody" id="datalog-mainbody">
+    <div class="mainbody-panel" id="datalog-panel">
+        <div class="table-wrapper" id="datalog-head-table-wrap">
+        </div>
+        <div class="table-wrapper" id="datalog-body-table-wrap">
+        </div>
+    </div>
+</main>
+<main class="hidden mainmenu-mainbody" id="config-mainbody">
+    <div class="mainbody-panel" id="config-panel">
+        <h5>Page is under construction<span class="material-icons">construction</span></h5>
+    </div>
+</main>
 
-		<footer></footer>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-		<script src="/raven/static/js/test_fw_tab.js"></script>
-		<script src="/raven/static/js/test_fw_builder.js"></script>
-		<script src="/raven/static/js/connection.js"></script>
-		<script src="/raven/static/js/datalog.js"></script>
-		<script src="/raven/static/js/dashboard.js"></script>
-		<script src="/raven/static/js/tool.js"></script>
-	</body>
+<footer></footer>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="/raven/static/js/test_fw_builder.js"></script>
+<script src="/raven/static/js/connection.js"></script>
+<script src="/raven/static/js/datalog.js"></script>
+<script src="/raven/static/js/dashboard.js"></script>
+<script src="/raven/static/js/tool.js"></script>
+</body>
 </html>

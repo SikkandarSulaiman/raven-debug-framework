@@ -1,3 +1,8 @@
+.dashboard-panel {
+    height: calc(100vh - 55px);
+    overflow-y: auto;
+}
+
 .dash-card {
     width: 120px;
     height: 150px;
@@ -31,4 +36,18 @@
     top: 50%;
     transform: translateY(-50%);
     width: 100%;
+}
+
+.tabs .tab a {
+    color: darkgray;
+}
+
+.tabs .tab a:hover, .tabs .tab a.active {
+    color: teal;
+    font-weight: bold;
+}
+
+.tabs .indicator {
+    background: teal;
+    height: 3px;
 }

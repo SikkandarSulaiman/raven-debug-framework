@@ -1,10 +1,10 @@
-class Observer():
+class Observer:
     _observers = []
-    
+
     def __init__(self):
         self._observers.append(self)
         self._observables = []
-    
+
     def observe(self, callback):
         self._observables.append(callback)
 
@@ -16,7 +16,7 @@ class Observer():
         return cls._observers
 
 
-class Observable():
+class Observable:
 
     def __init__(self):
         pass
