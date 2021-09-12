@@ -1,0 +1,65 @@
+{
+    "valves": {
+        "tab_name": "valves",
+        "buttons": [
+            {
+                "btn_name": "init valves",
+                "btn_id_name": "trig_valve_init"
+            },
+            {
+                "btn_name": "valves fill bag 1",
+                "btn_id_name": "trig_valve_pattern with-payload",
+                "payload": 12
+            },
+            {
+                "btn_name": "valves fill bag 2",
+                "btn_id_name": "trig_valve_pattern with-payload",
+                "payload": 12
+            },
+            {
+                "btn_name": "valves fill bag 3",
+                "btn_id_name": "trig_valve_pattern with-payload",
+                "payload": 12
+            },
+            {
+                "btn_name": "valves last fill bag",
+                "btn_id_name": "trig_valve_pattern with-payload",
+                "payload": 12
+            },
+            {
+                "btn_name": "valves drain",
+                "btn_id_name": "trig_valve_pattern with-payload",
+                "payload": 12
+            },
+            {
+                "btn_name": "valves open all",
+                "btn_id_name": "trig_valve_pattern with-payload",
+                "payload": 1023
+            },
+            {
+                "btn_name": "valves close all",
+                "btn_id_name": "trig_valve_pattern with-payload",
+                "payload": 0
+            }
+        ]
+    },
+    "mainpump": {
+        "tab_name": "mainpump",
+        "buttons": [
+            {
+                "btn_name": "mainpump start",
+                "btn_id_name": "trig_mainpump_start"
+            },
+            {
+                "btn_namr": "mainpump run pwm 50",
+                "btn_id_name": "trig_mainpump_set_pwm_dc with-payload",
+                "payload": 50
+            },
+            {
+                "btn_name": "mainpump stop",
+                "btn_id_name": "trig_mainpump_set_pwm_dc with-payload",
+                "payload": 0
+            }
+        ]
+    }
+}

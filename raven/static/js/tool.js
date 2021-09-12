@@ -5,7 +5,11 @@ $(document).ready(function() {
         M.Collapsible.init(document.querySelectorAll('.collapsible'), {})
     })
     $.post('/getConfig', {filename: 'dashboard_items.json'}, function(jsondata) {
-        build_dashboard(jsondata['dashitems'])
+        build_dashboard_display(jsondata['dashitems'])
+    })
+    $.post('/getConfig', {filename: 'dashboard_buttons.json'}, function(jsondata) {
+        build_dashboard_controls(jsondata)
+        M.Tabs.init(document.querySelectorAll('.tabs'), {})
     })
 
 	$('.mainmenu-sidenav').sidenav({edge: 'left'})
@@ -15,8 +19,6 @@ $(document).ready(function() {
 	$('#connection-trigger').trigger('click')
 	$('.btn').addClass('disabled')
 	$('#connection-panel .btn').removeClass('disabled')
-
-	M.Tabs.init(document.querySelectorAll('.tabs'), {})
 	$('.conn-port-blocks').hide()
 })
 

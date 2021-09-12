@@ -1,6 +1,10 @@
-.dashboard-panel {
+#dashboard-panel {
     height: calc(100vh - 55px);
     overflow-y: auto;
+}
+
+.dash-btn {
+    width: 60%;
 }
 
 .dash-card {

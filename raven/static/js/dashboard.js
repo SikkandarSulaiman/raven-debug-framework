@@ -12,7 +12,40 @@ $('#dashboard-trigger').on('click', function() {
     $('#dashboard-mainbody').css('padding-left', curDashmainPadding + 5)
 })
 
-var build_dashboard = function(dashitems) {
+var build_dashboard_controls = function(dashbtns) {
+    dashtab_names = []
+    var dashtabs = $('#shorthand-tabs')
+    for (var tabindex in dashbtns) {
+        var newtabli = $('<li/>', {class: 'tab'})
+        var newtaba = $('<a/>', {href: '#', html: dashbtns[tabindex]['tab_name']})
+        newtabli.append(newtaba)
+        dashtabs.append(newtabli)
+    }
+
+    for (var tabindex in dashbtns) {
+        var sidenav = $('.dispmeter-sidenav')
+        for (var btnindex in dashbtns[tabindex]['buttons']) {
+            var button_content = dashbtns[tabindex]['buttons'][btnindex]
+            var btndiv = $('<div/>', {
+                class: dashbtns[tabindex]['tab_name'] + ' dash-btn btn waves-effect ' + button_content['btn_id_name'],
+                html: button_content['btn_name']
+            })
+            if (btndiv.hasClass('with-payload')) {
+                btndiv.data('payload', button_content['payload'])
+            }
+            sidenav.append(btndiv.hide())
+        }
+    }
+
+    $('.tab:first-child > a').addClass('active')
+    $('.dispmeter-sidenav > .btn').each(function() {
+        if ($(this).hasClass(dashbtns[0]['tab_name'])) {
+            $(this).show()
+        }
+    })
+}
+
+var build_dashboard_display = function(dashitems) {
     var dashpanel = $('#dashboard-panel')
     for (var rowindex in dashitems) {
         var sectionrow = $('<section/>', {class: 'row dash-cards'})
