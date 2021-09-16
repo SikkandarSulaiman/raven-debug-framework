@@ -1,4 +1,25 @@
 {
+    "ccpd": {
+        "tab_name": "ccpd",
+        "buttons": [
+            {
+                "btn_name": "start ccpd",
+                "btn_id_name": "trig_uc_ccpd_start"
+            },
+            {
+                "btn_name": "run post",
+                "btn_id_name": "trig_uc_run_post"
+            },
+            {
+                "btn_name": "next substep",
+                "btn_id_name": "trig_uc_next_sub"
+            },
+            {
+                "btn_name": "abort ccpd",
+                "btn_id_name": "trig_uc_abort"
+            }
+        ]
+    },
     "valves": {
         "tab_name": "valves",
         "buttons": [
@@ -51,14 +72,56 @@
                 "btn_id_name": "trig_mainpump_start"
             },
             {
-                "btn_namr": "mainpump run pwm 50",
+                "btn_name": "mainpump run pwm 50%",
                 "btn_id_name": "trig_mainpump_set_pwm_dc with-payload",
                 "payload": 50
+            },
+            {
+                "btn_name": "mainpump set flow 50",
+                "btn_id_name": "trig_mainpump_set_flowrate with-payload",
+                "payload": 50
+            },
+            {
+                "btn_name": "mainpump set flow 100",
+                "btn_id_name": "trig_mainpump_set_flowrate with-payload",
+                "payload": 100
+            },
+            {
+                "btn_name": "mainpump set flow 150",
+                "btn_id_name": "trig_mainpump_set_flowrate with-payload",
+                "payload": 150
+            },
+            {
+                "btn_name": "mainpump set flow 200",
+                "btn_id_name": "trig_mainpump_set_flowrate with-payload",
+                "payload": 200
+            },
+            {
+                "btn_name": "mainpump set flow 250",
+                "btn_id_name": "trig_mainpump_set_flowrate with-payload",
+                "payload": 250
             },
             {
                 "btn_name": "mainpump stop",
                 "btn_id_name": "trig_mainpump_set_pwm_dc with-payload",
                 "payload": 0
+            }
+        ]
+    },
+    "bms": {
+        "tab_name": "bms",
+        "buttons": [
+            {
+                "btn_name": "bms init",
+                "btn_id_name": "trig_bms_start"
+            },
+            {
+                "btn_name": "bms start charging",
+                "btn_id_name": "trig_en_bat_chg"
+            },
+            {
+                "btn_name": "bms stop charging",
+                "btn_id_name": "trig_dis_bat_chg"
             }
         ]
     }

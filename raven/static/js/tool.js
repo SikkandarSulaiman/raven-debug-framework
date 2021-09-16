@@ -62,7 +62,11 @@ $('#eventlog-trigger').on('click', function() {
 $(document).on('click', '.testfw-menu-body-row-cont.btn', function() {
 	console.log('test fw btn clicked')
 	console.log('setting val '+$(this).parent().next().children('.setting-input').val())
-	$.post('/send_ser', {id_name: $(this).attr('id'), val: $(this).parent().next().children('.setting-input').val()})
+	if ($(this).hasClass('with-payload')) {
+	    $.post('/send_ser', {id_name: $(this).attr('id'), val: $(this).data('payload')})
+	} else {
+	    $.post('/send_ser', {id_name: $(this).attr('id'), val: $(this).parent().next().children('.setting-input').val()})
+    }
 })
 
 setInterval(function() {

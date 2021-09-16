@@ -1,102 +1,200 @@
 {
-  "dashitems": [
-    [
-      {
-        "name": "Inlet fluid temperature",
-        "unit": "C",
-        "disp_id_name": "disp_inlet_temp"
-      },
-      {
-        "name": "Outlet fluid temperature",
-        "unit": "C",
-        "disp_id_name": "disp_outlet_temp"
-      },
-      {
-        "name": "Heater 1 temperature",
-        "unit": "C",
-        "disp_id_name": "disp_hpad_1_temp"
-      },
-      {
-        "name": "Heater 2 temperature",
-        "unit": "C",
-        "disp_id_name": "disp_hpad_2_temp"
-      },
-      {
-        "name": "Heater PWM DC out",
-        "unit": "/10%",
-        "disp_id_name": "disp_heater_pwm_dc"
-      }
-    ],
-    [
-      {
-        "name": "Load cell 1 absolute",
-        "unit": "",
-        "disp_id_name": "disp_lc1_act"
-      },
-      {
-        "name": "Load cell 2 absolute",
-        "unit": "",
-        "disp_id_name": "disp_lc2_act"
-      },
-      {
-        "name": "Air pressure absolute",
-        "unit": "mbar",
-        "disp_id_name": "disp_airpa_val_act"
-      }
-    ],
-    [
-      {
-        "name": "Load cell 1 zero offset",
-        "unit": "",
-        "disp_id_name": "disp_lc1_rel"
-      },
-      {
-        "name": "Load cell 2 zero offset",
-        "unit": "",
-        "disp_id_name": "disp_lc2_rel"
-      },
-      {
-        "name": "Air pressure zero offset",
-        "unit": "mbar",
-        "disp_id_name": "disp_airpa_val_rel"
-      },
-      {
-        "name": "Load cell 1 pressure",
-        "unit": "mbar",
-        "disp_id_name": "disp_lc1_pa"
-      },
-      {
-        "name": "Load cell 2 pressure",
-        "unit": "mbar",
-        "disp_id_name": "disp_lc1_pa"
-      }
-    ],
-    [
-      {
-        "name": "Turbidity top",
-        "unit": "",
-        "disp_id_name": "disp_turb_top"
-      },
-      {
-        "name": "Turbidity side",
-        "unit": "",
-        "disp_id_name": "disp_turb_side"
-      },
-      {
-        "name": "Peritonitis red",
-        "unit": "",
-        "disp_id_name": "disp_perit_red"
-      },
-      {
-        "name": "Peritonitis green",
-        "unit": "",
-        "disp_id_name": "disp_perit_green"
-      },
-      {
-        "name": "Peritonitis blue",
-        "unit": "",
-        "disp_id_name": "disp_perit_blue"
-      }
+    "dashitems": [
+        [
+            {
+                "name": "Inlet fluid temperature",
+                "unit": "C",
+                "disp_id_name": "disp_inlet_temp"
+            },
+            {
+                "name": "Outlet fluid temperature",
+                "unit": "C",
+                "disp_id_name": "disp_outlet_temp"
+            },
+            {
+                "name": "Heater 1 temperature",
+                "unit": "C",
+                "disp_id_name": "disp_hpad_1_temp"
+            },
+            {
+                "name": "Heater 2 temperature",
+                "unit": "C",
+                "disp_id_name": "disp_hpad_2_temp"
+            },
+            {
+                "name": "Heater PWM DC out",
+                "unit": "%",
+                "disp_id_name": "disp_heater_pwm_dc"
+            }
+        ],
+        [
+            {
+                "name": "Load cell 1 absolute",
+                "unit": "",
+                "disp_id_name": "disp_lc1_act"
+            },
+            {
+                "name": "Load cell 2 absolute",
+                "unit": "",
+                "disp_id_name": "disp_lc2_act"
+            },
+            {
+                "name": "Air pressure absolute",
+                "unit": "mbar",
+                "disp_id_name": "disp_airpa_val_act"
+            }
+        ],
+        [
+            {
+                "name": "Load cell 1 zero offset",
+                "unit": "",
+                "disp_id_name": "disp_lc1_rel"
+            },
+            {
+                "name": "Load cell 2 zero offset",
+                "unit": "",
+                "disp_id_name": "disp_lc2_rel"
+            },
+            {
+                "name": "Air pressure zero offset",
+                "unit": "mbar",
+                "disp_id_name": "disp_airpa_val_rel"
+            },
+            {
+                "name": "Load cell 1 pressure",
+                "unit": "mbar",
+                "disp_id_name": "disp_lc1_pa"
+            },
+            {
+                "name": "Load cell 2 pressure",
+                "unit": "mbar",
+                "disp_id_name": "disp_lc1_pa"
+            }
+        ],
+        [
+            {
+                "name": "Turbidity top",
+                "unit": "",
+                "disp_id_name": "disp_turb_top"
+            },
+            {
+                "name": "Turbidity side",
+                "unit": "",
+                "disp_id_name": "disp_turb_side"
+            },
+            {
+                "name": "Peritonitis red",
+                "unit": "",
+                "disp_id_name": "disp_perit_red"
+            },
+            {
+                "name": "Peritonitis green",
+                "unit": "",
+                "disp_id_name": "disp_perit_green"
+            },
+            {
+                "name": "Peritonitis blue",
+                "unit": "",
+                "disp_id_name": "disp_perit_blue"
+            }
+        ],
+        [
+            {
+                "name": "Battery voltage",
+                "unit": "V",
+                "disp_id_name": "disp_bat_volt"
+            },
+            {
+                "name": "Battery charging",
+                "unit": "",
+                "disp_id_name": "disp_bat_chg_en"
+            },
+            {
+                "name": "Battery temperature",
+                "unit": "C",
+                "disp_id_name": "disp_bat_temp"
+            },
+            {
+                "name": "Battery current",
+                "unit": "mA",
+                "disp_id_name": "disp_bat_current"
+            },
+            {
+                "name": "Battery average current",
+                "unit": "mA",
+                "disp_id_name": "disp_bat_avg_current"
+            }
+        ],
+        [
+            {
+                "name": "Battery relative soc",
+                "unit": "%",
+                "disp_id_name": "disp_rel_soc"
+            },
+            {
+                "name": "Battery absolute soc",
+                "unit": "%",
+                "disp_id_name": "disp_abs_soc"
+            },
+            {
+                "name": "Battery remaining capacity",
+                "unit": "mA",
+                "disp_id_name": "disp_rem_capacity"
+            },
+            {
+                "name": "Battery discharge cycles",
+                "unit": "",
+                "disp_id_name": "disp_dschg_cycle"
+            },
+            {
+                "name": "Battery health",
+                "unit": "%",
+                "disp_id_name": "disp_bat_health"
+            }
+        ],
+        [
+            {
+                "name": "Battery cell voltage 1",
+                "unit": "V",
+                "disp_id_name": "disp_cell1_volt"
+            },
+            {
+                "name": "Battery cell voltage 1",
+                "unit": "V",
+                "disp_id_name": "disp_cell1_volt"
+            },
+            {
+                "name": "Battery cell voltage 1",
+                "unit": "V",
+                "disp_id_name": "disp_cell1_volt"
+            }
+        ],
+        [
+            {
+                "name": "Battery run time to empty",
+                "unit": "mins",
+                "disp_id_name": "disp_run_tte"
+            },
+            {
+                "name": "Battery avg time to empty",
+                "unit": "mins",
+                "disp_id_name": "disp_avg_tte"
+            },
+            {
+                "name": "Battery avg time to full",
+                "unit": "mins",
+                "disp_id_name": "disp_avg_ttf"
+            },
+            {
+                "name": "Battery charging current",
+                "unit": "mA",
+                "disp_id_name": "disp_chg_current"
+            },
+            {
+                "name": "Battery charging voltage",
+                "unit": "V",
+                "disp_id_name": "disp_chg_volt"
+            }
+        ]
     ]
-  ]
 }

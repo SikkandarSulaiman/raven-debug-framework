@@ -12,12 +12,33 @@ $('#dashboard-trigger').on('click', function() {
     $('#dashboard-mainbody').css('padding-left', curDashmainPadding + 5)
 })
 
+$(document).on('click', '.taba', function() {
+    tabname = $(this).data('tabname')
+    $.when($('.dispmeter-sidenav > .btn').each(function() {
+        if (!$(this).hasClass(tabname)) {
+//             $(this).hide('drop', {direction: 'left'}, 'fast')
+                $(this).hide()
+        }
+    })).done(function() {
+        $('.dispmeter-sidenav > .btn').each(function() {
+            if ($(this).hasClass(tabname)) {
+//                $(this).show('drop', {direction: 'right'}, 'fast')
+                $(this).show()
+            }
+        })
+    })
+})
+
 var build_dashboard_controls = function(dashbtns) {
-    dashtab_names = []
     var dashtabs = $('#shorthand-tabs')
     for (var tabindex in dashbtns) {
         var newtabli = $('<li/>', {class: 'tab'})
-        var newtaba = $('<a/>', {href: '#', html: dashbtns[tabindex]['tab_name']})
+        var newtaba = $('<a/>', {
+            href: '#',
+            class: 'taba',
+            html: dashbtns[tabindex]['tab_name'],
+            "data-tabname": dashbtns[tabindex]['tab_name']
+        })
         newtabli.append(newtaba)
         dashtabs.append(newtabli)
     }
@@ -27,10 +48,13 @@ var build_dashboard_controls = function(dashbtns) {
         for (var btnindex in dashbtns[tabindex]['buttons']) {
             var button_content = dashbtns[tabindex]['buttons'][btnindex]
             var btndiv = $('<div/>', {
-                class: dashbtns[tabindex]['tab_name'] + ' dash-btn btn waves-effect ' + button_content['btn_id_name'],
-                html: button_content['btn_name']
+                class: dashbtns[tabindex]['tab_name'] + ' testfw-menu-body-row-cont dash-btn btn waves-effect',
+                html: button_content['btn_name'],
+                id: button_content['btn_id_name']
             })
-            if (btndiv.hasClass('with-payload')) {
+            if (button_content['btn_id_name'].includes('with-payload')) {
+                btndiv.attr('id', button_content['btn_id_name'].replace('with-payload', '').trim())
+                btndiv.addClass('with-payload')
                 btndiv.data('payload', button_content['payload'])
             }
             sidenav.append(btndiv.hide())
@@ -39,7 +63,7 @@ var build_dashboard_controls = function(dashbtns) {
 
     $('.tab:first-child > a').addClass('active')
     $('.dispmeter-sidenav > .btn').each(function() {
-        if ($(this).hasClass(dashbtns[0]['tab_name'])) {
+        if ($(this).hasClass(dashbtns[$('.tab:first-child > a').data('tabname')]['tab_name'])) {
             $(this).show()
         }
     })

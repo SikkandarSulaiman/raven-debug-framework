@@ -83,6 +83,7 @@ def send():
             payload = int(request.forms.get('val'))
         except:
             payload = 0
+
         msgport.tx(Message(msg_name, payload=payload).f16)
     return f'warlock\'s response to {request.forms.get("id_name")}'
 

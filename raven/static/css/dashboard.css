@@ -4,7 +4,11 @@
 }
 
 .dash-btn {
-    width: 60%;
+    width: 70%;
+    padding: 0;
+    margin-top: 10px;
+    text-align: center;
+    letter-spacing: 0px;
 }
 
 .dash-card {
