@@ -1,6 +1,6 @@
 import os
 import json
-from raven.utils.common_utils import get_tstamp
+import threading
 from time import sleep
 from bottle import route, Bottle, run, abort, static_file, request
 
@@ -11,7 +11,7 @@ from raven import MsgLogger, DataLogger, EventLogger
 from raven import start_logging, stop_logging
 from raven import get_msg_for_ui_id
 
-from raven import get_tstamp
+from aio import check_feed_and_send_msg
 
 app = Bottle()
 
@@ -55,10 +55,12 @@ def connect_to_com():
         msgport.tx(txmsg.f16)
         sleep(1)
         status = 'success' if msgport.handshake_done else 'timeout'
-        del msgport
     if 'success' == status:
-        start_logging(datalog_interval_ms=30)
-        msgport = None
+        start_logging(datalog_interval_ms=100)
+        threading.Thread(target=check_feed_and_send_msg, args=('switch',)).start()
+    else:
+        try: msgport.close_connection()
+        except: pass
     return {'connection_status': status}
 
 

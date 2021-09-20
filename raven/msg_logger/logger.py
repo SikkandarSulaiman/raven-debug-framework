@@ -11,7 +11,7 @@ from raven.utils import get_tstamp
 
 def start_logging(datalog_interval_ms=1):
     EventLogger().open_log_file()
-    DataLogger().open_log_file()
+    DataLogger(datalog_interval_ms).open_log_file()
     MsgLogger().open_log_file()
 
 

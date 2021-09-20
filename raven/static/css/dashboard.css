@@ -3,6 +3,14 @@
     overflow-y: auto;
 }
 
+.dispmeter-sidenav {
+	background: rgba(230, 230, 230, 0.5);
+	padding-top: 25px;
+	padding-bottom: 25px;
+	text-align: center;
+	overflow: auto;
+}
+
 .dash-btn {
     width: 70%;
     padding: 0;

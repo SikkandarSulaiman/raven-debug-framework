@@ -8,26 +8,6 @@ from raven.msg_db import Message
 from raven.msg_db import msg_db_name_to_val
 from raven.utils import Observer
 
-btnid_to_txmsgid = {
-    'heater_start': ['MSG_HEATER_INIT', 'MSG_HEATER_START'],
-    'heater_stop': ['MSG_HEATER_STOP', 'MSG_HEATER_DEINIT']
-}
-
-rxmsgid_to_setid = {
-    'MSG_HEATER_GET_INLET_TEMP': 'inlet_temp',
-    'MSG_HEATER_GET_OUTLET_TEMP': 'outlet_temp',
-    'MSG_HEATER_GET_HPAD1_TEMP': 'hpad_1_temp',
-    'MSG_HEATER_GET_HPAD2_TEMP': 'hpad_2_temp',
-    'MSG_HEATER_GET_PWMOUT': 'heater_pwm_dc'
-}
-
-rxmsgid_to_disp = {
-    'MSG_HEATER_INIT': 'Heater: init',
-    'MSG_HEATER_START': 'Heater: start',
-    'MSG_HEATER_STOP': 'Heater: stop',
-    'MSG_HEATER_DEINIT': 'Heater: deinit'
-}
-
 
 def get_available_comports():
     ports = serial.tools.list_ports.comports()
@@ -111,7 +91,8 @@ class SerialConnection(Observer):
             self.con.close()
 
     def get_connected_port(self):
-        if self.con and self.con.isOpen(): return self.con.port
+        if self.con and self.con.isOpen():
+            return self.con.port
         return None
 
     def msg_rxd(self, msg):

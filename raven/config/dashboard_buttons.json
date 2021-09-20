@@ -30,27 +30,27 @@
             {
                 "btn_name": "valves fill bag 1",
                 "btn_id_name": "trig_valve_pattern with-payload",
-                "payload": 12
+                "payload": 11
             },
             {
                 "btn_name": "valves fill bag 2",
                 "btn_id_name": "trig_valve_pattern with-payload",
-                "payload": 12
+                "payload": 19
             },
             {
                 "btn_name": "valves fill bag 3",
                 "btn_id_name": "trig_valve_pattern with-payload",
-                "payload": 12
+                "payload": 35
             },
             {
                 "btn_name": "valves last fill bag",
                 "btn_id_name": "trig_valve_pattern with-payload",
-                "payload": 12
+                "payload": 67
             },
             {
                 "btn_name": "valves drain",
                 "btn_id_name": "trig_valve_pattern with-payload",
-                "payload": 12
+                "payload": 105
             },
             {
                 "btn_name": "valves open all",
@@ -61,6 +61,106 @@
                 "btn_name": "valves close all",
                 "btn_id_name": "trig_valve_pattern with-payload",
                 "payload": 0
+            },
+            {
+                "btn_name": "valves open v0",
+                "btn_id_name": "trig_valve_open with-payload",
+                "payload": 1
+            },
+            {
+                "btn_name": "valves close v0",
+                "btn_id_name": "trig_valve_close with-payload",
+                "payload": 1
+            },
+            {
+                "btn_name": "valves open v1",
+                "btn_id_name": "trig_valve_open with-payload",
+                "payload": 2
+            },
+            {
+                "btn_name": "valves close v1",
+                "btn_id_name": "trig_valve_close with-payload",
+                "payload": 2
+            },
+            {
+                "btn_name": "valves open v2",
+                "btn_id_name": "trig_valve_open with-payload",
+                "payload": 4
+            },
+            {
+                "btn_name": "valves close v2",
+                "btn_id_name": "trig_valve_close with-payload",
+                "payload": 4
+            },
+            {
+                "btn_name": "valves open v3",
+                "btn_id_name": "trig_valve_open with-payload",
+                "payload": 8
+            },
+            {
+                "btn_name": "valves close v3",
+                "btn_id_name": "trig_valve_close with-payload",
+                "payload": 8
+            },
+            {
+                "btn_name": "valves open v4",
+                "btn_id_name": "trig_valve_open with-payload",
+                "payload": 16
+            },
+            {
+                "btn_name": "valves close v4",
+                "btn_id_name": "trig_valve_close with-payload",
+                "payload": 16
+            },
+            {
+                "btn_name": "valves open v5",
+                "btn_id_name": "trig_valve_open with-payload",
+                "payload": 32
+            },
+            {
+                "btn_name": "valves close v5",
+                "btn_id_name": "trig_valve_close with-payload",
+                "payload": 32
+            },
+            {
+                "btn_name": "valves open v6",
+                "btn_id_name": "trig_valve_open with-payload",
+                "payload": 64
+            },
+            {
+                "btn_name": "valves close v6",
+                "btn_id_name": "trig_valve_close with-payload",
+                "payload": 64
+            },
+            {
+                "btn_name": "valves open v7",
+                "btn_id_name": "trig_valve_open with-payload",
+                "payload": 128
+            },
+            {
+                "btn_name": "valves close v7",
+                "btn_id_name": "trig_valve_close with-payload",
+                "payload": 128
+            },
+            {
+                "btn_name": "valves open v8",
+                "btn_id_name": "trig_valve_open with-payload",
+                "payload": 256
+            },
+            {
+                "btn_name": "valves close v8",
+                "btn_id_name": "trig_valve_close with-payload",
+                "payload": 256
+            },
+            {
+                "btn_name": "valves open v9",
+                "btn_id_name": "trig_valve_open with-payload",
+                "payload": 512
+            },
+            {
+                "btn_name": "valves close v9",
+                "btn_id_name": "trig_valve_close with-payload",
+                "payload": 512
             }
         ]
     },

@@ -68,6 +68,9 @@ var check_datalog = function() {
     }).always(function() {
         console.log( "datalog finished" );
     })
+    if ($('#datalog-body-table').children().length >= 1500) {
+        $('#datalog-body-table').empty()
+    }
 }
 
 setInterval(function() {
@@ -76,7 +79,7 @@ setInterval(function() {
     } else {
         get_datalog_head()
     }
-}, 300)
+}, 190)
 
 // get_datalog_head()
 // var log_ws = new WebSocket('ws://localhost:8080/datalogCheck')
