@@ -90,7 +90,7 @@ class Message(Observable):
         if payload_datatype == 'float32':
             float_val = struct.unpack('f', bytes([self.f16.p0, self.f16.p1, self.f16.p2, self.f16.p3]))
             try:
-                return float(f'{float_val[0]:.4f}')
+                return float(f'{float_val[0]:.03f}')
             except:
                 return 0
         is_signed = True if payload_datatype in ['int8', 'int16', 'int32'] else False

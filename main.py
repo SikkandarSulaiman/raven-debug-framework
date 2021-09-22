@@ -7,6 +7,7 @@ from bottle import route, Bottle, run, abort, static_file, request
 from raven import Message
 from raven import SerialConnection
 from raven import get_available_comports
+
 from raven import MsgLogger, DataLogger, EventLogger
 from raven import start_logging, stop_logging
 from raven import get_msg_for_ui_id
@@ -56,7 +57,7 @@ def connect_to_com():
         sleep(1)
         status = 'success' if msgport.handshake_done else 'timeout'
     if 'success' == status:
-        start_logging(datalog_interval_ms=100)
+        start_logging()
         threading.Thread(target=check_feed_and_send_msg, args=('switch',)).start()
     else:
         try: msgport.close_connection()

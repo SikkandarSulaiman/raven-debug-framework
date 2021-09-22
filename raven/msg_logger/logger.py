@@ -9,9 +9,9 @@ from raven.utils import Singleton
 from raven.utils import get_tstamp
 
 
-def start_logging(datalog_interval_ms=1):
+def start_logging():
     EventLogger().open_log_file()
-    DataLogger(datalog_interval_ms).open_log_file()
+    DataLogger().open_log_file()
     MsgLogger().open_log_file()
 
 
@@ -91,7 +91,7 @@ class EventLogger(Observer, metaclass=Singleton):
 
 class DataLogger(Observer, metaclass=Singleton):
 
-    def __init__(self, datalog_interval_ms=1000):
+    def __init__(self, datalog_interval_ms=30):
         Observer.__init__(self)
         self.fp = open(f'logs\\data_log_{dt.now().isoformat().replace(":", ".")}.csv', 'w')
         self.observe(self.msg_rxd)

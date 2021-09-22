@@ -68,7 +68,7 @@
             {
                 "name": "Load cell 2 pressure",
                 "unit": "mbar",
-                "disp_id_name": "disp_lc1_pa"
+                "disp_id_name": "disp_lc2_pa"
             }
         ],
         [

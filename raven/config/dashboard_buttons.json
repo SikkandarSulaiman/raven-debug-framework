@@ -50,7 +50,7 @@
             {
                 "btn_name": "valves drain",
                 "btn_id_name": "trig_valve_pattern with-payload",
-                "payload": 105
+                "payload": 261
             },
             {
                 "btn_name": "valves open all",
@@ -222,6 +222,125 @@
             {
                 "btn_name": "bms stop charging",
                 "btn_id_name": "trig_dis_bat_chg"
+            }
+        ]
+    },
+    "sensors": {
+        "tab_name": "sensors",
+        "buttons": [
+            {
+                "btn_name": "sensors start",
+                "btn_id_name": "trig_sensor_start"
+            },
+            {
+                "btn_name": "set turb top gain low",
+                "btn_id_name": "trig_set_turb_top_gain with-payload",
+                "payload": 0
+            },
+            {
+                "btn_name": "set turb top gain med",
+                "btn_id_name": "trig_set_turb_top_gain with-payload",
+                "payload": 1
+            },
+            {
+                "btn_name": "set turb top gain high",
+                "btn_id_name": "trig_set_turb_top_gain with-payload",
+                "payload": 2
+            },
+            {
+                "btn_name": "set turb top gain max",
+                "btn_id_name": "trig_set_turb_top_gain with-payload",
+                "payload": 3
+            },
+            {
+                "btn_name": "set turb top int 100ms",
+                "btn_id_name": "trig_set_turb_top_inttime with-payload",
+                "payload": 0
+            },
+            {
+                "btn_name": "set turb top int 200ms",
+                "btn_id_name": "trig_set_turb_top_inttime with-payload",
+                "payload": 1
+            },
+            {
+                "btn_name": "set turb top int 300ms",
+                "btn_id_name": "trig_set_turb_top_inttime with-payload",
+                "payload": 2
+            },
+            {
+                "btn_name": "set turb top int 400ms",
+                "btn_id_name": "trig_set_turb_top_inttime with-payload",
+                "payload": 3
+            },
+            {
+                "btn_name": "set turb top int 500ms",
+                "btn_id_name": "trig_set_turb_top_inttime with-payload",
+                "payload": 4
+            },
+            {
+                "btn_name": "set turb top int 600ms",
+                "btn_id_name": "trig_set_turb_top_inttime with-payload",
+                "payload": 5
+            },
+            {
+                "btn_name": "set turb top int 100ms",
+                "btn_id_name": "trig_set_turb_top_inttime with-payload",
+                "payload": 0
+            },
+            {
+                "btn_name": "set turb side gain low",
+                "btn_id_name": "trig_set_turb_side_gain with-payload",
+                "payload":  0
+            },
+            {
+                "btn_name": "set turb side gain med",
+                "btn_id_name": "trig_set_turb_side_gain with-payload",
+                "payload":  1
+            },
+            {
+                "btn_name": "set turb side gain high",
+                "btn_id_name": "trig_set_turb_side_gain with-payload",
+                "payload":  2
+            },
+            {
+                "btn_name": "set turb side gain max",
+                "btn_id_name": "trig_set_turb_side_gain with-payload",
+                "payload":  3
+            },
+            {
+                "btn_name": "set turb side int 100",
+                "btn_id_name": "trig_set_turb_side_inttime with-payload",
+                "payload":  0
+            },
+            {
+                "btn_name": "set turb side int 200",
+                "btn_id_name": "trig_set_turb_side_inttime with-payload",
+                "payload":  1
+            },
+            {
+                "btn_name": "set turb side int 300",
+                "btn_id_name": "trig_set_turb_side_inttime with-payload",
+                "payload":  2
+            },
+            {
+                "btn_name": "set turb side int 400",
+                "btn_id_name": "trig_set_turb_side_inttime with-payload",
+                "payload":  3
+            },
+            {
+                "btn_name": "set turb side int 500",
+                "btn_id_name": "trig_set_turb_side_inttime with-payload",
+                "payload":  4
+            },
+            {
+                "btn_name": "set turb side int 600",
+                "btn_id_name": "trig_set_turb_side_inttime with-payload",
+                "payload":  5
+            },
+            {
+                "btn_name": "set turb side int 600",
+                "btn_id_name": "trig_set_turb_side_inttime with-payload",
+                "payload":  5
             }
         ]
     }
