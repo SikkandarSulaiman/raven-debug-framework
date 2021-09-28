@@ -1,0 +1,107 @@
+* {
+	border: box;
+	margin: 0;
+}
+
+body {
+	background-color: darkgray;
+}
+
+.mainmenu-sidenav {
+	background-color: lightgray;
+}
+
+main {
+	display: block;
+}
+
+.coll-testfw-cont {
+	margin: 5% 15% 0;
+}
+
+.testfw-menu-body-row {
+	text-align: center;
+}
+
+.testfw-menu-body-row:not(:first-child) {
+	margin-top: 25px;
+}
+
+.testfw-menu-header, .testfw-menu-body {
+	background-color: rgba(230, 230, 230, 0.5);
+}
+
+.divider {
+	background-color: #a2a2a2;
+}
+
+.single-item {
+	width: 100%;
+}
+
+.setting-input {
+	text-align: center;
+}
+
+.setting-cur-val {
+	font-size: x-large;
+    font-style: oblique;
+    font-weight: bold;
+    color: teal;
+}
+
+header, main, footer {
+	padding-left: 300px !important;
+	padding-right: 300px !important;
+}
+
+@media only screen and (max-width : 992px) {
+	header, main, footer {
+		padding-left: 0;
+	}
+}
+
+#toast-container {
+    top: 10%;
+    left: 80%;
+}
+
+.selected-navkey {
+	background-color: rgba(0, 0, 0, 0.12);
+}
+
+.mainbody-panel {
+	background-color: rgba(230, 230, 230, 0.5);
+	position: relative;
+	top: 20px;
+	padding: 20px;
+	margin-right: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-right-radius: 20px;
+	height: calc(100vh - 50px - 40px); /* 50px for dashboard tabs and 20px padding on top & bottom */
+}
+
+.eventlog-body {
+	max-height: 90%;
+	overflow: auto;
+}
+
+#shorthand-tabs {
+	background-color: rgba(230, 230, 230, 0.5);
+	position: absolute;
+	bottom: 0;
+	overflow-x: auto;
+	width: calc(100% - 640px);
+	margin-left: 320px;
+	border-top-right-radius: 15px;
+	border-top-left-radius: 15px;
+	height: 50px;
+}
+
+#conn {
+	display: none;
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+}
+

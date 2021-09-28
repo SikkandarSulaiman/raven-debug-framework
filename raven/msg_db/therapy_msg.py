@@ -1,6 +1,6 @@
 import json
-import os
 import struct
+from pathlib import Path, os
 from collections import namedtuple
 from random import randint
 from struct import unpack, pack
@@ -9,14 +9,15 @@ import pandas as pd
 
 from raven.utils import Observable
 
-df_eventlog_type = pd.read_excel(r'../apdcare/therapy_src/scripts/code_gen/msg_enum.xlsx', 'event_log_type')
-df_datalog_type = pd.read_excel(r'../apdcare/therapy_src/scripts/code_gen/msg_enum.xlsx', 'data_log_type')
+artifacts_abspath = Path(os.getcwd()) / r'artifacts'
+workbook_name = r'msg_enum.xlsx'
+df_eventlog_type = pd.read_excel(artifacts_abspath / workbook_name, 'event_log_type')
+df_datalog_type = pd.read_excel(artifacts_abspath / workbook_name, 'data_log_type')
 df_datalog_type = df_datalog_type.where(pd.notnull(df_datalog_type), None)
 
-jsonfilespath = os.path.dirname(os.path.realpath(__file__))
-with open(os.path.join(jsonfilespath, r'msg_ids_name_to_val.json'), 'r') as fp:
+with open(artifacts_abspath / r'msg_ids_name_to_val.json', 'r') as fp:
     msg_db_name_to_val = json.load(fp)
-with open(os.path.join(jsonfilespath, r'msg_ids_val_to_name.json'), 'r') as fp:
+with open(artifacts_abspath / r'msg_ids_val_to_name.json', 'r') as fp:
     msg_db_val_to_name = json.load(fp)
 
 

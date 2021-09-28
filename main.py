@@ -1,8 +1,14 @@
-import os
 import json
 import threading
 from time import sleep
+from pathlib import Path, os
 from bottle import route, Bottle, run, abort, static_file, request
+
+
+if __name__ == '__main__':
+    os.chdir(os.path.dirname(__file__))
+    os.chdir('dist')
+
 
 from raven import Message
 from raven import SerialConnection
@@ -12,25 +18,29 @@ from raven import MsgLogger, DataLogger, EventLogger
 from raven import start_logging, stop_logging
 from raven import get_msg_for_ui_id
 
-from aio import check_feed_and_send_msg
+if __name__ == '__main__':
+    from aio import check_feed_and_send_msg
 
 app = Bottle()
+static_files_abspath = Path(os.getcwd()) / 'static'
+config_files_abspath = Path(os.getcwd()) / 'config'
 
 
 @route('/')
 def index():
-    return static_file('static/index.html', root='raven')
-
-
-@route('/getConfig', method=['POST'])
-def parse_json_config():
-    with open(os.path.join(os.getcwd(), 'raven\\config\\' + request.forms.get('filename'))) as fp:
-        return json.load(fp)
+    print(static_files_abspath)
+    return static_file('index.html', root=static_files_abspath)
 
 
 @route('/raven/static/<filepath:path>')
 def server_static(filepath):
-    return static_file(filepath, root='raven/static')
+    return static_file(filepath, root=static_files_abspath)
+
+
+@route('/getConfig', method=['POST'])
+def parse_json_config():
+    with open(config_files_abspath / request.forms.get('filename')) as fp:
+        return json.load(fp)
 
 
 @route('/get_comports', method=['GET'])
@@ -58,7 +68,8 @@ def connect_to_com():
         status = 'success' if msgport.handshake_done else 'timeout'
     if 'success' == status:
         start_logging()
-        threading.Thread(target=check_feed_and_send_msg, args=('switch',)).start()
+        if __name__ == '__main__':
+            threading.Thread(target=check_feed_and_send_msg, args=('switch',)).start()
     else:
         try: msgport.close_connection()
         except: pass
@@ -125,33 +136,10 @@ def check_logs_from_serial_client():
     }
     return logbody
 
+def main():
+    print(f'running main from directory {os.getcwd()}')
+    run()
 
 if __name__ == '__main__':
-    os.chdir(os.path.dirname(__file__))
-    run()
-    # print(get_tstamp())
-    # el = EventLogger()
-    # el.open_log_file()
-    # dl = DataLogger()
-    # dl.open_log_file()
-    # ml = MsgLogger()
-    # ml.open_log_file()
-    # msgport = SerialConnection('COM18', 115200)
-    # msgport.start_rx()
-    # msgport.tx(Message('MSG_HEATER_INIT').f16)
-    # msgport.tx(Message('MSG_LOGGER_INIT').f16)
-    # msgport.tx(Message('MSG_SENSORS_INIT').f16)
-    # msgport.tx(Message('MSG_HEATER_START').f16)
-    # msgport.tx(Message('MSG_LOGGER_START').f16)
-    # msgport.tx(Message('MSG_SENSORS_START').f16)
-    # for _ in range(5):
-    #     sleep(1)
-    #     dl.log()
-    # msgport.tx(Message('MSG_HEATER_STOP').f16)
-    # msgport.tx(Message('MSG_LOGGER_STOP').f16)
-    # msgport.tx(Message('MSG_SENSORS_STOP').f16)
-    # ml.close_log_file()
-    # dl.close_log_file()
-    # el.close_log_file()
-    # msgport.stop_rx()
-    # print(EventLogger().eventlog_uidata)
+    main()
+

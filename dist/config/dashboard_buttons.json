@@ -1,0 +1,403 @@
+{
+    "ccpd": {
+        "tab_name": "ccpd",
+        "buttons": [
+            {
+                "btn_name": "start ccpd",
+                "btn_id_name": "trig_uc_ccpd_start"
+            },
+            {
+                "btn_name": "run post",
+                "btn_id_name": "trig_uc_run_post"
+            },
+            {
+                "btn_name": "run system check",
+                "btn_id_name": "trig_uc_run_syschk"
+            },
+            {
+                "btn_name": "run calib",
+                "btn_id_name": "trig_uc_run_calib"
+            },
+            {
+                "btn_name": "run priming",
+                "btn_id_name": "trig_uc_run_prime"
+            },
+            {
+                "btn_name": "run therapy",
+                "btn_id_name": "trig_uc_run_therapy"
+            },
+            {
+                "btn_name": "next substep",
+                "btn_id_name": "trig_uc_next_sub"
+            },
+            {
+                "btn_name": "abort ccpd",
+                "btn_id_name": "trig_uc_abort"
+            }
+        ]
+    },
+    "valves": {
+        "tab_name": "valves",
+        "buttons": [
+            {
+                "btn_name": "init valves",
+                "btn_id_name": "trig_valve_init"
+            },
+            {
+                "btn_name": "valves fill bag 1",
+                "btn_id_name": "trig_valve_pattern with-payload",
+                "payload": 11
+            },
+            {
+                "btn_name": "valves fill bag 2",
+                "btn_id_name": "trig_valve_pattern with-payload",
+                "payload": 19
+            },
+            {
+                "btn_name": "valves fill bag 3",
+                "btn_id_name": "trig_valve_pattern with-payload",
+                "payload": 35
+            },
+            {
+                "btn_name": "valves last fill bag",
+                "btn_id_name": "trig_valve_pattern with-payload",
+                "payload": 67
+            },
+            {
+                "btn_name": "valves drain",
+                "btn_id_name": "trig_valve_pattern with-payload",
+                "payload": 261
+            },
+            {
+                "btn_name": "valves open all",
+                "btn_id_name": "trig_valve_pattern with-payload",
+                "payload": 1023
+            },
+            {
+                "btn_name": "valves close all",
+                "btn_id_name": "trig_valve_pattern with-payload",
+                "payload": 0
+            },
+            {
+                "btn_name": "valves open v0",
+                "btn_id_name": "trig_valve_open with-payload",
+                "payload": 1
+            },
+            {
+                "btn_name": "valves close v0",
+                "btn_id_name": "trig_valve_close with-payload",
+                "payload": 1
+            },
+            {
+                "btn_name": "valves open v1",
+                "btn_id_name": "trig_valve_open with-payload",
+                "payload": 2
+            },
+            {
+                "btn_name": "valves close v1",
+                "btn_id_name": "trig_valve_close with-payload",
+                "payload": 2
+            },
+            {
+                "btn_name": "valves open v2",
+                "btn_id_name": "trig_valve_open with-payload",
+                "payload": 4
+            },
+            {
+                "btn_name": "valves close v2",
+                "btn_id_name": "trig_valve_close with-payload",
+                "payload": 4
+            },
+            {
+                "btn_name": "valves open v3",
+                "btn_id_name": "trig_valve_open with-payload",
+                "payload": 8
+            },
+            {
+                "btn_name": "valves close v3",
+                "btn_id_name": "trig_valve_close with-payload",
+                "payload": 8
+            },
+            {
+                "btn_name": "valves open v4",
+                "btn_id_name": "trig_valve_open with-payload",
+                "payload": 16
+            },
+            {
+                "btn_name": "valves close v4",
+                "btn_id_name": "trig_valve_close with-payload",
+                "payload": 16
+            },
+            {
+                "btn_name": "valves open v5",
+                "btn_id_name": "trig_valve_open with-payload",
+                "payload": 32
+            },
+            {
+                "btn_name": "valves close v5",
+                "btn_id_name": "trig_valve_close with-payload",
+                "payload": 32
+            },
+            {
+                "btn_name": "valves open v6",
+                "btn_id_name": "trig_valve_open with-payload",
+                "payload": 64
+            },
+            {
+                "btn_name": "valves close v6",
+                "btn_id_name": "trig_valve_close with-payload",
+                "payload": 64
+            },
+            {
+                "btn_name": "valves open v7",
+                "btn_id_name": "trig_valve_open with-payload",
+                "payload": 128
+            },
+            {
+                "btn_name": "valves close v7",
+                "btn_id_name": "trig_valve_close with-payload",
+                "payload": 128
+            },
+            {
+                "btn_name": "valves open v8",
+                "btn_id_name": "trig_valve_open with-payload",
+                "payload": 256
+            },
+            {
+                "btn_name": "valves close v8",
+                "btn_id_name": "trig_valve_close with-payload",
+                "payload": 256
+            },
+            {
+                "btn_name": "valves open v9",
+                "btn_id_name": "trig_valve_open with-payload",
+                "payload": 512
+            },
+            {
+                "btn_name": "valves close v9",
+                "btn_id_name": "trig_valve_close with-payload",
+                "payload": 512
+            }
+        ]
+    },
+    "mainpump": {
+        "tab_name": "mainpump",
+        "buttons": [
+            {
+                "btn_name": "mainpump start",
+                "btn_id_name": "trig_mainpump_start"
+            },
+            {
+                "btn_name": "mainpump run pwm 50%",
+                "btn_id_name": "trig_mainpump_set_pwm_dc with-payload",
+                "payload": 50
+            },
+            {
+                "btn_name": "mainpump set flow 50",
+                "btn_id_name": "trig_mainpump_set_flowrate with-payload",
+                "payload": 50
+            },
+            {
+                "btn_name": "mainpump set flow 100",
+                "btn_id_name": "trig_mainpump_set_flowrate with-payload",
+                "payload": 100
+            },
+            {
+                "btn_name": "mainpump set flow 150",
+                "btn_id_name": "trig_mainpump_set_flowrate with-payload",
+                "payload": 150
+            },
+            {
+                "btn_name": "mainpump set flow 200",
+                "btn_id_name": "trig_mainpump_set_flowrate with-payload",
+                "payload": 200
+            },
+            {
+                "btn_name": "mainpump set flow 250",
+                "btn_id_name": "trig_mainpump_set_flowrate with-payload",
+                "payload": 250
+            },
+            {
+                "btn_name": "mainpump stop",
+                "btn_id_name": "trig_mainpump_set_pwm_dc with-payload",
+                "payload": 0
+            }
+        ]
+    },
+    "bms": {
+        "tab_name": "bms",
+        "buttons": [
+            {
+                "btn_name": "bms init",
+                "btn_id_name": "trig_bms_start"
+            },
+            {
+                "btn_name": "bms start charging",
+                "btn_id_name": "trig_en_bat_chg"
+            },
+            {
+                "btn_name": "bms stop charging",
+                "btn_id_name": "trig_dis_bat_chg"
+            }
+        ]
+    },
+    "sensors": {
+        "tab_name": "sensors",
+        "buttons": [
+            {
+                "btn_name": "sensors start",
+                "btn_id_name": "trig_sensor_start"
+            },
+            {
+                "btn_name": "set turb top gain low",
+                "btn_id_name": "trig_set_turb_top_gain with-payload",
+                "payload": 0
+            },
+            {
+                "btn_name": "set turb top gain med",
+                "btn_id_name": "trig_set_turb_top_gain with-payload",
+                "payload": 1
+            },
+            {
+                "btn_name": "set turb top gain high",
+                "btn_id_name": "trig_set_turb_top_gain with-payload",
+                "payload": 2
+            },
+            {
+                "btn_name": "set turb top gain max",
+                "btn_id_name": "trig_set_turb_top_gain with-payload",
+                "payload": 3
+            },
+            {
+                "btn_name": "set turb top int 100ms",
+                "btn_id_name": "trig_set_turb_top_inttime with-payload",
+                "payload": 0
+            },
+            {
+                "btn_name": "set turb top int 200ms",
+                "btn_id_name": "trig_set_turb_top_inttime with-payload",
+                "payload": 1
+            },
+            {
+                "btn_name": "set turb top int 300ms",
+                "btn_id_name": "trig_set_turb_top_inttime with-payload",
+                "payload": 2
+            },
+            {
+                "btn_name": "set turb top int 400ms",
+                "btn_id_name": "trig_set_turb_top_inttime with-payload",
+                "payload": 3
+            },
+            {
+                "btn_name": "set turb top int 500ms",
+                "btn_id_name": "trig_set_turb_top_inttime with-payload",
+                "payload": 4
+            },
+            {
+                "btn_name": "set turb top int 600ms",
+                "btn_id_name": "trig_set_turb_top_inttime with-payload",
+                "payload": 5
+            },
+            {
+                "btn_name": "set turb top int 100ms",
+                "btn_id_name": "trig_set_turb_top_inttime with-payload",
+                "payload": 0
+            },
+            {
+                "btn_name": "set turb side gain low",
+                "btn_id_name": "trig_set_turb_side_gain with-payload",
+                "payload":  0
+            },
+            {
+                "btn_name": "set turb side gain med",
+                "btn_id_name": "trig_set_turb_side_gain with-payload",
+                "payload":  1
+            },
+            {
+                "btn_name": "set turb side gain high",
+                "btn_id_name": "trig_set_turb_side_gain with-payload",
+                "payload":  2
+            },
+            {
+                "btn_name": "set turb side gain max",
+                "btn_id_name": "trig_set_turb_side_gain with-payload",
+                "payload":  3
+            },
+            {
+                "btn_name": "set turb side int 100",
+                "btn_id_name": "trig_set_turb_side_inttime with-payload",
+                "payload":  0
+            },
+            {
+                "btn_name": "set turb side int 200",
+                "btn_id_name": "trig_set_turb_side_inttime with-payload",
+                "payload":  1
+            },
+            {
+                "btn_name": "set turb side int 300",
+                "btn_id_name": "trig_set_turb_side_inttime with-payload",
+                "payload":  2
+            },
+            {
+                "btn_name": "set turb side int 400",
+                "btn_id_name": "trig_set_turb_side_inttime with-payload",
+                "payload":  3
+            },
+            {
+                "btn_name": "set turb side int 500",
+                "btn_id_name": "trig_set_turb_side_inttime with-payload",
+                "payload":  4
+            },
+            {
+                "btn_name": "set turb side int 600",
+                "btn_id_name": "trig_set_turb_side_inttime with-payload",
+                "payload":  5
+            },
+            {
+                "btn_name": "set turb side int 600",
+                "btn_id_name": "trig_set_turb_side_inttime with-payload",
+                "payload":  5
+            }
+        ]
+    },
+    "pressure": {
+        "tab_name": "Pressure",
+        "buttons": [
+            {
+                "btn_name": "start pressure monitor",
+                "btn_id_name": "trig_pressure_start"
+            },
+            {
+                "btn_name": "Zero offset",
+                "btn_id_name": "trig_pressure_zero_off"
+            },
+            {
+                "btn_name": "2pt calibration",
+                "btn_id_name": "trig_pressure_2pt_calib"
+            },
+            {
+                "btn_name": "run airpump 1000ms",
+                "btn_id_name": "trig_airpump_on with-payload",
+                "payload": 1000
+            },
+            {
+                "btn_name": "run airpump 500ms",
+                "btn_id_name": "trig_airpump_on with-payload",
+                "payload": 500
+            },
+            {
+                "btn_name": "start airpump inf",
+                "btn_id_name": "trig_airpump_on with-payload",
+                "payload": 0
+            },
+            {
+                "btn_name": "stop airpump",
+                "btn_id_name": "trig_airpump_off"
+            },
+            {
+                "btn_name": "stop pressure monitor",
+                "btn_id_name": "trig_pressure_stop"
+            }
+        ]
+    }
+}

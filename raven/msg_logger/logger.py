@@ -1,5 +1,6 @@
 import threading
 from datetime import datetime as dt
+from pathlib import Path, os
 from time import sleep
 
 from raven.msg_db import df_datalog_type
@@ -8,6 +9,7 @@ from raven.utils import Observer
 from raven.utils import Singleton
 from raven.utils import get_tstamp
 
+log_folder_abspath = Path(os.getcwd()) / r'logs'
 
 def start_logging():
     EventLogger().open_log_file()
@@ -16,7 +18,6 @@ def start_logging():
 
 
 def get_log_data():
-
     pass
 
 
@@ -39,7 +40,7 @@ class MsgLogger(Observer, metaclass=Singleton):
             file=self.fp)
 
     def open_log_file(self):
-        self.fp = open(f'logs\\msg_log_{dt.now().isoformat().replace(":", ".")}.csv', 'w')
+        self.fp = open(Path(log_folder_abspath) / f'msg_log_{dt.now().isoformat().replace(":", ".")}.csv', 'w')
         print(f'timestamp,msg_name,payload,ack,msg_type,uniq_id', file=self.fp)
 
     def close_log_file(self):
@@ -75,7 +76,7 @@ class EventLogger(Observer, metaclass=Singleton):
         print(f'{ts_now},{payload},{msg_name},{disp_text}', file=self.fp)
 
     def open_log_file(self):
-        self.fp = open(f'logs\\event_log_{dt.now().isoformat().replace(":", ".")}.txt', 'w')
+        self.fp = open(Path(log_folder_abspath) / f'event_log_{dt.now().isoformat().replace(":", ".")}.txt', 'w')
 
     def close_log_file(self):
         if self.fp: self.fp.close()
@@ -93,7 +94,7 @@ class DataLogger(Observer, metaclass=Singleton):
 
     def __init__(self, datalog_interval_ms=30):
         Observer.__init__(self)
-        self.fp = open(f'logs\\data_log_{dt.now().isoformat().replace(":", ".")}.csv', 'w')
+        self.fp = open(Path(log_folder_abspath) / f'data_log_{dt.now().isoformat().replace(":", ".")}.csv', 'w')
         self.observe(self.msg_rxd)
         self.datakeep = []
         self.indexkeep, index = {}, 0
