@@ -5,7 +5,7 @@ $('#dashboard-trigger').on('click', function() {
 	$.when($('.mainmenu-mainbody').each(function() { $(this).hide('slide', {direction: 'left'}) })).done(function() {
 		$('#shorthand-tabs').show('slide', {direction: 'down'})
 		$('.dispmeter-sidenav').show('slide', {direction: 'right'})
-		$('#dashboard-mainbody').show('slide', {direction: 'left'})
+		$('#dashboard-mainbody').fadeIn()
 	})
 
     var curDashmainPadding = $('#dashboard-mainbody').css('padding-left')

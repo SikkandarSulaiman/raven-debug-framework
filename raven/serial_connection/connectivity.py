@@ -71,6 +71,10 @@ class SerialConnection(Observer):
                 if len(rx_bytes) != 16:
                     print('Insufficient msg length')
                     continue
+            # bytes_to_read = self.con.in_waiting
+            # rx_bytes = self.con.read_until(expected=b'\xAA')
+            # while len(rx_bytes) != 16:
+            #     rx_bytes += self.con.read_until(expected=b'\xAA')
                 threading.Thread(target=Message, args=(rx_bytes,), kwargs={'notify_now': True}).start()
             # except ValueError: print('Corrupted msg')
 

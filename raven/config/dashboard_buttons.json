@@ -11,6 +11,22 @@
                 "btn_id_name": "trig_uc_run_post"
             },
             {
+                "btn_name": "run system check",
+                "btn_id_name": "trig_uc_run_syschk"
+            },
+            {
+                "btn_name": "run calib",
+                "btn_id_name": "trig_uc_run_calib"
+            },
+            {
+                "btn_name": "run priming",
+                "btn_id_name": "trig_uc_run_prime"
+            },
+            {
+                "btn_name": "run therapy",
+                "btn_id_name": "trig_uc_run_therapy"
+            },
+            {
                 "btn_name": "next substep",
                 "btn_id_name": "trig_uc_next_sub"
             },
