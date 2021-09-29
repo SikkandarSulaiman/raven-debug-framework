@@ -69,6 +69,21 @@
                 "payload": 261
             },
             {
+                "btn_name": "valves perit start fill",
+                "btn_id_name": "trig_valve_pattern with-payload",
+                "payload": 133
+            },
+            {
+                "btn_name": "valves perit stop fill",
+                "btn_id_name": "trig_valve_pattern with-payload",
+                "payload": 261
+            },
+            {
+                "btn_name": "valves perit release fluid",
+                "btn_id_name": "trig_valve_pattern with-payload",
+                "payload": 773
+            },
+            {
                 "btn_name": "valves open all",
                 "btn_id_name": "trig_valve_pattern with-payload",
                 "payload": 1023
