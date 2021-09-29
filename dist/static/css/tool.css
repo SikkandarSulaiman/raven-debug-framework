@@ -75,10 +75,15 @@ header, main, footer {
 	position: relative;
 	top: 20px;
 	padding: 20px;
-	margin-right: 20px;
 	border-top-right-radius: 20px;
 	border-bottom-right-radius: 20px;
 	height: calc(100vh - 50px - 40px); /* 50px for dashboard tabs and 20px padding on top & bottom */
+}
+
+@media only screen and (max-width: 600px) {
+	.mainbody-panel {
+		border-radius: 20px;
+	}
 }
 
 .eventlog-body {
