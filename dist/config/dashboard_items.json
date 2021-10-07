@@ -29,6 +29,11 @@
         ],
         [
             {
+                "name": "Mainpump pwm dc",
+                "unit": "%",
+                "disp_id_name": "disp_mainpump_pwm_dc"
+            },
+            {
                 "name": "Load cell 1 absolute",
                 "unit": "",
                 "disp_id_name": "disp_lc1_act"

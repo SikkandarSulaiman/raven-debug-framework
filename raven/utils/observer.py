@@ -1,3 +1,6 @@
+import threading
+
+
 class Observer:
     _observers = []
 
@@ -24,7 +27,7 @@ class Observable:
     def notify_observers(self, data):
         for observer in Observer.get_observers():
             for callback in observer.get_oservables():
-                callback(data)
+                threading.Thread(target=callback, args=(data,)).start()
 
 
 class Message(Observable):

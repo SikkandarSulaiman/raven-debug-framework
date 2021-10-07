@@ -34,7 +34,7 @@ class SerialConnection(Observer):
     def __init__(self, port, baud, alias=None):
         Observer.__init__(self)
         # print(f'Opening {port} with baud {baud}')
-        self.con = Serial(port, baud, timeout=0.01)
+        self.con = Serial(port, baud, timeout=0.1)
         # print(self.con)
         if self.con is None: return
         try:
@@ -63,11 +63,13 @@ class SerialConnection(Observer):
 
     def rx(self):
         while not self.rx_exit:
-            first_byte = self.con.read(1)
+            first_byte = 0
+            try: first_byte = self.con.read(1)
+            except: pass
             if first_byte == b'\x55':
                 rem_bytes = self.con.read(15)
                 rx_bytes = first_byte + rem_bytes
-                # print(f'recvd {rx_bytes}')
+                print(f'recvd {rx_bytes} length {len(rx_bytes)}')
                 if len(rx_bytes) != 16:
                     print('Insufficient msg length')
                     continue
@@ -76,6 +78,8 @@ class SerialConnection(Observer):
             # while len(rx_bytes) != 16:
             #     rx_bytes += self.con.read_until(expected=b'\xAA')
                 threading.Thread(target=Message, args=(rx_bytes,), kwargs={'notify_now': True}).start()
+            #     try: Message(rx_bytes, {'notify_now': True})
+            #     except ValueError as e: print(e)
             # except ValueError: print('Corrupted msg')
 
     def start_rx(self):

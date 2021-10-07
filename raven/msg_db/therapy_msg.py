@@ -34,9 +34,9 @@ class Message(Observable):
         if type(data) is bytes:
             self.f16 = self.unpack_therapy_msg(data)
             if not self.validate():
-                print(self.f16)
                 self.f16 = None
                 raise ValueError('Invalid start/stop bytes')
+                # return
         elif type(data) is int:
             self.f16 = self.pack_therapy_msg(data, priority, msgtype, payload, uniq_id)
         elif type(data) is str:
@@ -45,6 +45,7 @@ class Message(Observable):
         else:
             raise AttributeError('Invalid data')
         if notify_now: self.trigger_notification()
+        return
 
     def pack_therapy_msg(self, msg_id, priority, msgtype, payload, uniq_id):
         if uniq_id is None: uniq_id = randint(0, 65535)
