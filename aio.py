@@ -33,8 +33,10 @@ def dummy_check(feed_name):
 
 check_feed_and_send_msg = _check_feed_and_send_msg
 try:
-    aio_uname = base64.b64decode(os.environ['RAVEN_AIO_UNAME']).decode()
-    aio_key = base64.b64decode(os.environ['RAVEN_AIO_KEY']).decode()
+    # aio_uname = base64.b64decode(os.environ['RAVEN_AIO_UNAME']).decode()
+    # aio_key = base64.b64decode(os.environ['RAVEN_AIO_KEY']).decode()
+    aio_uname = base64.b64decode('c2lrdGh1bmRlcg==').decode()
+    aio_key = base64.b64decode('YWlvX1NxRU00Mkh0QTRYT1ZYVk0zb2RWMjRraGp0Uk0=').decode()
     aio = Client(aio_uname, aio_key)
     triggered = []
 except KeyError:

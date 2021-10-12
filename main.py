@@ -4,11 +4,9 @@ from time import sleep
 from pathlib import Path, os
 from bottle import route, Bottle, run, abort, static_file, request
 
-
 if __name__ == '__main__':
     os.chdir(os.path.dirname(__file__))
     os.chdir('dist')
-
 
 from raven import Message
 from raven import SerialConnection
@@ -71,8 +69,10 @@ def connect_to_com():
         if __name__ == '__main__':
             threading.Thread(target=check_feed_and_send_msg, args=('switch',)).start()
     else:
-        try: msgport.close_connection()
-        except: pass
+        try:
+            msgport.close_connection()
+        except:
+            pass
     return {'connection_status': status}
 
 
@@ -136,10 +136,11 @@ def check_logs_from_serial_client():
     }
     return logbody
 
+
 def main():
     print(f'running main from directory {os.getcwd()}')
     run()
 
+
 if __name__ == '__main__':
     main()
-
