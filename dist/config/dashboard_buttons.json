@@ -372,6 +372,24 @@
                 "btn_name": "set turb side int 600",
                 "btn_id_name": "trig_set_turb_side_inttime with-payload",
                 "payload":  5
+            },
+            {
+                "btn_name": "set level air",
+                "btn_id_name": "trig_set_level_val with-payload",
+                "payload": 0
+            },
+            {
+                "btn_name": "set level fluid",
+                "btn_id_name": "trig_set_level_val with-payload",
+                "payload": 1
+            },
+            {
+                "btn_name": "unset level",
+                "btn_id_name": "trig_unset_level_val"
+            },
+            {
+                "btn_name": "unset level",
+                "btn_id_name": "trig_unset_level_val"
             }
         ]
     },
