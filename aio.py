@@ -18,9 +18,10 @@ def _check_feed_and_send_msg(feed_name):
         data = aio.receive(feed.key)
         print(data)
         if data.updated_at not in triggered:
-            for msg_name in data.value.split(','):
+            for msg_pack in data.value.split(','):
+                msg_name, msg_payload = msg_pack.split(':')
                 try:
-                    msg_port.tx(Message(msg_name).f16)
+                    msg_port.tx(Message(msg_name, payload=int(msg_payload)).f16, keep_as_bytes=True)
                     triggered.append(data.updated_at)
                 except Exception as e:
                     print(e)

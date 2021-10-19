@@ -1,3 +1,4 @@
+import struct
 import threading
 from time import sleep
 
@@ -6,6 +7,7 @@ from serial import Serial
 
 from raven.msg_db import Message
 from raven.msg_db import msg_db_name_to_val
+from raven.msg_db import log_structs_info
 from raven.utils import Observer
 
 
@@ -61,6 +63,18 @@ class SerialConnection(Observer):
         except Exception as e:
             raise e
 
+    def rx_content(self, control_msg_bytes):
+        content_id = control_msg_bytes[10]
+        sizes_in_bytes = log_structs_info[content_id]['size_in_bytes']
+        msg_list = log_structs_info[content_id]['msg_list']
+        rx_bytes = self.con.read(sum(sizes_in_bytes))
+        print(len(rx_bytes), [f'0x{i:02X}' for i in rx_bytes])
+        for msg_name, byte_count in zip(msg_list, sizes_in_bytes):
+            payload_bytes = rx_bytes[:byte_count]
+            rx_bytes = rx_bytes[byte_count:]
+            if msg_name is not None:
+                threading.Thread(target=Message, args=(msg_name,), kwargs={'payload': payload_bytes, 'msgtype': 2, 'notify_now': True}).start()
+
     def rx(self):
         while not self.rx_exit:
             first_byte = 0
@@ -73,14 +87,10 @@ class SerialConnection(Observer):
                 if len(rx_bytes) != 16:
                     print('Insufficient msg length')
                     continue
-            # bytes_to_read = self.con.in_waiting
-            # rx_bytes = self.con.read_until(expected=b'\xAA')
-            # while len(rx_bytes) != 16:
-            #     rx_bytes += self.con.read_until(expected=b'\xAA')
-                threading.Thread(target=Message, args=(rx_bytes,), kwargs={'notify_now': True}).start()
-            #     try: Message(rx_bytes, {'notify_now': True})
-            #     except ValueError as e: print(e)
-            # except ValueError: print('Corrupted msg')
+                if rx_bytes[9] == 0x08:
+                    self.rx_content(rx_bytes)
+                else:
+                    threading.Thread(target=Message, args=(rx_bytes,), kwargs={'notify_now': True}).start()
 
     def start_rx(self):
         self.rx_thread = threading.Thread(target=self.rx)

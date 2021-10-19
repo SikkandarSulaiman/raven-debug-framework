@@ -47,6 +47,11 @@
                 "name": "Air pressure absolute",
                 "unit": "mbar",
                 "disp_id_name": "disp_airpa_val_act"
+            },
+            {
+                "name": "Level detection",
+                "unit": "",
+                "disp_id_name": "disp_level_st"
             }
         ],
         [

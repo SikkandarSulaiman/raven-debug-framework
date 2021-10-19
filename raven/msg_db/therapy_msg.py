@@ -15,6 +15,16 @@ df_eventlog_type = pd.read_excel(artifacts_abspath / workbook_name, 'event_log_t
 df_datalog_type = pd.read_excel(artifacts_abspath / workbook_name, 'data_log_type')
 df_datalog_type = df_datalog_type.where(pd.notnull(df_datalog_type), None)
 
+log_structs_info = {}
+book = pd.ExcelFile(artifacts_abspath / r'log_c_structures.xlsx')
+for sheetname in book.sheet_names:
+    if sheetname not in ['config']:
+        df = book.parse(sheetname)
+        log_structs_info[int(df['common_id'][0])] = {
+            'size_in_bytes': list(df['bytes']),
+            'msg_list': [i if type(i) is str else None for i in df['msg']]
+        }
+
 with open(artifacts_abspath / r'msg_ids_name_to_val.json', 'r') as fp:
     msg_db_name_to_val = json.load(fp)
 with open(artifacts_abspath / r'msg_ids_val_to_name.json', 'r') as fp:
@@ -27,7 +37,7 @@ def get_msg_for_ui_id(id):
 
 class Message(Observable):
 
-    def __init__(self, data, priority=0, msgtype=0, payload=0, uniq_id=0, notify_now=False):
+    def __init__(self, data, priority=0, msgtype=0, payload=0, uniq_id=0, keep_as_bytes=False, notify_now=False):
         self.therapymsg_t = namedtuple('therapymsg_t',
                                        'start_byte priority uniq_id msg_id ack msg_type p0 p1 p2 p3 crc stop_byte')
         self.tmsg_cstruct_fmt = 'BBHIbBBBBBBB'
@@ -41,16 +51,20 @@ class Message(Observable):
             self.f16 = self.pack_therapy_msg(data, priority, msgtype, payload, uniq_id)
         elif type(data) is str:
             msg_id = msg_db_name_to_val[data]
-            self.f16 = self.pack_therapy_msg(msg_id, priority, msgtype, payload, uniq_id)
+            if type(payload) is not bytes: payload = int.to_bytes(payload, 4, 'little')
+            self.f16 = self.pack_therapy_msg(msg_id, priority, msgtype, payload.ljust(4, b'\x00'), uniq_id)
         else:
             raise AttributeError('Invalid data')
+        # keep_as_bytes is set for tx_msgs
+        if not keep_as_bytes and type(data) is not bytes: self.f16 = self.unpack_therapy_msg(self.f16)
         if notify_now: self.trigger_notification()
+        self.fmt_payload = None
+        self.fmt_payload_set = False
         return
 
-    def pack_therapy_msg(self, msg_id, priority, msgtype, payload, uniq_id):
+    def pack_therapy_msg(self, msg_id, priority, msgtype, payload_in_bytes, uniq_id):
         if uniq_id is None: uniq_id = randint(0, 65535)
-        pbytes = int.to_bytes(payload, 4, 'little')
-        msgobj = self.therapymsg_t._make([0x55, priority, uniq_id, int(msg_id), msgtype, 0, *pbytes, 0, 0xAA])
+        msgobj = self.therapymsg_t._make([0x55, priority, uniq_id, int(msg_id), 0, msgtype, *payload_in_bytes, 0, 0xAA])
         return pack(self.tmsg_cstruct_fmt, *msgobj)
 
     def unpack_therapy_msg(self, msg_bytes):
@@ -74,12 +88,19 @@ class Message(Observable):
         return msg_name
 
     def is_eventlog(self):
-        return ((1 << 5) & self.f16.msg_type) > 0
+        return ((1 << 2) & self.f16.msg_type) > 0
 
     def is_datalog(self):
-        return ((1 << 6) & self.f16.msg_type) > 0
+        return ((1 << 1) & self.f16.msg_type) > 0
+
+    def get_payload_str(self):
+        payload_val = self.get_payload()
+        msg_name = self.get_msg_name()
+        payload_str = df_datalog_type.loc[df_datalog_type['msg_id'] == msg_name, payload_val].iloc[0]
+        return payload_val if payload_str is None else payload_str
 
     def get_payload(self, datatype=None):
+        if self.fmt_payload_set: return self.fmt_payload
         if datatype in ['int8', 'int16', 'int32', 'int16', 'uint16', 'uint32', 'bool', 'float32']:
             payload_datatype = datatype
         else:

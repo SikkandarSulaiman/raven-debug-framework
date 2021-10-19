@@ -192,6 +192,21 @@
                 "btn_name": "valves close v9",
                 "btn_id_name": "trig_valve_close with-payload",
                 "payload": 512
+            },
+            {
+                "btn_name": "valve set cont move",
+                "btn_id_name": "trig_set_valve_cont with-payload",
+                "payload": 1
+            },
+            {
+                "btn_name": "valve unset cont move",
+                "btn_id_name": "trig_set_valve_cont with-payload",
+                "payload": 0
+            },
+            {
+                "btn_name": "valve unset cont move",
+                "btn_id_name": "trig_set_valve_cont with-payload",
+                "payload": 0
             }
         ]
     },
@@ -430,6 +445,59 @@
             {
                 "btn_name": "stop pressure monitor",
                 "btn_id_name": "trig_pressure_stop"
+            }
+        ]
+    },
+    "heater": {
+        "tab_name": "Heater",
+        "buttons": [
+            {
+                "btn_name": "start heater wo pwm",
+                "btn_id_name": "trig_heater_start"
+            },
+            {
+                "btn_name": "enable heater pwm",
+                "btn_id_name": "trig_set_heater_mode with-payload",
+                "payload": 2
+            },
+            {
+                "btn_name": "set pwm 0",
+                "btn_id_name": "trig_set_pwm_out with-payload",
+                "payload": 0
+            },
+            {
+                "btn_name": "set pwm 10",
+                "btn_id_name": "trig_set_pwm_out with-payload",
+                "payload": 10
+            },
+            {
+                "btn_name": "set pwm 20",
+                "btn_id_name": "trig_set_pwm_out with-payload",
+                "payload": 20
+            },
+            {
+                "btn_name": "set pwm 30",
+                "btn_id_name": "trig_set_pwm_out with-payload",
+                "payload": 30
+            },
+            {
+                "btn_name": "set pwm 40",
+                "btn_id_name": "trig_set_pwm_out with-payload",
+                "payload": 40
+            },
+            {
+                "btn_name": "set pwm 50",
+                "btn_id_name": "trig_set_pwm_out with-payload",
+                "payload": 50
+            },
+            {
+                "btn_name": "set pwm 60",
+                "btn_id_name": "trig_set_pwm_out with-payload",
+                "payload": 60
+            },
+            {
+                "btn_name": "stop heater",
+                "btn_id_name": "trig_heater_stop"
             }
         ]
     }

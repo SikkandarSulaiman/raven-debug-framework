@@ -60,7 +60,7 @@ def connect_to_com():
         status = 'failure'
     else:
         msgport.start_rx()
-        txmsg = Message('MSG_UI_COMM_EXEC_TS_HANDSHAKE_1')
+        txmsg = Message('MSG_UI_COMM_EXEC_TS_HANDSHAKE_1', keep_as_bytes=True)
         msgport.tx(txmsg.f16)
         sleep(1)
         status = 'success' if msgport.handshake_done else 'timeout'
@@ -98,7 +98,7 @@ def send():
         except:
             payload = 0
 
-        msgport.tx(Message(msg_name, payload=payload).f16)
+        msgport.tx(Message(msg_name, payload=payload, keep_as_bytes=True).f16)
     return f'warlock\'s response to {request.forms.get("id_name")}'
 
 
