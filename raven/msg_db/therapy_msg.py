@@ -57,9 +57,9 @@ class Message(Observable):
             raise AttributeError('Invalid data')
         # keep_as_bytes is set for tx_msgs
         if not keep_as_bytes and type(data) is not bytes: self.f16 = self.unpack_therapy_msg(self.f16)
-        if notify_now: self.trigger_notification()
         self.fmt_payload = None
         self.fmt_payload_set = False
+        if notify_now: self.trigger_notification()
         return
 
     def pack_therapy_msg(self, msg_id, priority, msgtype, payload_in_bytes, uniq_id):
@@ -101,6 +101,7 @@ class Message(Observable):
 
     def get_payload(self, datatype=None):
         if self.fmt_payload_set: return self.fmt_payload
+        self.fmt_payload_set = True
         if datatype in ['int8', 'int16', 'int32', 'int16', 'uint16', 'uint32', 'bool', 'float32']:
             payload_datatype = datatype
         else:

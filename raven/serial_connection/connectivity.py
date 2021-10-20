@@ -1,4 +1,3 @@
-import struct
 import threading
 from time import sleep
 
@@ -67,8 +66,14 @@ class SerialConnection(Observer):
         content_id = control_msg_bytes[10]
         sizes_in_bytes = log_structs_info[content_id]['size_in_bytes']
         msg_list = log_structs_info[content_id]['msg_list']
-        rx_bytes = self.con.read(sum(sizes_in_bytes))
-        print(len(rx_bytes), [f'0x{i:02X}' for i in rx_bytes])
+        rx_bytes = self.con.read(sum(sizes_in_bytes) + 2)
+        print(content_id, len(rx_bytes), [f'0x{i:02X}' for i in rx_bytes])
+        if len(rx_bytes) != sum(sizes_in_bytes)+2 or (rx_bytes[0] != 0xAA or rx_bytes[-1] != 0x55):
+            self.con.close()
+            self.con.open()
+            self.con.flush()
+            return
+        rx_bytes = rx_bytes[1:]
         for msg_name, byte_count in zip(msg_list, sizes_in_bytes):
             payload_bytes = rx_bytes[:byte_count]
             rx_bytes = rx_bytes[byte_count:]
@@ -84,8 +89,12 @@ class SerialConnection(Observer):
                 rem_bytes = self.con.read(15)
                 rx_bytes = first_byte + rem_bytes
                 print(f'recvd {rx_bytes} length {len(rx_bytes)}')
-                if len(rx_bytes) != 16:
-                    print('Insufficient msg length')
+                if len(rx_bytes) != 16 or rx_bytes[0] != 0x55 or rx_bytes[-1] != 0xAA:
+                    # print('Insufficient msg length')
+                    print('invalid msg')
+                    self.con.close()
+                    self.con.open()
+                    self.con.flush()
                     continue
                 if rx_bytes[9] == 0x08:
                     self.rx_content(rx_bytes)
