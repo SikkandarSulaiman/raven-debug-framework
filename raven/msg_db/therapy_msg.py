@@ -25,6 +25,9 @@ for sheetname in book.sheet_names:
             'msg_list': [i if type(i) is str else None for i in df['msg']]
         }
 
+with open(artifacts_abspath / r'msg_val_strings.json') as fp:
+    payload_strings_map = json.load(fp)
+
 with open(artifacts_abspath / r'msg_ids_name_to_val.json', 'r') as fp:
     msg_db_name_to_val = json.load(fp)
 with open(artifacts_abspath / r'msg_ids_val_to_name.json', 'r') as fp:
@@ -96,8 +99,11 @@ class Message(Observable):
     def get_payload_str(self):
         payload_val = self.get_payload()
         msg_name = self.get_msg_name()
-        payload_str = df_datalog_type.loc[df_datalog_type['msg_id'] == msg_name, payload_val].iloc[0]
-        return payload_val if payload_str is None else payload_str
+        try:
+            payload_str = payload_strings_map[msg_name][str(payload_val)]
+        except KeyError:
+            payload_str = payload_val
+        return payload_str
 
     def get_payload(self, datatype=None):
         if self.fmt_payload_set: return self.fmt_payload

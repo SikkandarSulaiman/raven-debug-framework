@@ -114,7 +114,7 @@ class DataLogger(Observer, metaclass=Singleton):
             msg_name = msg.get_msg_name()
             name = df_datalog_type.loc[df_datalog_type['msg_id'] == msg_name, 'datalog_column_name'].iloc[0]
             index = self.indexkeep[name]
-            self.datakeep[index][1] = msg.get_payload()
+            self.datakeep[index][1] = msg.get_payload_str()
         except (IndexError, KeyError):
             return
 

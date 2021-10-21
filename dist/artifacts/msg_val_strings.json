@@ -1,0 +1,30 @@
+{
+    "MSG_UC_MASTER_GET_CCPD_RUNNING_STATE": {
+        "256": "POST begin",
+        "257": "POST battery check",
+        "258": "POST sensors check",
+        "259": "POST mainpump check",
+        "260": "POST temperature check",
+        "261": "POST heater check",
+        "262": "POST EEPROM check",
+        "263": "POST fan check",
+        "264": "POST fan check"
+    },
+    "MSG_SENSORS_GET_BUBBLE_DET_VAL": {
+        "0": "air",
+        "1": "fluid",
+        "2": "unknown"
+    },
+    "MSG_MAINPUMP_GET_CUR_PWM_DC": {
+        "0": "off"
+    },
+    "MSG_BMS_GET_RUN_TIME_TO_EMPTY": {
+        "65535": "NA"
+    },
+    "MSG_BMS_GET_AVG_TIME_TO_EMPTY": {
+        "65535": "NA"
+    },
+    "MSG_BMS_GET_AVG_TIME_TO_FULL": {
+        "65535": "NA"
+    }
+}
