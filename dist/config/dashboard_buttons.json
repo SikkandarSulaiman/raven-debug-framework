@@ -194,6 +194,26 @@
                 "payload": 512
             },
             {
+                "btn_name": "valve duration 500ms",
+                "btn_id_name": "trig_valve_set_dur with-payload",
+                "payload": 500
+            },
+            {
+                "btn_name": "valve duration 1000ms",
+                "btn_id_name": "trig_valve_set_dur with-payload",
+                "payload": 1000
+            },
+            {
+                "btn_name": "valve duration 1500ms",
+                "btn_id_name": "trig_valve_set_dur with-payload",
+                "payload": 1500
+            },
+            {
+                "btn_name": "valve duration 2000ms",
+                "btn_id_name": "trig_valve_set_dur with-payload",
+                "payload": 2000
+            },
+            {
                 "btn_name": "valve set cont move",
                 "btn_id_name": "trig_set_valve_cont with-payload",
                 "payload": 1
