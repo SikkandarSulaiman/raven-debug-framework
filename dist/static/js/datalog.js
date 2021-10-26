@@ -9,6 +9,7 @@ $('#datalog-trigger').on('click', function() {
 	})
 })
 
+var datalogDisplayIds = null
 var datalogheadbuilt = false
 var build_datalog_head = function(log_datakeep) {
     var datalogheadwrap = $('#datalog-head-table-wrap')
@@ -32,7 +33,7 @@ var build_datalog_head = function(log_datakeep) {
 var build_datalog_body = function(log_datakeep) {
     var datalogbodytable = $('#datalog-body-table')
     var datalogbodyval = $('<tr/>', {'id': 'datalog-body-val'})
-    for (var i in log_datakeep['disp_id']) {
+    for (var i in datalogDisplayIds) {
         disp_val = log_datakeep['value'][i]
 //        if (disp_val === null) disp_val = '-'
 
@@ -41,7 +42,7 @@ var build_datalog_body = function(log_datakeep) {
         datalogbodyval.append(valitem)
 
         /* Update the value for all appropriate display classes */
-        $('.'+log_datakeep['disp_id'][i]).each(function() {
+        $('.'+datalogDisplayIds[i]).each(function() {
             if ($(this).hasClass('display-suffix')) {
                 $(this).html(disp_val + $(this).data('suffix'))
             } else {
@@ -56,6 +57,7 @@ var get_datalog_head = function() {
     $.get('/datalogHead', function(data) {
         console.log(data)
         build_datalog_head(data)
+        datalogDisplayIds = data['disp_id']
     })
     datalogheadbuilt = true
 }

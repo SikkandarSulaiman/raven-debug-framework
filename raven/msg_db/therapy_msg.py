@@ -18,7 +18,7 @@ df_datalog_type = df_datalog_type.where(pd.notnull(df_datalog_type), None)
 log_structs_info = {}
 book = pd.ExcelFile(artifacts_abspath / r'log_c_structures.xlsx')
 for sheetname in book.sheet_names:
-    if sheetname not in ['config']:
+    if sheetname != 'config':
         df = book.parse(sheetname)
         log_structs_info[int(df['common_id'][0])] = {
             'size_in_bytes': list(df['bytes']),
@@ -41,32 +41,32 @@ def get_msg_for_ui_id(id):
 class Message(Observable):
 
     def __init__(self, data, priority=0, msgtype=0, payload=0, uniq_id=0, keep_as_bytes=False, notify_now=False):
+        super().__init__()
         self.therapymsg_t = namedtuple('therapymsg_t',
                                        'start_byte priority uniq_id msg_id ack msg_type p0 p1 p2 p3 crc stop_byte')
         self.tmsg_cstruct_fmt = 'BBHIbBBBBBBB'
-        if type(data) is bytes:
+        if type(data) is bytes:  # msg as byte array
             self.f16 = self.unpack_therapy_msg(data)
-            if not self.validate():
-                self.f16 = None
-                raise ValueError('Invalid start/stop bytes')
-                # return
-        elif type(data) is int:
+        elif type(data) is int:  # msg_id as integer
             self.f16 = self.pack_therapy_msg(data, priority, msgtype, payload, uniq_id)
-        elif type(data) is str:
+        elif type(data) is str: # msg_id as string
             msg_id = msg_db_name_to_val[data]
             if type(payload) is not bytes: payload = int.to_bytes(payload, 4, 'little')
             self.f16 = self.pack_therapy_msg(msg_id, priority, msgtype, payload.ljust(4, b'\x00'), uniq_id)
         else:
             raise AttributeError('Invalid data')
-        # keep_as_bytes is set for tx_msgs
-        if not keep_as_bytes and type(data) is not bytes: self.f16 = self.unpack_therapy_msg(self.f16)
+
+        # keep_as_bytes is set for tx_msgs, flag not applicable if msg is given as bytearray
+        if not keep_as_bytes and type(data) is not bytes:
+            self.f16 = self.unpack_therapy_msg(self.f16)
         self.fmt_payload = None
         self.fmt_payload_set = False
-        if notify_now: self.trigger_notification()
-        return
+        if notify_now:
+            self.trigger_notification()
 
     def pack_therapy_msg(self, msg_id, priority, msgtype, payload_in_bytes, uniq_id):
-        if uniq_id is None: uniq_id = randint(0, 65535)
+        if uniq_id is None:
+            uniq_id = randint(0, 65535)
         msgobj = self.therapymsg_t._make([0x55, priority, uniq_id, int(msg_id), 0, msgtype, *payload_in_bytes, 0, 0xAA])
         return pack(self.tmsg_cstruct_fmt, *msgobj)
 
@@ -76,12 +76,31 @@ class Message(Observable):
         except:
             pass
 
-    def validate(self):
-        # print(f'validating msg: start_byte={self.f16.start_byte}, stop_byte={self.f16.stop_byte}')
-        return self.f16.start_byte == 0x55 and self.f16.stop_byte == 0xAA
-
+    # Fire all observer callbacks
     def trigger_notification(self):
         self.notify_observers(self)
+
+    @staticmethod
+    def is_valid_msg(rx_bytes):
+        return len(rx_bytes) == 16 and rx_bytes[0] == 0x55 and rx_bytes[-1] == 0xAA
+
+    @staticmethod
+    def is_valid_content(rx_bytes):
+        return  rx_bytes[0] == 0x5A or rx_bytes[-1] == 0xA5
+
+    @staticmethod
+    def get_content_id(rx_bytes):
+        return rx_bytes[10]
+
+    @staticmethod
+    def is_control_msg(rx_bytes):
+        return ((1 << 3) & rx_bytes[9]) > 0
+
+    def is_eventlog(self):
+        return ((1 << 2) & self.f16.msg_type) > 0
+
+    def is_datalog(self):
+        return ((1 << 1) & self.f16.msg_type) > 0
 
     def get_msg_name(self):
         try:
@@ -90,13 +109,8 @@ class Message(Observable):
             msg_name = f'{self.f16.msg_id:08X}'
         return msg_name
 
-    def is_eventlog(self):
-        return ((1 << 2) & self.f16.msg_type) > 0
-
-    def is_datalog(self):
-        return ((1 << 1) & self.f16.msg_type) > 0
-
     def get_payload_str(self):
+        # Find string representations for payload if applicable
         payload_val = self.get_payload()
         msg_name = self.get_msg_name()
         try:
@@ -105,24 +119,30 @@ class Message(Observable):
             payload_str = payload_val
         return payload_str
 
-    def get_payload(self, datatype=None):
-        if self.fmt_payload_set: return self.fmt_payload
-        self.fmt_payload_set = True
-        if datatype in ['int8', 'int16', 'int32', 'int16', 'uint16', 'uint32', 'bool', 'float32']:
-            payload_datatype = datatype
-        else:
-            try:
-                msg_name = self.get_msg_name()
-                payload_datatype = df_datalog_type.loc[df_datalog_type['msg_id'] == msg_name, 'ctype'].iloc[0]
-            except IndexError:
-                payload_datatype = 'uint32'
+    def get_payload(self):
+        # return payload if already calculated
+        if self.fmt_payload_set:
+            return self.fmt_payload
 
+        # set calculated flag for upcoming usage
+        self.fmt_payload_set = True
+
+        # Find payload type
+        msg_name = self.get_msg_name()
+        try:
+            payload_datatype = df_datalog_type.loc[df_datalog_type['msg_id'] == msg_name, 'ctype'].iloc[0]
+        except IndexError:
+            # treat unspecified type as uint32
+            payload_datatype = 'uint32'
+
+        # to parse float, struct module is used
         if payload_datatype == 'float32':
             float_val = struct.unpack('f', bytes([self.f16.p0, self.f16.p1, self.f16.p2, self.f16.p3]))
             try:
                 return float(f'{float_val[0]:.03f}')
             except:
                 return 0
+        # int.from_bytes() function is used to parse types other than float
         is_signed = True if payload_datatype in ['int8', 'int16', 'int32'] else False
         p1 = self.f16.p1 if payload_datatype in ['int16', 'uint16', 'int32', 'uint32'] else 0
         p2, p3 = (self.f16.p2, self.f16.p3) if payload_datatype in ['int32', 'uint32'] else (None, None)

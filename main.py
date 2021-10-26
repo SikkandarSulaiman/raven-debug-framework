@@ -2,7 +2,7 @@ import json
 import threading
 from time import sleep
 from pathlib import Path, os
-from bottle import route, Bottle, run, abort, static_file, request
+from bottle import route, Bottle, run, static_file, request
 
 if __name__ == '__main__':
     os.chdir(os.path.dirname(__file__))
@@ -116,29 +116,19 @@ def check_acks_from_serial_client():
 def pass_datalogs_format():
     loghead = {
         'name': [d[0] for d in DataLogger().datakeep],
-        'unit': [d[2] for d in DataLogger().datakeep]
+        'unit': [d[2] for d in DataLogger().datakeep],
+        'disp_id': [d[3] for d in DataLogger().datakeep]
     }
     return loghead
 
 
-@route('/datalogDisp', method=['GET'])
-def get_datalog_disp_id():
-    logdisp = {'disp_id': [d[3] for d in DataLogger().datakeep]}
-    print(logdisp)
-    return logdisp
-
-
 @route('/datalogCheck')
 def check_logs_from_serial_client():
-    logbody = {
-        'value': [d[1] for d in DataLogger().datakeep],
-        'disp_id': [d[3] for d in DataLogger().datakeep]
-    }
+    logbody = {'value': [d[1] for d in DataLogger().datakeep]}
     return logbody
 
 
 def main():
-    print(f'running main from directory {os.getcwd()}')
     run()
 
 

@@ -34,9 +34,7 @@ class SerialConnection(Observer):
 
     def __init__(self, port, baud, alias=None):
         Observer.__init__(self)
-        # print(f'Opening {port} with baud {baud}')
         self.con = Serial(port, baud, timeout=0.1)
-        # print(self.con)
         if self.con is None: return
         try:
             self.con.close()
@@ -62,44 +60,42 @@ class SerialConnection(Observer):
         except Exception as e:
             raise e
 
-    def rx_content(self, control_msg_bytes):
-        content_id = control_msg_bytes[10]
+    def rx_content(self, content_id):
         sizes_in_bytes = log_structs_info[content_id]['size_in_bytes']
         msg_list = log_structs_info[content_id]['msg_list']
+
+        # Read rx bytes from serial wrapped with start and stop bytes (+2)
         rx_bytes = self.con.read(sum(sizes_in_bytes) + 2)
         print(content_id, len(rx_bytes), [f'0x{i:02X}' for i in rx_bytes])
-        if len(rx_bytes) != sum(sizes_in_bytes)+2 or (rx_bytes[0] != 0xAA or rx_bytes[-1] != 0x55):
-            self.con.close()
-            self.con.open()
-            self.con.flush()
+        if len(rx_bytes) != sum(sizes_in_bytes) + 2 or not Message.is_valid_content(rx_bytes):
+            self.refresh_connection()
             return
-        rx_bytes = rx_bytes[1:]
-        for msg_name, byte_count in zip(msg_list, sizes_in_bytes):
-            payload_bytes = rx_bytes[:byte_count]
-            rx_bytes = rx_bytes[byte_count:]
-            if msg_name is not None:
-                threading.Thread(target=Message, args=(msg_name,), kwargs={'payload': payload_bytes, 'msgtype': 2, 'notify_now': True}).start()
+        rx_bytes = rx_bytes[1:]  # strip start byte 0xAA
+        for msg_name, payload_size in zip(msg_list, sizes_in_bytes):
+            payload_bytes = rx_bytes[:payload_size]  # Take first n bytes using 'payload_size'
+            rx_bytes = rx_bytes[payload_size:]  # pop payload byte so first n bytes can be used in next iteration
+            if msg_name is not None:  # process payload as if it is received as a log msg
+                threading.Thread(target=Message, args=(msg_name,),
+                                 kwargs={'payload': payload_bytes, 'msgtype': 2, 'notify_now': True}).start()
 
     def rx(self):
         while not self.rx_exit:
-            first_byte = 0
             try: first_byte = self.con.read(1)
-            except: pass
-            if first_byte == b'\x55':
-                rem_bytes = self.con.read(15)
-                rx_bytes = first_byte + rem_bytes
-                print(f'recvd {rx_bytes} length {len(rx_bytes)}')
-                if len(rx_bytes) != 16 or rx_bytes[0] != 0x55 or rx_bytes[-1] != 0xAA:
-                    # print('Insufficient msg length')
-                    print('invalid msg')
-                    self.con.close()
-                    self.con.open()
-                    self.con.flush()
-                    continue
-                if rx_bytes[9] == 0x08:
-                    self.rx_content(rx_bytes)
-                else:
-                    threading.Thread(target=Message, args=(rx_bytes,), kwargs={'notify_now': True}).start()
+            except: continue
+            if first_byte != b'\x55': continue
+            try: rem_bytes = self.con.read(15)
+            except: continue
+            rx_bytes = first_byte + rem_bytes
+            print(f'recvd {rx_bytes} length {len(rx_bytes)}')
+            if not Message.is_valid_msg(rx_bytes):
+                print('invalid msg')
+                continue
+            if Message.is_control_msg(rx_bytes):
+                # if control msg, receive following content
+                self.rx_content(Message.get_content_id(rx_bytes))
+            else:
+                threading.Thread(target=Message, args=(rx_bytes,), kwargs={'notify_now': True}).start()
+
 
     def start_rx(self):
         self.rx_thread = threading.Thread(target=self.rx)
@@ -116,6 +112,13 @@ class SerialConnection(Observer):
     def close_connection(self):
         if self.con:
             self.con.close()
+
+    def refresh_connection(self):
+        if self.con and self.con.isOpen():
+            self.con.close()
+        if self.con:
+            self.con.open()
+            self.con.flush()
 
     def get_connected_port(self):
         if self.con and self.con.isOpen():

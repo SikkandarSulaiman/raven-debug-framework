@@ -4,11 +4,6 @@
         "tab_name": "Heater",
         "contents": [
             {
-                "btn_id_name": "trig_heater_start",
-                "type": "btn",
-                "btn_name": "start"
-            },
-            {
                 "btn_id_name": "trig_heater_max_hpad_t1",
                 "disp_id_name": "disp_heater_max_hpad_t1",
                 "suffix": "<sup>o</sup>C",
@@ -20,6 +15,17 @@
                 "init_val": 70
             },
             {
+                "btn_id_name": "trig_heater_min_pwm_dc",
+                "disp_id_name": "disp_heater_min_pwm_dc",
+                "suffix": "%",
+                "inp_id_name": "inp_heater_min_pwm_dc",
+                "type": "setting",
+                "btn_name": "set min heater pwm dc",
+                "min_val": 0,
+                "max_val": 100,
+                "init_val": 10
+            },
+            {
                 "btn_id_name": "trig_heater_max_pwm_dc",
                 "disp_id_name": "disp_heater_max_pwm_dc",
                 "suffix": "%",
@@ -29,11 +35,6 @@
                 "min_val": 0,
                 "max_val": 100,
                 "init_val": 50
-            },
-            {
-                "btn_id_name": "trig_heater_stop",
-                "type": "btn",
-                "btn_name": "stop"
             },
             {
                 "type": "minidash",

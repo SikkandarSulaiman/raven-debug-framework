@@ -66,7 +66,7 @@ class EventLogger(Observer, metaclass=Singleton):
             msg_name = msg.get_msg_name()
         except KeyError:
             return
-        payload = msg.get_payload(datatype='uint32')
+        payload = msg.get_payload()
         resp = 'positive' if msg.f16.ack >= 0 else 'negative'
         try:
             disp_text = df_eventlog_type.loc[df_eventlog_type['msg_id'] == msg_name, resp].iloc[0]

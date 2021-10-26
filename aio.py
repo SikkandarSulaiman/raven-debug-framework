@@ -21,7 +21,7 @@ def _check_feed_and_send_msg(feed_name):
             for msg_pack in data.value.split(','):
                 msg_name, msg_payload = msg_pack.split(':')
                 try:
-                    msg_port.tx(Message(msg_name, payload=int(msg_payload)).f16, keep_as_bytes=True)
+                    msg_port.tx(Message(msg_name, payload=int(msg_payload), keep_as_bytes=True).f16)
                     triggered.append(data.updated_at)
                 except Exception as e:
                     print(e)

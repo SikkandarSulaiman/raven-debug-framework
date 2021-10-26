@@ -214,13 +214,8 @@
         "tab_name": "mainpump",
         "buttons": [
             {
-                "btn_name": "mainpump start",
-                "btn_id_name": "trig_mainpump_start"
-            },
-            {
-                "btn_name": "mainpump run pwm 50%",
-                "btn_id_name": "trig_mainpump_set_pwm_dc with-payload",
-                "payload": 50
+                "btn_name": "mainpump init",
+                "btn_id_name": "trig_mainpump_init"
             },
             {
                 "btn_name": "mainpump set flow 50",
@@ -250,7 +245,21 @@
             {
                 "btn_name": "mainpump stop",
                 "btn_id_name": "trig_mainpump_set_pwm_dc with-payload",
+                "payload": 50
+            },
+            {
+                "btn_name": "turn on drive",
+                "btn_id_name": "trig_mainpump_drive with-payload",
+                "payload": 1
+            },
+            {
+                "btn_name": "turn off drive",
+                "btn_id_name": "trig_mainpump_drive with-payload",
                 "payload": 0
+            },
+            {
+                "btn_name": "mainpump deinit",
+                "btn_id_name": "trig_mainpump_deinit"
             }
         ]
     },

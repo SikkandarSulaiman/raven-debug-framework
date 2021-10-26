@@ -29,9 +29,19 @@
         ],
         [
             {
+                "name": "Mainpump drive stage",
+                "unit": "",
+                "disp_id_name": "disp_mainpump_drive"
+            },
+            {
                 "name": "Mainpump pwm dc",
                 "unit": "%",
                 "disp_id_name": "disp_mainpump_pwm_dc"
+            },
+            {
+                "name": "Hall status",
+                "unit": "",
+                "disp_id_name": "disp_hall_st"
             },
             {
                 "name": "Load cell 1 absolute",
@@ -47,11 +57,6 @@
                 "name": "Air pressure absolute",
                 "unit": "mbar",
                 "disp_id_name": "disp_airpa_val_act"
-            },
-            {
-                "name": "Level detection",
-                "unit": "",
-                "disp_id_name": "disp_level_st"
             }
         ],
         [
@@ -66,11 +71,6 @@
                 "disp_id_name": "disp_lc2_rel"
             },
             {
-                "name": "Air pressure zero offset",
-                "unit": "mbar",
-                "disp_id_name": "disp_airpa_val_rel"
-            },
-            {
                 "name": "Load cell 1 pressure",
                 "unit": "mbar",
                 "disp_id_name": "disp_lc1_pa"
@@ -79,6 +79,38 @@
                 "name": "Load cell 2 pressure",
                 "unit": "mbar",
                 "disp_id_name": "disp_lc2_pa"
+            },
+            {
+                "name": "Air pressure zero offset",
+                "unit": "mbar",
+                "disp_id_name": "disp_airpa_val_rel"
+            }
+        ],
+        [
+            {
+                "name": "Door status",
+                "unit": "",
+                "disp_id_name": "disp_door_st"
+            },
+            {
+                "name": "Cassette status",
+                "unit": "",
+                "disp_id_name": "disp_cassette_st"
+            },
+            {
+                "name": "Level detection",
+                "unit": "",
+                "disp_id_name": "disp_level_st"
+            },
+            {
+                "name": "Current sensor heater pad 1",
+                "unit": "mA",
+                "disp_id_name": "disp_curr_h1"
+            },
+            {
+                "name": "Current sensor heater pad 2",
+                "unit": "mA",
+                "disp_id_name": "disp_curr_h2"
             }
         ],
         [
