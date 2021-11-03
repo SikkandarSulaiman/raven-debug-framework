@@ -86,7 +86,7 @@ class SerialConnection(Observer):
             try: rem_bytes = self.con.read(15)
             except: continue
             rx_bytes = first_byte + rem_bytes
-            print(f'recvd {rx_bytes} length {len(rx_bytes)}')
+            # print(f'recvd {rx_bytes} length {len(rx_bytes)}')
             if not Message.is_valid_msg(rx_bytes):
                 print('invalid msg')
                 continue
