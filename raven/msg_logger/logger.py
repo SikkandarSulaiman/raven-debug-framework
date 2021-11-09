@@ -36,7 +36,7 @@ class MsgLogger(Observer, metaclass=Singleton):
 
     def msg_rxd(self, msg):
         print(
-            f'{get_tstamp()},{msg.get_msg_name()},{msg.get_payload()},{msg.f16.ack},{msg.f16.msg_type},{msg.f16.uniq_id:04X}',
+            f'{get_tstamp()},{msg.get_msg_name()},{msg.get_payload()[0]},{msg.f16.ack},{msg.f16.msg_type},{msg.f16.uniq_id:04X}',
             file=self.fp)
 
     def open_log_file(self):
@@ -66,7 +66,7 @@ class EventLogger(Observer, metaclass=Singleton):
             msg_name = msg.get_msg_name()
         except KeyError:
             return
-        payload = msg.get_payload()
+        payload = msg.get_payload()[0]
         resp = 'positive' if msg.f16.ack >= 0 else 'negative'
         try:
             disp_text = df_eventlog_type.loc[df_eventlog_type['msg_id'] == msg_name, resp].iloc[0]
@@ -114,7 +114,7 @@ class DataLogger(Observer, metaclass=Singleton):
             msg_name = msg.get_msg_name()
             name = df_datalog_type.loc[df_datalog_type['msg_id'] == msg_name, 'datalog_column_name'].iloc[0]
             index = self.indexkeep[name]
-            self.datakeep[index][1] = msg.get_payload_str()
+            self.datakeep[index][1] = msg.get_payload_str()[0]
         except (IndexError, KeyError):
             return
 

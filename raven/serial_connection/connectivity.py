@@ -66,7 +66,7 @@ class SerialConnection(Observer):
 
         # Read rx bytes from serial wrapped with start and stop bytes (+2)
         rx_bytes = self.con.read(sum(sizes_in_bytes) + 2)
-        print(content_id, len(rx_bytes), [f'0x{i:02X}' for i in rx_bytes])
+        # print(content_id, len(rx_bytes), [f'0x{i:02X}' for i in rx_bytes])
         if len(rx_bytes) != sum(sizes_in_bytes) + 2 or not Message.is_valid_content(rx_bytes):
             self.refresh_connection()
             return
@@ -103,7 +103,10 @@ class SerialConnection(Observer):
 
     def stop_rx(self):
         self.rx_exit = True
-        self.rx_thread.join()
+        try:
+            self.rx_thread.join()
+        except RuntimeError:  # thread not created yet
+            pass
 
     def open_connection(self):
         if self.con and not self.con.isOpen():
@@ -130,5 +133,8 @@ class SerialConnection(Observer):
             self.handshake_done = True
 
     def __del__(self):
-        if self.con.isOpen():
-            self.con.close()
+        try:
+            if self.con.isOpen():
+                self.con.close()
+        except AttributeError:  # connection not created already
+            pass

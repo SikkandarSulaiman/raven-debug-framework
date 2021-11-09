@@ -265,7 +265,7 @@
             {
                 "btn_name": "mainpump stop",
                 "btn_id_name": "trig_mainpump_set_pwm_dc with-payload",
-                "payload": 50
+                "payload": 0
             },
             {
                 "btn_name": "turn on drive",

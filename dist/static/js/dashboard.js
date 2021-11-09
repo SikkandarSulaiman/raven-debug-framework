@@ -75,6 +75,11 @@ var build_dashboard_display = function(dashitems) {
         var sectionrow = $('<section/>', {class: 'row dash-cards'})
         for (var cardindex in dashitems[rowindex]) {
             var divdashcard = $('<div/>', {class: 'dash-card'})
+            if (dashitems[rowindex][cardindex]['width-times'] == 2) {
+                divdashcard.addClass('dc-hwx2')
+            } else if (dashitems[rowindex][cardindex]['width-times'] == 3) {
+                divdashcard.addClass('dc-hwx3')
+            }
 
             var divvwrap1 = $('<div/>', {class: 'vwrap'})
             var divdashitemname = $('<div/>', {

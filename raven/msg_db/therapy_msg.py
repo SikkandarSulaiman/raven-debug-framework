@@ -40,7 +40,7 @@ def get_msg_for_ui_id(id):
 
 class Message(Observable):
 
-    def __init__(self, data, priority=0, msgtype=0, payload=0, uniq_id=0, keep_as_bytes=False, notify_now=False):
+    def __init__(self, data, priority=64, msgtype=0, payload=0, uniq_id=0, keep_as_bytes=False, notify_now=False):
         super().__init__()
         self.therapymsg_t = namedtuple('therapymsg_t',
                                        'start_byte priority uniq_id msg_id ack msg_type p0 p1 p2 p3 crc stop_byte')
@@ -49,7 +49,7 @@ class Message(Observable):
             self.f16 = self.unpack_therapy_msg(data)
         elif type(data) is int:  # msg_id as integer
             self.f16 = self.pack_therapy_msg(data, priority, msgtype, payload, uniq_id)
-        elif type(data) is str: # msg_id as string
+        elif type(data) is str:  # msg_id as string
             msg_id = msg_db_name_to_val[data]
             if type(payload) is not bytes: payload = int.to_bytes(payload, 4, 'little')
             self.f16 = self.pack_therapy_msg(msg_id, priority, msgtype, payload.ljust(4, b'\x00'), uniq_id)
@@ -59,8 +59,8 @@ class Message(Observable):
         # keep_as_bytes is set for tx_msgs, flag not applicable if msg is given as bytearray
         if not keep_as_bytes and type(data) is not bytes:
             self.f16 = self.unpack_therapy_msg(self.f16)
-        self.fmt_payload = None
-        self.fmt_payload_set = False
+        self.fmt_payloads = None
+        self.fmt_payloads_set = False
         if notify_now:
             self.trigger_notification()
 
@@ -86,7 +86,7 @@ class Message(Observable):
 
     @staticmethod
     def is_valid_content(rx_bytes):
-        return  rx_bytes[0] == 0x5A or rx_bytes[-1] == 0xA5
+        return rx_bytes[0] == 0x5A or rx_bytes[-1] == 0xA5
 
     @staticmethod
     def get_content_id(rx_bytes):
@@ -110,41 +110,44 @@ class Message(Observable):
         return msg_name
 
     def get_payload_str(self):
-        # Find string representations for payload if applicable
-        payload_val = self.get_payload()
+        # Find readable string for numerical payload, if available
+        payload_vals = self.get_payload()
+        payload_str = []
         msg_name = self.get_msg_name()
-        try:
-            payload_str = payload_strings_map[msg_name][str(payload_val)]
-        except KeyError:
-            payload_str = payload_val
-        return payload_str
+        for i, payload_val in enumerate(payload_vals):
+            try:
+                payload_str.append(payload_strings_map[msg_name][i][str(payload_val)])
+            except KeyError:
+                payload_str.append(payload_val)
+        return tuple(payload_str)
 
     def get_payload(self):
         # return payload if already calculated
-        if self.fmt_payload_set:
-            return self.fmt_payload
+        if self.fmt_payloads_set:
+            return self.fmt_payloads
 
         # set calculated flag for upcoming usage
-        self.fmt_payload_set = True
+        self.fmt_payloads_set = True
+        self.fmt_payloads = (0,)
 
         # Find payload type
         msg_name = self.get_msg_name()
         try:
-            payload_datatype = df_datalog_type.loc[df_datalog_type['msg_id'] == msg_name, 'ctype'].iloc[0]
-        except IndexError:
+            payload_datatype = df_datalog_type.loc[df_datalog_type['msg_id'] == msg_name, 'datatype'].iloc[0]
+            payload_size = struct.calcsize(payload_datatype)
+            if payload_size not in range(1, 4 + 1):
+                print(f'Invalid payload format for {msg_name}')
+                return self.fmt_payloads
+        except Exception as e:
             # treat unspecified type as uint32
-            payload_datatype = 'uint32'
+            payload_datatype, payload_size = 'I', 4
 
-        # to parse float, struct module is used
-        if payload_datatype == 'float32':
-            float_val = struct.unpack('f', bytes([self.f16.p0, self.f16.p1, self.f16.p2, self.f16.p3]))
-            try:
-                return float(f'{float_val[0]:.03f}')
-            except:
-                return 0
-        # int.from_bytes() function is used to parse types other than float
-        is_signed = True if payload_datatype in ['int8', 'int16', 'int32'] else False
-        p1 = self.f16.p1 if payload_datatype in ['int16', 'uint16', 'int32', 'uint32'] else 0
-        p2, p3 = (self.f16.p2, self.f16.p3) if payload_datatype in ['int32', 'uint32'] else (None, None)
-        pbytes = bytes([self.f16.p0, p1]) if None in [p2, p3] else bytes([self.f16.p0, p1, p2, p3])
-        return int.from_bytes(pbytes, 'little', signed=is_signed)
+        # discard unused bytes based on calculated payload size
+        required_payload_bytes = bytes([self.f16.p0, self.f16.p1, self.f16.p2, self.f16.p3])[:payload_size]
+        try:
+            self.fmt_payloads = struct.unpack(payload_datatype, required_payload_bytes)
+        except struct.error:
+            print(f'datatype {payload_datatype}')
+            print(f'payload size {payload_size}')
+            print(f'required payload bytes {required_payload_bytes}')
+        return self.fmt_payloads

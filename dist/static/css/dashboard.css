@@ -28,6 +28,14 @@
     margin: 0 10px;
 }
 
+.dc-hwx2 {
+    width: 260px;
+}
+
+.dc-hwx3 {
+    width: 400px;
+}
+
 .dash-cards:first-child {
     margin-top: 20px;
 }

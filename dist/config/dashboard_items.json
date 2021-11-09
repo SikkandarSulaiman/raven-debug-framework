@@ -2,6 +2,29 @@
     "dashitems": [
         [
             {
+                "name": "cpu load",
+                "unit": "%",
+                "disp_id_name": "disp_cpu_load"
+            },
+            {
+                "name": "Therapy state",
+                "unit": "",
+                "disp_id_name": "disp_ther_state_id",
+                "width-times": 2
+            },
+            {
+                "name": "Mainpump drive stage",
+                "unit": "",
+                "disp_id_name": "disp_mainpump_drive"
+            },
+            {
+                "name": "Mainpump pwm dc",
+                "unit": "%",
+                "disp_id_name": "disp_mainpump_pwm_dc"
+            }
+        ],
+        [
+            {
                 "name": "Inlet fluid temperature",
                 "unit": "C",
                 "disp_id_name": "disp_inlet_temp"
@@ -28,16 +51,6 @@
             }
         ],
         [
-            {
-                "name": "Mainpump drive stage",
-                "unit": "",
-                "disp_id_name": "disp_mainpump_drive"
-            },
-            {
-                "name": "Mainpump pwm dc",
-                "unit": "%",
-                "disp_id_name": "disp_mainpump_pwm_dc"
-            },
             {
                 "name": "Hall status",
                 "unit": "",
