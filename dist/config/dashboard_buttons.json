@@ -485,7 +485,7 @@
                 "btn_id_name": "trig_heater_start"
             },
             {
-                "btn_name": "enable heater pwm",
+                "btn_name": "enable temp control",
                 "btn_id_name": "trig_set_heater_mode with-payload",
                 "payload": 2
             },

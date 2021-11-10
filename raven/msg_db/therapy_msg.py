@@ -96,11 +96,21 @@ class Message(Observable):
     def is_control_msg(rx_bytes):
         return ((1 << 3) & rx_bytes[9]) > 0
 
+    @staticmethod
+    def is_assert_msg(rx_bytes):
+        return ((1 << 4) & rx_bytes[9]) > 0
+
+    def is_assertlog(self):
+        return ((1 << 4) & self.f16.msg_type) > 0
+
     def is_eventlog(self):
         return ((1 << 2) & self.f16.msg_type) > 0
 
     def is_datalog(self):
         return ((1 << 1) & self.f16.msg_type) > 0
+
+    def is_payload_timestamp(self):
+        return ((1 << 5) & self.f16.msg_type) > 0
 
     def get_msg_name(self):
         try:

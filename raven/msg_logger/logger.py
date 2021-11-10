@@ -66,14 +66,25 @@ class EventLogger(Observer, metaclass=Singleton):
             msg_name = msg.get_msg_name()
         except KeyError:
             return
-        payload = msg.get_payload()[0]
+        payloads = msg.get_payload()
         resp = 'positive' if msg.f16.ack >= 0 else 'negative'
         try:
-            disp_text = df_eventlog_type.loc[df_eventlog_type['msg_id'] == msg_name, resp].iloc[0]
+            disp_texts = df_eventlog_type.loc[df_eventlog_type['msg_id'] == msg_name, resp].iloc[0].split(',')
         except:
-            disp_text = msg_name
-        self.eventlog_uidata.append((ts_now, payload, disp_text, msg.f16.ack))
-        print(f'{ts_now},{payload},{msg_name},{disp_text}', file=self.fp)
+            disp_texts = msg_name
+        if len(disp_texts) != len(payloads):
+            disp_texts += [disp_texts[-1] for _ in range(len(payloads) - len(disp_texts))]
+
+        if msg.is_assertlog():
+            self.eventlog_uidata.append((ts_now, f'id:{payloads[0]}, f:{payloads[1]}, l:{payloads[2]}', disp_texts[0], msg.f16.ack))
+            return
+
+        for i, payload in enumerate(payloads):
+            if not msg.is_payload_timestamp():
+                self.eventlog_uidata.append((ts_now, payload, disp_texts[i], msg.f16.ack))
+            else:
+                self.eventlog_uidata.append((ts_now, '-', disp_texts[i], msg.f16.ack))
+            print(f'{ts_now},{payload},{msg_name},{disp_texts[i]}', file=self.fp)
 
     def open_log_file(self):
         self.fp = open(Path(log_folder_abspath) / f'event_log_{dt.now().isoformat().replace(":", ".")}.txt', 'w')
@@ -114,7 +125,8 @@ class DataLogger(Observer, metaclass=Singleton):
             msg_name = msg.get_msg_name()
             name = df_datalog_type.loc[df_datalog_type['msg_id'] == msg_name, 'datalog_column_name'].iloc[0]
             index = self.indexkeep[name]
-            self.datakeep[index][1] = msg.get_payload_str()[0]
+            disp_payload = msg.get_payload_str()[0]
+            self.datakeep[index][1] = float(f'{disp_payload:.04}') if type(disp_payload) is float else disp_payload
         except (IndexError, KeyError):
             return
 
