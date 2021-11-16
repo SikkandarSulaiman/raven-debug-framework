@@ -1,6 +1,14 @@
 {
-    "MSG_UC_MASTER_GET_CCPD_RUNNING_STATE": [
+    "MSG_UC_MASTER_GET_RUN_UC_TYPE": [
         {
+            "0": "DEMO",
+            "1": "CCPD",
+            "2": "TEST FW"
+        }
+    ],
+    "MSG_UC_MASTER_GET_RUN_UC_STATE_ID": [
+        {
+            "0": "waiting",
             "256": "POST begin",
             "257": "POST battery check",
             "258": "POST sensors check",
@@ -9,7 +17,41 @@
             "261": "POST heater check",
             "262": "POST EEPROM check",
             "263": "POST fan check",
-            "264": "POST fan check"
+            "264": "POST fan check",
+            "512": "Syschk begin",
+            "513": "Syschk door",
+            "514": "Syschk end",
+            "768": "Calib begin",
+            "769": "Calib pressure",
+            "770": "Calib valves",
+            "771": "Calib end",
+            "1024": "Prime begin",
+            "1025": "Prime bag 1",
+            "1026": "Prime bag 2",
+            "1027": "Prime bag 3",
+            "1028": "Prime last fill",
+            "1029": "Prime patient",
+            "1030": "Prime drain",
+            "1031": "Prime end",
+            "1280": "Therapy begin",
+            "1281": "Therapy fill",
+            "1282": "Therapy dwell",
+            "1283": "Therapy drain",
+            "1284": "Therapy repeat",
+            "1285": "Therapy End",
+            "1286": "Therapy exit",
+            "1287": "Safe mode"
+        }
+    ],
+    "MSG_UC_MASTER_GET_RUN_UC_STATE_ACTION": [
+        {
+            "7": "user int",
+            "6": "positive",
+            "2": "running",
+            "0": "success",
+            "-1": "error",
+            "-3": "timeout",
+            "-20": "failure"
         }
     ],
     "MSG_SENSORS_GET_BUBBLE_DET_VAL": [

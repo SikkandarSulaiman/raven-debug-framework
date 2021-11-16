@@ -7,20 +7,86 @@
                 "disp_id_name": "disp_cpu_load"
             },
             {
-                "name": "Therapy state",
+                "name": "Usecase",
                 "unit": "",
-                "disp_id_name": "disp_ther_state_id",
+                "disp_id_name": "disp_uc_type"
+            },
+            {
+                "name": "State",
+                "unit": "",
+                "disp_id_name": "disp_uc_state_id",
                 "width-times": 2
             },
             {
-                "name": "Mainpump drive stage",
+                "name": "Status",
                 "unit": "",
-                "disp_id_name": "disp_mainpump_drive"
+                "disp_id_name": "disp_uc_state_action"
+            }
+        ],
+        [
+            {
+                "name": "POST Mainpump",
+                "unit": "status",
+                "disp_id_name": "disp_ccpd_post_mp"
             },
             {
-                "name": "Mainpump pwm dc",
-                "unit": "%",
-                "disp_id_name": "disp_mainpump_pwm_dc"
+                "name": "POST Battery",
+                "unit": "status",
+                "disp_id_name": "disp_ccpd_post_batt"
+            },
+            {
+                "name": "POST Turbidity top",
+                "unit": "status",
+                "disp_id_name": "disp_ccpd_post_turb_top"
+            },
+            {
+                "name": "POST Turbidity side",
+                "unit": "status",
+                "disp_id_name": "disp_ccpd_post_turb_side"
+            }
+        ],
+        [
+            {
+                "name": "POST Peritonitis",
+                "unit": "status",
+                "disp_id_name": "disp_ccpd_post_perit"
+            },
+            {
+                "name": "POST Level",
+                "unit": "status",
+                "disp_id_name": "disp_ccpd_post_level"
+            },
+            {
+                "name": "POST Air pressure",
+                "unit": "status",
+                "disp_id_name": "disp_ccpd_post_airpa"
+            }
+        ],
+        [
+            {
+                "name": "POST inlet temp",
+                "unit": "status",
+                "disp_id_name": "disp_ccpd_post_ht_in"
+            },
+            {
+                "name": "POST outlet temp",
+                "unit": "status",
+                "disp_id_name": "disp_ccpd_post_ht_out"
+            },
+            {
+                "name": "POST hpad1 temp",
+                "unit": "status",
+                "disp_id_name": "disp_ccpd_post_ht_h1"
+            },
+            {
+                "name": "POST hpad2 temp",
+                "unit": "status",
+                "disp_id_name": "disp_ccpd_post_ht_h2"
+            },
+            {
+                "name": "POST heater",
+                "unit": "status",
+                "disp_id_name": "disp_ccpd_post_heat"
             }
         ],
         [
@@ -51,6 +117,16 @@
             }
         ],
         [
+            {
+                "name": "Mainpump drive stage",
+                "unit": "",
+                "disp_id_name": "disp_mainpump_drive"
+            },
+            {
+                "name": "Mainpump pwm dc",
+                "unit": "%",
+                "disp_id_name": "disp_mainpump_pwm_dc"
+            },
             {
                 "name": "Hall status",
                 "unit": "",

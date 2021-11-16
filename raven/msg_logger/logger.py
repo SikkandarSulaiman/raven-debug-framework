@@ -70,21 +70,24 @@ class EventLogger(Observer, metaclass=Singleton):
         resp = 'positive' if msg.f16.ack >= 0 else 'negative'
         try:
             disp_texts = df_eventlog_type.loc[df_eventlog_type['msg_id'] == msg_name, resp].iloc[0].split(',')
+            if len(disp_texts) != len(payloads):
+                disp_texts += [disp_texts[-1] for _ in range(len(payloads) - len(disp_texts))]
+        except TypeError:
+            print(f'Type error with {msg_name}')
         except:
             disp_texts = msg_name
-        if len(disp_texts) != len(payloads):
-            disp_texts += [disp_texts[-1] for _ in range(len(payloads) - len(disp_texts))]
 
         if msg.is_assertlog():
             self.eventlog_uidata.append((ts_now, f'id:{payloads[0]}, f:{payloads[1]}, l:{payloads[2]}', disp_texts[0], msg.f16.ack))
             return
 
         for i, payload in enumerate(payloads):
+            disp_text = disp_texts if type(disp_texts) is str else disp_texts[i]
             if not msg.is_payload_timestamp():
-                self.eventlog_uidata.append((ts_now, payload, disp_texts[i], msg.f16.ack))
+                self.eventlog_uidata.append((ts_now, payload, disp_text, msg.f16.ack))
             else:
-                self.eventlog_uidata.append((ts_now, '-', disp_texts[i], msg.f16.ack))
-            print(f'{ts_now},{payload},{msg_name},{disp_texts[i]}', file=self.fp)
+                self.eventlog_uidata.append((ts_now, '-', disp_text, msg.f16.ack))
+            print(f'{ts_now},{payload},{msg_name},{disp_text}', file=self.fp)
 
     def open_log_file(self):
         self.fp = open(Path(log_folder_abspath) / f'event_log_{dt.now().isoformat().replace(":", ".")}.txt', 'w')
@@ -124,10 +127,12 @@ class DataLogger(Observer, metaclass=Singleton):
         try:
             msg_name = msg.get_msg_name()
             name = df_datalog_type.loc[df_datalog_type['msg_id'] == msg_name, 'datalog_column_name'].iloc[0]
+            if name is None:
+                raise ValueError
             index = self.indexkeep[name]
             disp_payload = msg.get_payload_str()[0]
             self.datakeep[index][1] = float(f'{disp_payload:.04}') if type(disp_payload) is float else disp_payload
-        except (IndexError, KeyError):
+        except (IndexError, KeyError, ValueError):
             return
 
     def log(self):
