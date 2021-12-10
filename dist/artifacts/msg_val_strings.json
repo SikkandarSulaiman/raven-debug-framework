@@ -1,9 +1,10 @@
 {
     "MSG_UC_MASTER_GET_RUN_UC_TYPE": [
         {
-            "0": "DEMO",
-            "1": "CCPD",
-            "2": "   TEST   fw"
+            "0": "invalid",
+            "1": "DEMO",
+            "2": "CCPD",
+            "3": "   TEST   fw"
         }
     ],
     "MSG_UC_MASTER_GET_RUN_UC_STATE_ID": [
@@ -17,7 +18,7 @@
             "261": "POST heater check",
             "262": "POST EEPROM check",
             "263": "POST fan check",
-            "264": "POST fan check",
+            "264": "POST end",
             "512": "Syschk begin",
             "513": "Syschk door",
             "514": "Syschk end",
@@ -25,20 +26,29 @@
             "769": "Calib pressure",
             "770": "Calib valves",
             "771": "Calib end",
-            "1024": "Prime begin",
-            "1025": "Prime bag 1",
-            "1026": "Prime bag 2",
-            "1027": "Prime bag 3",
-            "1028": "Prime last fill",
-            "1029": "Prime patient",
-            "1030": "Prime drain",
-            "1031": "Prime end",
+            "1024": "Priming begin",
+            "1025": "Priming bag 1",
+            "1026": "Priming bag 2",
+            "1027": "Priming bag 3",
+            "1028": "Priming last fill",
+            "1029": "Priming patient line",
+            "1030": "Priming drain line",
+            "1031": "Priming end",
             "1280": "Therapy begin",
-            "1281": "Therapy fill",
-            "1282": "Therapy dwell",
-            "1283": "Therapy drain",
+            "1281": "Fill 1",
+            "5377": "Fill 2",
+            "9473": "Fill 3",
+            "13569": "Last fill",
+            "5378": "Dwell 1",
+            "9474": "Dwell 2",
+            "13570": "Dwell 3",
+            "1283": "Initial drain",
+            "5379": "Drain 1",
+            "9475": "Drain 2",
+            "13571": "Drain 3",
             "1284": "Therapy repeat",
             "1285": "Therapy End",
+            "17669": "Therapy End",
             "1286": "Therapy exit",
             "1287": "Safe mode"
         }
@@ -98,6 +108,96 @@
     "MSG_BMS_GET_AVG_TIME_TO_FULL": [
         {
             "65535": "NA"
+        }
+    ],
+    "MSG_BMS_GET_RUNNING_IN_BAT": [
+        {
+            "0": "AC",
+            "1": "Battery"
+        }
+    ],
+    "MSG_UC_MASTER_GET_CCPD_POST_MAINPUMP": [
+        {
+            "0": "fail",
+            "1": "pass"
+        }
+    ],
+    "MSG_UC_MASTER_GET_CCPD_POST_BATTERY": [
+        {
+            "0": "fail",
+            "1": "pass"
+        }
+    ],
+    "MSG_UC_MASTER_GET_CCPD_POST_HT_INLET": [
+        {
+            "0": "fail",
+            "1": "pass"
+        }
+    ],
+    "MSG_UC_MASTER_GET_CCPD_POST_HT_OUTLET": [
+        {
+            "0": "fail",
+            "1": "pass"
+        }
+    ],
+    "MSG_UC_MASTER_GET_CCPD_POST_HT_HPAD1": [
+        {
+            "0": "fail",
+            "1": "pass"
+        }
+    ],
+    "MSG_UC_MASTER_GET_CCPD_POST_HT_HPAD2": [
+        {
+            "0": "fail",
+            "1": "pass"
+        }
+    ],
+    "MSG_UC_MASTER_GET_CCPD_POST_HEATER_HEAT": [
+        {
+            "0": "fail",
+            "1": "pass"
+        }
+    ],
+    "MSG_UC_MASTER_GET_CCPD_POST_TURB_TOP": [
+        {
+            "0": "fail",
+            "1": "pass"
+        }
+    ],
+    "MSG_UC_MASTER_GET_CCPD_POST_TURB_SIDE": [
+        {
+            "0": "fail",
+            "1": "pass"
+        }
+    ],
+    "MSG_UC_MASTER_GET_CCPD_POST_PERIT": [
+        {
+            "0": "fail",
+            "1": "pass"
+        }
+    ],
+    "MSG_UC_MASTER_GET_CCPD_POST_LEVEL": [
+        {
+            "0": "fail",
+            "1": "pass"
+        }
+    ],
+    "MSG_UC_MASTER_GET_CCPD_POST_AIRPA": [
+        {
+            "0": "fail",
+            "1": "pass"
+        }
+    ],
+    "MSG_UC_MASTER_GET_CCPD_POST_EEPROM": [
+        {
+            "0": "fail",
+            "1": "pass"
+        }
+    ],
+    "MSG_UC_MASTER_GET_CCPD_POST_FAN": [
+        {
+            "0": "fail",
+            "1": "pass"
         }
     ]
 }

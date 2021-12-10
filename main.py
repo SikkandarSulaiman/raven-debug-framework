@@ -20,6 +20,7 @@ if __name__ == '__main__':
     from aio import check_feed_and_send_msg
 
 app = Bottle()
+art_files_abspath = Path(os.getcwd()) / 'artifacts'
 static_files_abspath = Path(os.getcwd()) / 'static'
 config_files_abspath = Path(os.getcwd()) / 'config'
 
@@ -37,8 +38,14 @@ def server_static(filepath):
 
 @route('/getConfig', method=['POST'])
 def parse_json_config():
-    with open(config_files_abspath / request.forms.get('filename')) as fp:
-        return json.load(fp)
+    filepath = config_files_abspath / request.forms.get('filename')
+    if not filepath.exists():
+        filepath = art_files_abspath / request.forms.get('filename')
+    try:
+        with open(filepath) as fp:
+            return json.load(fp)
+    except FileNotFoundError:
+            return {}
 
 
 @route('/get_comports', method=['GET'])
@@ -88,6 +95,18 @@ def disconnect_from_com():
     return {'disconnection_status': status, 'disconnect_from': comport}
 
 
+@route('/send_msg_by_name', method=['POST'])
+def send_msg_by_id():
+    msgport = SerialConnection.getcon('msg')
+    msg_name, payload = request.forms.get('msg_name'), request.forms.get('val')
+    try:
+        payload = int(payload)
+    except ValueError:
+        payload = 0
+    print(msg_name)
+    msgport.tx(Message(msg_name, payload=payload, msgtype=4, keep_as_bytes=True).f16)
+
+
 @route('/send_ser', method=['POST'])
 def send():
     msgport = SerialConnection.getcon('msg')
@@ -97,9 +116,7 @@ def send():
             payload = int(request.forms.get('val'))
         except:
             payload = 0
-
         msgport.tx(Message(msg_name, payload=payload, msgtype=4, keep_as_bytes=True).f16)
-    return f'warlock\'s response to {request.forms.get("id_name")}'
 
 
 @route('/eventCheck', method=['GET'])

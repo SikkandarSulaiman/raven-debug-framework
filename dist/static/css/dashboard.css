@@ -6,9 +6,10 @@
 .dispmeter-sidenav {
 	background: rgba(230, 230, 230, 0.5);
 	padding-top: 25px;
-	padding-bottom: 25px;
+	padding-bottom: 145px;
 	text-align: center;
 	overflow: auto;
+    z-index:  1;
 }
 
 .dash-btn {
@@ -74,4 +75,42 @@
 .tabs .indicator {
     background: teal;
     height: 3px;
+}
+
+#dash-control-btn-create-trig {
+    position: fixed;
+    bottom: 10px;
+    right: 18px;
+    z-index:  2;
+}
+
+#dash-control-btn-create-menu {
+    background: #2f4f4f;
+    width: 400px;
+    height: 167px;
+    position: fixed;
+    bottom: 65px;
+    right: 65px;
+    z-index: 2;
+    border-radius:  10px;
+}
+
+.select-wrapper input.select-dropdown, #dash-control-btn-create-menu .msg-payload {
+    color: aliceblue;
+}
+
+#dash-control-btn-create-menu .msg-payload {
+    width: calc(50% - 10px);
+}
+
+#dash-control-btn-create-menu .input-field, #dash-control-btn-create-menu .row {
+    padding:  0 30px;
+}
+
+#dash-control-btn-create-menu .dash-btn-send {
+    width: calc(50% - 10px);
+    margin-left: 20px;
+    border-radius: 2px;
+    background: center;
+    color: aliceblue;
 }

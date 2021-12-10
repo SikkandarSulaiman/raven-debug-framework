@@ -11,6 +11,10 @@ $(document).ready(function() {
         build_dashboard_controls(jsondata)
         M.Tabs.init(document.querySelectorAll('.tabs'), {})
     })
+    $.post('/getConfig', {filename: 'msg_ids_name_to_val.json'}, function(jsondata) {
+    	buildDashboardButtonCreateMenu(jsondata)
+    	dash_control_create_send_list = M.FormSelect.init($('select'))
+    })
 
 	$('.mainmenu-sidenav').sidenav({edge: 'left'})
 	$('.dispmeter-sidenav').sidenav({edge: 'right'}).hide()
@@ -27,36 +31,24 @@ $('#config-trigger').on('click', function() {
 })
 
 $('#testfw-trigger').on('click', function() {
-	if ($(this).hasClass('selected-navkey')) return
-	$('.mainmenu-navkey').each(function() { $(this).removeClass('selected-navkey') })
-	$(this).addClass('selected-navkey')
-	$('.dispmeter-sidenav').hide('slide', {direction: 'right'})
-	$('#shorthand-tabs').hide('slide', {direction: 'down'})
-	$.when($('.mainmenu-mainbody').each(function() { $(this).hide('slide', {direction: 'left'}) })).done(function() {
-		$('#testfw-mainbody').show('slide', {direction: 'left'})
-	})
+    if ($(this).hasClass('selected-navkey')) return
+    highlightMenuSelector($(this))
+    hideDashboardElements()
+    hideOtherMenuExcept($('#testfw-mainbody'))
 })
 
 $('#shorthand-trigger').on('click', function() {
 	if ($(this).hasClass('selected-navkey')) return
-	$('.mainmenu-navkey').each(function() { $(this).removeClass('selected-navkey') })
-	$(this).addClass('selected-navkey')
-	$('.dispmeter-sidenav').hide('slide', {direction: 'right'})
-	$('#shorthand-tabs').hide('slide', {direction: 'down'})
-	$.when($('.mainmenu-mainbody').each(function() { $(this).hide('slide', {direction: 'left'}) })).done(function() {
-		$('#shorthand-mainbody').show('slide', {direction: 'left'})
-	})
+    highlightMenuSelector($(this))
+    hideDashboardElements()
+    hideOtherMenuExcept($('#shorthand-mainbody'))
 })
 
 $('#eventlog-trigger').on('click', function() {
-	if ($(this).hasClass('selected-navkey')) return
-	$('.mainmenu-navkey').each(function() { $(this).removeClass('selected-navkey') })
-	$(this).addClass('selected-navkey')
-	$('.dispmeter-sidenav').hide('slide', {direction: 'right'})
-	$('#shorthand-tabs').hide('slide', {direction: 'down'})
-	$.when($('.mainmenu-mainbody').each(function() { $(this).hide('slide', {direction: 'left'}) })).done(function() {
-		$('#eventlog-mainbody').show('slide', {direction: 'left'})
-	})		
+    if ($(this).hasClass('selected-navkey')) return
+    highlightMenuSelector($(this))
+    hideDashboardElements()
+    hideOtherMenuExcept($('#eventlog-mainbody'))	
 })
 
 $(document).on('click', '.testfw-menu-body-row-cont.btn', function() {
@@ -69,10 +61,16 @@ $(document).on('click', '.testfw-menu-body-row-cont.btn', function() {
     }
 })
 
+$(document).on('click', '.dash-btn-send', function() {
+	console.log('otg send btn clicked')
+	console.log()
+	console.log($(this).siblings().val())
+	$.post('/send_msg_by_name', {msg_name: $('.select-dropdown').find('.selected').children().html(), val: $(this).siblings().val()})
+})
+
 setInterval(function() {
 	var eventlogbody = $('.eventlog-body')
 	$.get('/eventCheck', function(data) {
-		console.log(data)
 		if (data['event'] != null) {
 			M.toast({html: data['event'][2], classes: 'rounded', displayLength: 2000})
 			var eventlogbody_row = $('<div/>', {class: 'eventlog-body-row row'})

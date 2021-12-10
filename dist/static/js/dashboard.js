@@ -1,12 +1,15 @@
 $('#dashboard-trigger').on('click', function() {
-	if ($(this).hasClass('selected-navkey')) return
-	$('.mainmenu-navkey').each(function() { $(this).removeClass('selected-navkey') })
-	$(this).addClass('selected-navkey')
-	$.when($('.mainmenu-mainbody').each(function() { $(this).hide('slide', {direction: 'left'}) })).done(function() {
-		$('#shorthand-tabs').show('slide', {direction: 'down'})
-		$('.dispmeter-sidenav').show('slide', {direction: 'right'})
-		$('#dashboard-mainbody').fadeIn()
-	})
+    if ($(this).hasClass('selected-navkey')) return
+    $('.mainmenu-navkey').each(function() { $(this).removeClass('selected-navkey') })
+    $(this).addClass('selected-navkey')
+
+    /* Hide all other mainmenu items then show dashboard meinmenu */
+    $.when($('.mainmenu-mainbody').each(function() { $(this).hide('slide', {direction: 'left'}) })).done(function() {
+        $('#shorthand-tabs').show('slide', {direction: 'down'})
+        $('.dispmeter-sidenav').show('slide', {direction: 'right'})
+        $('#dashboard-mainbody').fadeIn()
+        $('#dash-control-btn-create-trig').fadeIn()
+    })
 
     var curDashmainPadding = $('#dashboard-mainbody').css('padding-left')
     $('#dashboard-mainbody').css('padding-left', curDashmainPadding + 5)
@@ -28,6 +31,16 @@ $(document).on('click', '.taba', function() {
         })
     })
 })
+
+var buildDashboardButtonCreateMenu = function(msglist) {
+    for (var [name, val] of Object.entries(msglist)) {
+        var optiontag = $('<option/>', {
+            value: val,
+            html: name
+        })
+        $('select').append(optiontag)
+    }
+}
 
 var build_dashboard_controls = function(dashbtns) {
     var dashtabs = $('#shorthand-tabs')
@@ -110,4 +123,32 @@ var build_dashboard_display = function(dashitems) {
         dashpanel.append(sectionrow)
     }
 }
+
+$(document).on('click', '#dash-control-btn-create-trig', function() {
+
+    var menubox = $('#dash-control-btn-create-menu')
+
+    if (menubox.is(':hidden')) {
+        menubox.show('slide', {direction: 'right'})
+        $('#dash-control-btn-create-trig').animate({
+            deg: '-45'
+        }, {
+            duration: 300,
+            step: function(now) {
+                $(this).css({ transform: 'rotate(' + now + 'deg)' })
+            }
+        })        
+
+    } else {
+        menubox.hide('slide', {direction: 'right'})
+        $('#dash-control-btn-create-trig').animate({
+            deg: '0'
+        }, {
+            duration: 300,
+            step: function(now) {
+                $(this).css({ transform: 'rotate(' + now + 'deg)' })
+            }
+        })        
+    }
+})
 

@@ -1,12 +1,8 @@
 $('#datalog-trigger').on('click', function() {
-	if ($(this).hasClass('selected-navkey')) return
-	$('.mainmenu-navkey').each(function() { $(this).removeClass('selected-navkey') })
-	$(this).addClass('selected-navkey')
-	$('.dispmeter-sidenav').hide('slide', {direction: 'right'})
-	$('#shorthand-tabs').hide('slide', {direction: 'down'})
-	$.when($('.mainmenu-mainbody').each(function() { $(this).hide('slide', {direction: 'left'}) })).done(function() {
-		$('#datalog-mainbody').show('slide', {direction: 'left'})
-	})
+    if ($(this).hasClass('selected-navkey')) return
+    highlightMenuSelector($(this))
+    hideDashboardElements()
+    hideOtherMenuExcept($('#datalog-mainbody'))
 })
 
 var datalogDisplayIds = null
@@ -55,7 +51,7 @@ var build_datalog_body = function(log_datakeep) {
 
 var get_datalog_head = function() {
     $.get('/datalogHead', function(data) {
-        console.log(data)
+        // console.log(data)
         build_datalog_head(data)
         datalogDisplayIds = data['disp_id']
     })
@@ -63,17 +59,13 @@ var get_datalog_head = function() {
 }
 
 var check_datalog = function() {
-	$.get('/datalogCheck', function(data) {
-        console.log(data)
+    $.get('/datalogCheck', function(data) {
+        // console.log(data)
         build_datalog_body(data)
         var datalogbodytablewrap = document.getElementById('datalog-body-table-wrap')
         datalogbodytablewrap.scrollTop = datalogbodytablewrap.scrollHeight;
-	}).done(function() {
-        console.log( "datalog second success" );
+    }).done(function() {
     }).fail(function() {
-        console.log( "datalog retrieval error" );
-    }).always(function() {
-        console.log( "datalog finished" );
     })
     if ($('#datalog-body-table').children().length >= 1000) {
         $('#datalog-body-table').empty()
@@ -88,17 +80,10 @@ setInterval(function() {
     }
 }, 250)
 
-// get_datalog_head()
-// var log_ws = new WebSocket('ws://localhost:8080/datalogCheck')
-// log_ws.onmessage =function(msg) {
-//     console.log('Recvd msg in web socket')
-//     build_datalog_body(msg.data)
-// }
-
 $('#datalog-body-table-wrap').scroll(function() {
-	$('#datalog-head-table-wrap').scrollLeft($('#datalog-body-table-wrap').scrollLeft())
+    $('#datalog-head-table-wrap').scrollLeft($('#datalog-body-table-wrap').scrollLeft())
 })
 
 $('#datalog-head-table-wrap').scroll(function() {
-	$('#datalog-body-table-wrap').scrollLeft($('#datalog-head-table-wrap').scrollLeft())
+    $('#datalog-body-table-wrap').scrollLeft($('#datalog-head-table-wrap').scrollLeft())
 })

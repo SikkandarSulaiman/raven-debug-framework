@@ -64,7 +64,7 @@ class EventLogger(Observer, metaclass=Singleton):
         if not msg.is_eventlog(): return
         try:
             msg_name = msg.get_msg_name()
-        except KeyError:
+        except (KeyError, ValueError):
             return
         payloads = msg.get_payload()
         resp = 'positive' if msg.f16.ack >= 0 else 'negative'

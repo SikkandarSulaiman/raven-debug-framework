@@ -44,7 +44,7 @@ class SerialConnection(Observer):
         self.rx_exit = False
         self.rx_thread = None
         self.handshake_done = False
-        self.observe(self.msg_rxd)
+        self.observe(self.msg_notify)
         alias_name = port if not alias else str(alias)
         self.connections[alias_name] = self
 
@@ -128,8 +128,8 @@ class SerialConnection(Observer):
             return self.con.port
         return None
 
-    def msg_rxd(self, msg):
-        if msg.f16.msg_id == msg_db_name_to_val['MSG_UI_COMM_EXEC_TS_HANDSHAKE_1']:
+    def msg_notify(self, msg):
+        if msg.dir == 'rx' and msg.f16.msg_id == msg_db_name_to_val['MSG_UI_COMM_EXEC_TS_HANDSHAKE_1']:
             self.handshake_done = True
 
     def __del__(self):

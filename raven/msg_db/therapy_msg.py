@@ -25,9 +25,10 @@ for sheetname in book.sheet_names:
             'msg_list': [i if type(i) is str else None for i in df['msg']]
         }
 
+with open(artifacts_abspath / r'message_type.json') as fp:
+    message_type_cfg = json.load(fp)
 with open(artifacts_abspath / r'msg_val_strings.json') as fp:
     payload_strings_map = json.load(fp)
-
 with open(artifacts_abspath / r'msg_ids_name_to_val.json', 'r') as fp:
     msg_db_name_to_val = json.load(fp)
 with open(artifacts_abspath / r'msg_ids_val_to_name.json', 'r') as fp:
@@ -42,9 +43,8 @@ class Message(Observable):
 
     def __init__(self, data, priority=64, msgtype=0, payload=0, uniq_id=0, keep_as_bytes=False, notify_now=False):
         super().__init__()
-        self.therapymsg_t = namedtuple('therapymsg_t',
-                                       'start_byte priority uniq_id msg_id ack msg_type p0 p1 p2 p3 crc stop_byte')
-        self.tmsg_cstruct_fmt = 'BBHIbBBBBBBB'
+        self.therapymsg_t = namedtuple('therapymsg_t', message_type_cfg['msg_fields'])
+        self.tmsg_cstruct_fmt = message_type_cfg['msg_alignment']
         if type(data) is bytes:  # msg as byte array
             self.f16 = self.unpack_therapy_msg(data)
         elif type(data) is int:  # msg_id as integer
@@ -57,8 +57,10 @@ class Message(Observable):
             raise AttributeError('Invalid data')
 
         # keep_as_bytes is set for tx_msgs, flag not applicable if msg is given as bytearray
+        self.dir = 'rx'
         if not keep_as_bytes and type(data) is not bytes:
             self.f16 = self.unpack_therapy_msg(self.f16)
+            self.dir = 'tx'
         self.fmt_payloads = None
         self.fmt_payloads_set = False
         if notify_now:

@@ -2,9 +2,9 @@
     "dashitems": [
         [
             {
-                "name": "cpu load",
-                "unit": "%",
-                "disp_id_name": "disp_cpu_load"
+                "name": "Power",
+                "unit": "",
+                "disp_id_name": "disp_powered_by"
             },
             {
                 "name": "Usecase",
@@ -43,9 +43,7 @@
                 "name": "POST Turbidity side",
                 "unit": "status",
                 "disp_id_name": "disp_ccpd_post_turb_side"
-            }
-        ],
-        [
+            },
             {
                 "name": "POST Peritonitis",
                 "unit": "status",
@@ -55,14 +53,14 @@
                 "name": "POST Level",
                 "unit": "status",
                 "disp_id_name": "disp_ccpd_post_level"
-            },
+            }
+        ],
+        [
             {
                 "name": "POST Air pressure",
                 "unit": "status",
                 "disp_id_name": "disp_ccpd_post_airpa"
-            }
-        ],
-        [
+            },
             {
                 "name": "POST inlet temp",
                 "unit": "status",
@@ -160,6 +158,11 @@
                 "disp_id_name": "disp_lc2_rel"
             },
             {
+                "name": "Air pressure zero offset",
+                "unit": "mbar",
+                "disp_id_name": "disp_airpa_val_rel"
+            },
+            {
                 "name": "Load cell 1 pressure",
                 "unit": "mbar",
                 "disp_id_name": "disp_lc1_pa"
@@ -168,11 +171,6 @@
                 "name": "Load cell 2 pressure",
                 "unit": "mbar",
                 "disp_id_name": "disp_lc2_pa"
-            },
-            {
-                "name": "Air pressure zero offset",
-                "unit": "mbar",
-                "disp_id_name": "disp_airpa_val_rel"
             }
         ],
         [
