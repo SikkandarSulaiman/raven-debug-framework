@@ -1,0 +1,5 @@
+{
+	"msg_len": 16,
+	"msg_alignment": "BBHIbBBBBBBB",
+	"msg_fields": "start_byte priority uniq_id msg_id ack msg_type p0 p1 p2 p3 crc stop_byte"
+}
