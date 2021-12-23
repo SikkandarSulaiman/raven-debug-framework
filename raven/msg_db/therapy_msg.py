@@ -88,7 +88,7 @@ class Message(Observable):
 
     @staticmethod
     def is_valid_content(rx_bytes):
-        return rx_bytes[0] == 0x5A or rx_bytes[-1] == 0xA5
+        return rx_bytes[0] == 0xA5 or rx_bytes[-1] == 0x5A
 
     @staticmethod
     def get_content_id(rx_bytes):

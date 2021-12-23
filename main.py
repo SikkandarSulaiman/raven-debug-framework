@@ -1,7 +1,8 @@
+import os
 import json
 import threading
 from time import sleep
-from pathlib import Path, os
+from pathlib import Path
 from bottle import route, Bottle, run, static_file, request
 
 if __name__ == '__main__':
@@ -12,7 +13,7 @@ from raven import Message
 from raven import SerialConnection
 from raven import get_available_comports
 
-from raven import MsgLogger, DataLogger, EventLogger
+from raven import DataLogger, EventLogger
 from raven import start_logging, stop_logging
 from raven import get_msg_for_ui_id
 
@@ -45,7 +46,7 @@ def parse_json_config():
         with open(filepath) as fp:
             return json.load(fp)
     except FileNotFoundError:
-            return {}
+        return {}
 
 
 @route('/get_comports', method=['GET'])
